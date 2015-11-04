@@ -16,6 +16,7 @@
     "angular-translate-loader-static-files": "~2.7.2",
     "angular-material": "~0.11.4",
     "angular-sanitize": "~1.4.7",
-    "ngstorage": "~0.3.9"
+    "ngstorage": "~0.3.9",
+    "angular-markdown-directive": "~0.3.1"
   }
 }

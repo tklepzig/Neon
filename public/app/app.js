@@ -7,6 +7,7 @@
             'ngStorage',
             'pascalprecht.translate',
             'ngSanitize',
+            'btford.markdown',
             'start'
         ])
         .config(init);
