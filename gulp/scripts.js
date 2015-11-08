@@ -93,7 +93,7 @@ module.exports = function(gulp, plugins, config) {
         plugins.runSequence(['vendor', 'js', 'templates', 'lint'], 'combineDistJsFiles', done);
     });
 
-    gulp.task('scripts:dev', ['vendor:dev', 'js:dev', 'templates:dev', 'lint']);
+    gulp.task('scripts:dev', ['vendor', 'js:dev', 'templates:dev', 'lint']);
 
 
 
