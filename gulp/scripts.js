@@ -16,8 +16,27 @@ module.exports = function(gulp, plugins, config) {
         ''
     ].join('\n');
 
-    // concat js files (excluding spec files and properties.js)
-    gulp.task('package:js', function() {
+    gulp.task('vendor', function() {
+        return gulp.src(config.srcVendorFiles)
+            .pipe(plugins.concat(config.destVendorFile))
+            .pipe(plugins.uglify())
+            .pipe(gulp.dest(config.destJsPath));
+    });
+
+
+    gulp.task('js', function() {
+        return gulp.src(config.srcJsFiles)
+            .pipe(plugins.concat(config.destJsFile))
+            .pipe(plugins.removeUseStrict())
+            .pipe(plugins.header(banner, {
+                buildTime: currentDate,
+                version: bowerVersion
+            }))
+            .pipe(plugins.ngAnnotate())
+            .pipe(plugins.uglify())
+            .pipe(gulp.dest(config.destJsPath));
+    });
+    gulp.task('js:dev', function() {
         return gulp.src(config.srcJsFiles)
             .pipe(plugins.concat(config.destJsFile))
             .pipe(plugins.removeUseStrict())
@@ -28,34 +47,8 @@ module.exports = function(gulp, plugins, config) {
             .pipe(gulp.dest(config.destJsPath));
     });
 
-    // uglify js files
-    gulp.task('uglify:js', ['package:js'], function() {
-        return gulp.src(config.destJsPath + config.destJsFile)
-            .pipe(plugins.ngAnnotate())
-            .pipe(plugins.uglify())
-            .pipe(gulp.dest(config.destJsPath));
-    });
 
-    // concat and uglify vendor files
-    gulp.task('package:vendor', function() {
-        return gulp.src(config.srcVendorFiles)
-            .pipe(plugins.concat(config.destVendorFile))
-            .pipe(plugins.uglify())
-            .pipe(gulp.dest(config.destJsPath));
-    });
-
-    // package templates to js file
-    gulp.task('package:templates', function() {
-        return gulp.src(config.srcTemplateFiles)
-            .pipe(plugins.html2js({
-                outputModuleName: config.applicationName,
-                base: config.srcPublicPath
-            }))
-            .pipe(plugins.concat(config.destTemplateFile))
-            .pipe(gulp.dest(config.destJsPath));
-    });
-
-    gulp.task('uglify:templates', function() {
+    gulp.task('templates', function() {
         return gulp.src(config.srcTemplateFiles)
             .pipe(plugins.minifyHtml({
                 empty: true,
@@ -70,8 +63,17 @@ module.exports = function(gulp, plugins, config) {
             .pipe(plugins.uglify())
             .pipe(gulp.dest(config.destJsPath));
     });
+    gulp.task('templates:dev', function() {
+        return gulp.src(config.srcTemplateFiles)
+            .pipe(plugins.html2js({
+                outputModuleName: config.applicationName,
+                base: config.srcPublicPath
+            }))
+            .pipe(plugins.concat(config.destTemplateFile))
+            .pipe(gulp.dest(config.destJsPath));
+    });
 
-    // combines all dist script files to single file
+
     gulp.task('combineDistJsFiles', function() {
         return gulp.src(config.destJsFiles)
             .pipe(vinylPath(del))
@@ -79,7 +81,7 @@ module.exports = function(gulp, plugins, config) {
             .pipe(gulp.dest(config.destJsPath));
     });
 
-    // lint
+
     gulp.task('lint', function() {
         return gulp.src(config.srcJsFiles)
             .pipe(plugins.jshint())
@@ -87,28 +89,26 @@ module.exports = function(gulp, plugins, config) {
     });
 
 
-    // process all scripts
     gulp.task('scripts', function(done) {
-        plugins.runSequence(['package:vendor', 'uglify:js', 'uglify:templates', 'lint'], 'combineDistJsFiles', done);
+        plugins.runSequence(['vendor', 'js', 'templates', 'lint'], 'combineDistJsFiles', done);
     });
 
-    // process all scripts without uglify (for dev)
-    gulp.task('scripts:dev', ['package:vendor', 'package:js', 'package:templates', 'lint']);
+    gulp.task('scripts:dev', ['vendor:dev', 'js:dev', 'templates:dev', 'lint']);
 
 
 
     /*----------watchers----------*/
 
     gulp.task('watch:js', function() {
-        gulp.watch(config.srcJsFiles, ['lint', 'package:js']);
+        gulp.watch(config.srcJsFiles, ['lint', 'js:dev']);
     });
 
     gulp.task('watch:vendor', function() {
-        gulp.watch(config.srcVendorFiles, ['package:vendor']);
+        gulp.watch(config.srcVendorFiles, ['vendor']);
     });
 
     gulp.task('watch:templates', function() {
-        gulp.watch(config.srcTemplateFiles, ['package:templates']);
+        gulp.watch(config.srcTemplateFiles, ['templates:dev']);
     });
 
 
