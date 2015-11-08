@@ -8,6 +8,8 @@ module.exports = function(plugins) {
     var applicationName = 'neon';
     var srcPublicPath = 'public/';
     var destPath = 'dist/';
+    var destPublicPath = destPath + 'public/';
+    var destServerPath = destPath + 'server/';
 
     var config = {
         applicationName: applicationName,
@@ -20,18 +22,22 @@ module.exports = function(plugins) {
         ],
         srcTemplateFiles: [srcPublicPath + 'app/**/*.html'],
         srcSassFiles: ['**/*.scss',
-            '!' + srcPublicPath + 'bower_components/'
+            '!' + srcPublicPath + 'bower_components'
         ],
         srcMainSassFile: srcPublicPath + 'assets/sass/main.scss',
+        srcServerFiles: 'server/**/*.*',
+
 
         destPath: destPath,
-        destJsPath: destPath + 'js/',
-        destCssPath: destPath + 'css/',
+        destPublicPath: destPublicPath,
+        destJsPath: destPublicPath + 'js/',
+        destCssPath: destPublicPath + 'css/',
         destJsFile: applicationName + '.js',
         destVendorFile: 'vendor.js',
         destTemplateFile: applicationName + '-templates.js',
         destCombinedJsFile: applicationName + '.min.js',
         destCssFile: 'main.min.css',
+        destServerPath: destServerPath,
 
         karmaConfigFile: path.resolve('karma.conf.js')
     };

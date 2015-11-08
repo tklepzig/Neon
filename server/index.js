@@ -22,60 +22,59 @@
 
 */
 
+var path = require('path');
 var express = require('express');
 var app = express();
 var fileInteraction = require('./fileInteraction.js');
 var http = require('http').Server(app);
 var socketIo = require('socket.io')(http);
 
-app.use(express.static(__dirname + '/public'));
+var config = require('./config.json')[process.env.NODE_ENV || 'development'];
+var port = process.env.PORT || config.port;
+console.log('using ' + config.publicFilePath + ' to serve public files');
 
-app.get('/', function (req, res)
-{
-    res.sendFile(__dirname + '/public/index.html');
+app.use(express.static(path.resolve(__dirname + config.publicFilePath)));
+app.get('/*', function(req, res) {
+    res.sendFile(path.resolve(__dirname + config.publicFilePath + '/index.html'));
 });
 
-socketIo.on('connection', function (socket)
-{
+socketIo.on('connection', function(socket) {
     var clientIp = socket.request.connection.remoteAddress;
     console.log('Client connected:\n\tID: ' + socket.id + '\n\tIP: ' + clientIp + '\n');
-    socket.on('disconnect', function () { console.log('Client disconnected:\n\tID: ' + socket.id + '\n\tIP: ' + clientIp + '\n'); });
+    socket.on('disconnect', function() {
+        console.log('Client disconnected:\n\tID: ' + socket.id + '\n\tIP: ' + clientIp + '\n');
+    });
 
 
     //client functions
-    socket.on('getDocuments', function (callback)
-    {
+    socket.on('getDocuments', function(callback) {
         callback(fileInteraction.getDocuments());
     });
 
-    socket.on('updateDocument', function (id, text)
-    {
+    socket.on('updateDocument', function(id, text) {
         fileInteraction.updateDocument(id, text);
         socket.broadcast.emit('documentUpdated', id, text);
     });
 
-    socket.on('addDocument', function (name)
-    {
+    socket.on('addDocument', function(name) {
         var id = fileInteraction.addDocument(name);
         socket.broadcast.emit('documentAdded', id);
     });
 
-    socket.on('removeDocument', function (id)
-    {
+    socket.on('removeDocument', function(id) {
         fileInteraction.removeDocument(id);
         socket.broadcast.emit('documentRemoved', id);
     });
 
-    socket.on('loadDocument', function (id, callback)
-    {
+    socket.on('loadDocument', function(id, callback) {
         var document = fileInteraction.getDocument(id);
         callback(document);
     });
 });
 
-http.listen(51101, function ()
-{
-    console.log('listening on *:51101');
+
+http.listen(port, function() {
+    console.log('listening on *:' + port);
 });
 
 module.exports = app;

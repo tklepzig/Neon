@@ -22,7 +22,7 @@ require('./gulp/copyStatic.js')(gulp, plugins, config);
 require('./gulp/index.js')(gulp, plugins, config);
 require('./gulp/scripts.js')(gulp, plugins, config);
 require('./gulp/styles.js')(gulp, plugins, config);
-require('./gulp/webserver.js')(gulp, plugins, config);
+require('./gulp/server.js')(gulp, plugins, config);
 require('./gulp/tests.js')(gulp, plugins, config);
 
 //import custom tasks

@@ -1,0 +1,10 @@
+{
+    "development": {
+        "publicFilePath": "/../dist/public",
+        "port": "51101"
+    },
+    "production": {
+        "publicFilePath": "/../public",
+        "port": "51101"
+    }
+}

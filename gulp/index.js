@@ -8,10 +8,10 @@ module.exports = function(gulp, plugins, config) {
             .pipe(plugins.inject(gulp.src([config.destJsPath + config.destCombinedJsFile, config.destCssPath + config.destCssFile], {
                 read: false
             }), {
-              ignorePath:'/dist/',
+              ignorePath:'/dist/public',
               addRootSlash: false
             }))
-            .pipe(gulp.dest(config.destPath));
+            .pipe(gulp.dest(config.destPublicPath));
     });
 
     // copy index.html and inject js dist files
@@ -20,10 +20,10 @@ module.exports = function(gulp, plugins, config) {
             .pipe(plugins.inject(gulp.src(config.destJsFiles.concat([config.destCssPath + config.destCssFile]), {
                 read: false
             }), {
-              ignorePath:'/dist/',
+              ignorePath:'/dist/public',
               addRootSlash: false
             }))
-            .pipe(gulp.dest(config.destPath));
+            .pipe(gulp.dest(config.destPublicPath));
     });
 
 
