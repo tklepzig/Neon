@@ -26,5 +26,5 @@ module.exports = function(gulp, plugins, config) {
     });
 
     //production build
-    gulp.task('default', ['build']);
+    gulp.task('default', ['build', 'copy:server']);
 };
