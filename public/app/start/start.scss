@@ -1,1 +1,6 @@
-
+md-list#documents {
+    > md-list-item {
+        margin: 10px;
+        @include no-user-select();
+    }
+}

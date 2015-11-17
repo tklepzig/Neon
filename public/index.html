@@ -15,11 +15,10 @@
     <!-- endinject -->
 </head>
 
-<body ontouchstart="" ng-app="neon">
+<body ontouchstart="" ng-app="neon" layout>
 
-    <md-content layout-fill layout="column">
-        <ng-view></ng-view>
-    </md-content>
+    <div ng-view layout="column" flex></div>
+
     <!-- inject:js -->
     <!-- endinject -->
 </body>

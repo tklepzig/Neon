@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('start', ['ngRoute', 'documentService'])
+    angular.module('start', ['ngRoute', 'documentService', 'document.show'])
         .config(defineRoutes)
         .controller('StartController', StartController);
 
@@ -12,18 +12,13 @@
         });
     }
 
-    function StartController($scope, $localStorage, $window, documentService) {
+    function StartController($scope, $localStorage, $window, $location, documentService) {
 
-        $scope.switchTheme = function() {
-            if ($localStorage.theme === 'dark') {
-                delete $localStorage.theme;
-            } else {
-                $localStorage.theme = 'dark';
-            }
+        
 
-            $window.location.reload();
+        $scope.documents = documentService.getAllDocuments();
+        $scope.openDocument = function(document) {
+            $location.path('/document/' + document.id);
         };
-
-        $scope.items = documentService.getAllDocuments();
     }
 }());

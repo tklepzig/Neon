@@ -8,6 +8,7 @@
             'pascalprecht.translate',
             'ngSanitize',
             'btford.markdown',
+            'switchTheme',
             'start'
         ])
         .config(init);
