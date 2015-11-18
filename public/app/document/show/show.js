@@ -1,22 +1,21 @@
 (function() {
     'use strict';
 
-    angular.module('document.show', ['ngRoute', 'documentService'])
-        .config(defineRoutes)
-        .controller('ShowController', ShowController);
+    angular.module('showDocument', ['ngRoute'])
+        .directive('showDocument', showDocument);
 
-    function defineRoutes($routeProvider) {
-        $routeProvider.when('/document/:id', {
+    function showDocument($location) {
+        return {
+            restrict: 'E',
+            document: '=',
             templateUrl: 'app/document/show/show.html',
-            controller: 'ShowController'
-        });
-    }
+            link: function(scope, element) {
 
-    function ShowController($scope, $routeParams, $location, documentService) {
-        $scope.document = documentService.getDocument($routeParams.id);
+                scope.back = function() {
+                    $location.path('/');
+                };
 
-        $scope.back = function() {
-            $location.path('/');
+            }
         };
     }
 }());

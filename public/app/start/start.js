@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('start', ['ngRoute', 'documentService', 'document.show'])
+    angular.module('start', ['ngRoute', 'documentService', 'document'])
         .config(defineRoutes)
         .controller('StartController', StartController);
 
@@ -13,9 +13,6 @@
     }
 
     function StartController($scope, $localStorage, $window, $location, documentService) {
-
-        
-
         $scope.documents = documentService.getAllDocuments();
         $scope.openDocument = function(document) {
             $location.path('/document/' + document.id);
