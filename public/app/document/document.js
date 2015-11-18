@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document', ['ngRoute', 'documentService', 'showDocument'])
+    angular.module('document', ['ngRoute', 'documentService'])
         .config(defineRoutes)
         .controller('DocumentController', DocumentController);
 
@@ -12,7 +12,11 @@
         });
     }
 
-    function DocumentController($scope, $routeParams, documentService) {
+    function DocumentController($scope, $location, $routeParams, documentService) {
         $scope.document = documentService.getDocument($routeParams.id);
+
+        $scope.back = function() {
+            $location.path('/');
+        };
     }
 }());
