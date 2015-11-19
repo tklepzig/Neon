@@ -13,7 +13,8 @@
             'toggleFullscreen',
             'start'
         ])
-        .config(init);
+        .config(init)
+        .run(start);
 
     function init($routeProvider, $locationProvider, $translateProvider, $mdThemingProvider, $localStorageProvider) {
 
@@ -32,15 +33,26 @@
         $translateProvider.preferredLanguage('de-DE');
         $translateProvider.fallbackLanguage('de-DE');
 
-        var theme = $mdThemingProvider.theme('default')
+        $mdThemingProvider.theme('default')
             .primaryPalette('lime')
             .accentPalette('deep-orange')
             .backgroundPalette('grey');
 
-        $localStorageProvider.setKeyPrefix('neon');
+        $mdThemingProvider.theme('default-dark')
+            .primaryPalette('lime')
+            .accentPalette('deep-orange')
+            .backgroundPalette('grey').dark();
 
-        if ($localStorageProvider.get('theme') === 'dark') {
-            theme.dark();
+        $mdThemingProvider.alwaysWatchTheme(true);
+
+        $localStorageProvider.setKeyPrefix('neon');
+    }
+
+    function start($rootScope, $localStorage) {
+        if ($localStorage.theme.replace(/"/g, '') === 'default-dark') {
+            $rootScope.currentTheme = 'default-dark';
+        } else {
+            $rootScope.currentTheme = 'default';
         }
     }
 })();

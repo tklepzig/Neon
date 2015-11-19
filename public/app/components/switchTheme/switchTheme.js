@@ -4,9 +4,9 @@
     angular.module('switchTheme', []).
     directive('switchTheme', switchTheme);
 
-    function switchTheme($window, $localStorage) {
+    function switchTheme($rootScope, $localStorage) {
 
-        var iconName = $localStorage.theme === 'dark' ? 'wb_sunny' : 'brightness_2';
+        var iconName = $rootScope.currentTheme === 'default-dark' ? 'wb_sunny' : 'brightness_2';
 
         return {
             restrict: 'E',
@@ -14,15 +14,9 @@
             link: function(scope, element) {
 
                 scope.switchTheme = function() {
-                    if ($localStorage.theme === 'dark') {
-                        delete $localStorage.theme;
-                    } else {
-                        $localStorage.theme = 'dark';
-                    }
-
-                    // console.dir(element.find('md-icon').text());
-
-                    $window.location.reload();
+                    $rootScope.currentTheme = $rootScope.currentTheme === 'default' ? 'default-dark' : 'default';
+                    $localStorage.theme = $rootScope.currentTheme;
+                    element.find('md-icon').text($rootScope.currentTheme === 'default-dark' ? 'wb_sunny' : 'brightness_2');
                 };
 
             }
