@@ -1,0 +1,20 @@
+textarea {
+    // border-radius: 0;
+    // box-shadow: none;
+    background-color: transparent;
+    color: inherit;
+    outline: none;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    -ms-touch-action: auto;
+    touch-action: auto;
+    border: none;
+    resize: none;
+    @include border-box-sizing;
+    margin: 0;
+    padding: 8px 16px;
+    font-size: inherit;//14pt;
+    line-height: 1.3;
+    font-family: Arial;
+}
