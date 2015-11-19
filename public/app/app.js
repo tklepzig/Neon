@@ -8,7 +8,9 @@
             'pascalprecht.translate',
             'ngSanitize',
             'btford.markdown',
+            'cfp.hotkeys',
             'switchTheme',
+            'toggleFullscreen',
             'start'
         ])
         .config(init);

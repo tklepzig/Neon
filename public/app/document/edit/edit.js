@@ -8,7 +8,11 @@
     function defineRoutes($routeProvider) {
         $routeProvider.when('/document/:id/edit', {
             templateUrl: 'app/document/edit/edit.html',
-            controller: 'EditController'
+            controller: 'EditController',
+            hotkeys: [
+                ['ctrl+enter', 'Done', 'done()'],
+                ['esc', 'Done', 'done()']
+            ]
         });
     }
 

@@ -8,7 +8,11 @@
     function defineRoutes($routeProvider) {
         $routeProvider.when('/document/:id', {
             templateUrl: 'app/document/document.html',
-            controller: 'DocumentController'
+            controller: 'DocumentController',
+            hotkeys: [
+                ['e', 'Edit', 'edit()'],
+                ['esc', 'Back', 'back()']
+            ]
         });
     }
 

@@ -1,6 +1,6 @@
 <md-toolbar>
     <div class="md-toolbar-tools">
-        <md-button class="md-icon-button" ng-click="done()">
+        <md-button class="md-accent md-icon-button" ng-click="done()">
             <md-icon md-font-set="material-icons">done</md-icon>
         </md-button>
         <h2>
@@ -8,8 +8,10 @@
         </h2>
         <span flex></span>
         <switch-theme></switch-theme>
+        <toggle-fullscreen></toggle-fullscreen>
     </div>
 </md-toolbar>
 
 <md-content flex layout="column" md-scroll-y>
+    <textarea name="name" rows="8" cols="40"></textarea>
 </md-content>
