@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document', ['ngRoute', 'documentService'])
+    angular.module('document', ['ngRoute', 'document.edit', 'documentService'])
         .config(defineRoutes)
         .controller('DocumentController', DocumentController);
 
@@ -17,6 +17,10 @@
 
         $scope.back = function() {
             $location.path('/');
+        };
+
+        $scope.edit = function() {
+            $location.path('/document/' + $scope.document.id + '/edit');
         };
     }
 }());

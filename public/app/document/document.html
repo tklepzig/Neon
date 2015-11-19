@@ -1,4 +1,4 @@
-<md-toolbar ng-show="!editMode">
+<md-toolbar>
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" ng-click="back()">
             <md-icon md-font-set="material-icons">arrow_back</md-icon>
@@ -11,10 +11,10 @@
     </div>
 </md-toolbar>
 
-<md-button class="md-fab md-fab-bottom-right" ng-show="!editMode">
+<md-button class="md-fab md-fab-bottom-right" ng-click="edit()">
     <md-icon md-font-set="material-icons">edit</md-icon>
 </md-button>
 
 <md-content flex layout="column" md-scroll-y>
-    <div ng-show="!editMode" btf-markdown="document.text" flex style="margin: 8px 16px; font-family: Arial;"></div>
+    <div btf-markdown="document.text" flex style="margin: 8px 16px; font-family: Arial;"></div>
 </md-content>
