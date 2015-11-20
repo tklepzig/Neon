@@ -40,14 +40,14 @@ app.get('/*', function(req, res) {
 
 socketIo.on('connection', function(socket) {
     var clientIp = socket.request.connection.remoteAddress;
-    console.log('Client connected:\n\tID: ' + socket.id + '\n\tIP: ' + clientIp + '\n');
+    console.log('Client connected:\t' + clientIp);
     socket.on('disconnect', function() {
-        console.log('Client disconnected:\n\tID: ' + socket.id + '\n\tIP: ' + clientIp + '\n');
+        console.log('Client disconnected:\t' + clientIp);
     });
 
 
     //client functions
-    socket.on('getDocuments', function(callback) {
+    socket.on('getAllDocuments', function(callback) {
         callback(fileInteraction.getDocuments());
     });
 
@@ -66,12 +66,11 @@ socketIo.on('connection', function(socket) {
         socket.broadcast.emit('documentRemoved', id);
     });
 
-    socket.on('loadDocument', function(id, callback) {
+    socket.on('getDocument', function(id, callback) {
         var document = fileInteraction.getDocument(id);
         callback(document);
     });
 });
-
 
 http.listen(port, function() {
     console.log('listening on *:' + port);

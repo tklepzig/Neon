@@ -8,6 +8,7 @@
             'pascalprecht.translate',
             'ngSanitize',
             'btford.markdown',
+            'btford.socket-io',
             'cfp.hotkeys',
             'switchTheme',
             'toggleFullscreen',

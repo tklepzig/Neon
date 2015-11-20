@@ -17,7 +17,9 @@
     }
 
     function DocumentController($scope, $location, $routeParams, documentService) {
-        $scope.document = documentService.getDocument($routeParams.id);
+        documentService.getDocument($routeParams.id).then(function(document) {
+            $scope.document = document;
+        });
 
         $scope.back = function() {
             $location.path('/');

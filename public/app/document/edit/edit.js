@@ -17,7 +17,10 @@
     }
 
     function EditController($scope, $location, $routeParams, documentService) {
-        $scope.document = documentService.getDocument($routeParams.id);
+        documentService.getDocument($routeParams.id).then(function(document) {
+            $scope.document = document;
+        });
+
         $scope.done = function() {
             $location.path('/document/' + $scope.document.id);
         };

@@ -4,21 +4,12 @@ var fs = require('fs');
 var path = require('path');
 var util = require('util');
 var dateFormat = require('dateformat');
+var uuid = require('node-uuid');
 
 var notesFilename = __dirname + '/notes.json';
 var backupDir = __dirname + '/archive';
 
 var cache = null;
-
-var getUniqueId = function(prefix) {
-    var d = new Date().getTime();
-    d += (parseInt(Math.random() * 100)).toString();
-    if (undefined === prefix) {
-        prefix = 'uid-';
-    }
-    d = prefix + d;
-    return d;
-};
 
 //write to file, every 10 seconds
 setInterval(function() {
@@ -71,7 +62,7 @@ function getData() {
 function existsChanges() {
     var notExisting = false;
     var data = null;
-    
+
     //DRY
     try {
         data = fs.readFileSync(notesFilename, 'utf8');
@@ -87,7 +78,7 @@ function existsChanges() {
 }
 
 module.exports.addDocument = function(name) {
-    var id = getUniqueId('doc-');
+    var id = uuid.v4();
     getData()[id] = {
         name: name,
         text: '',

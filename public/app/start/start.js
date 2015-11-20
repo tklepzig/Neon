@@ -13,7 +13,9 @@
     }
 
     function StartController($scope, $localStorage, $window, $location, documentService) {
-        $scope.documents = documentService.getAllDocuments();
+        documentService.getAllDocuments().then(function(documents) {
+            $scope.documents = documents;
+        });
         $scope.openDocument = function(document) {
             $location.path('/document/' + document.id);
         };
