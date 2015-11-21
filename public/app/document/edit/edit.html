@@ -5,8 +5,8 @@
         </md-button>
         <!-- TODO: move to directive -->
         <h2>
-            <span ng-show="document.name.length === 0" class="md-headline" style="font-style: italic; opacity: 0.5;">Unnamed</span>
-            <span ng-show="document.name.length > 0" class="md-headline">{{document.name}}</span>
+            <edit-in-place class="md-headline" dv="unsetDocumentName" ev="document.name" ng-show="document.name.length === 0" on-change="updateName(document, value)" style="font-style: italic; opacity: 0.5;"></edit-in-place>
+            <edit-in-place class="md-headline" dv="document.name" ev="document.name" ng-show="document.name.length > 0" on-change="updateName(document, value)"></edit-in-place>
         </h2>
         <span flex></span>
         <switch-theme></switch-theme>
@@ -15,5 +15,5 @@
 </md-toolbar>
 
 <md-content flex layout="column" md-scroll-y>
-    <textarea flex ng-change="updateDocument()" ng-model="document.text" autocorrect="off" spellcheck="true"></textarea>
+    <textarea autocorrect="off" flex ng-change="updateDocument()" ng-model="document.text" spellcheck="true"></textarea>
 </md-content>

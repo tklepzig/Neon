@@ -12,6 +12,7 @@
             // 'cfp.hotkeys',
             'switchTheme',
             'toggleFullscreen',
+            'editInPlace',
             'start'
         ])
         .config(init)

@@ -41,3 +41,20 @@ pagedown-viewer {
     line-height: 1.4;
     font-family: Arial;
 }
+.edit-in-place {
+    span {
+        cursor: pointer;
+    }
+    input {
+        display: none;
+        border: 1px solid #666;
+        outline: none;
+        background: transparent;
+    }
+    &.active span {
+        display: none;
+    }
+    &.active input {
+        display: inline-block;
+    }
+}
