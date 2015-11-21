@@ -6,8 +6,26 @@
 md-list#documents {
     > md-list-item {
         margin: 10px;
+        .md-ripple-container {
+            display: none;
+        }
+        >button {
+            body[md-theme="default-dark"] & {
+                background: #525252;
+            }
+            &:hover {
+                background: inherit;
+            }
+            body[md-theme="default-dark"] &:hover {
+                background: #525252;
+            }
+        }
         .md-list-item-text {
-            height: 260px;
+            height: 220px;
+            color: rgba(0,0,0,0.87);
+            body[md-theme="default-dark"] & {
+                color: #fff;
+            }
         }
         @include no-user-select();
         div[btf-markdown] {
@@ -17,22 +35,33 @@ md-list#documents {
             overflow: hidden;
             opacity: 0.7;
             margin: 4px 0;
+            * {
+                color: inherit;
+            }
         }
         div.fade-out-bottom {
             @include fade-out;
             left: 0;
             width: auto;
             height: 50px;
-            background-image: -webkit-linear-gradient(top, transparent 0%, #424242 90%);
-            background-image: linear-gradient(to bottom, transparent 0%, #424242 90%);
+            background-image: -webkit-linear-gradient(top, transparent 0%, #fff 90%);
+            background-image: linear-gradient(to bottom, transparent 0%, #fff 90%);
+            body[md-theme="default-dark"] & {
+                background-image: -webkit-linear-gradient(top, transparent 0%, #525252 90%);
+                background-image: linear-gradient(to bottom, transparent 0%, #525252 90%);
+            }
         }
         div.fade-out-right {
             @include fade-out;
             top: 0;
             height: auto;
             width: 50px;
-            background-image: -webkit-linear-gradient(left, transparent 0%, #424242 90%);
-            background-image: linear-gradient(to right, transparent 0%, #424242 90%);
+            background-image: -webkit-linear-gradient(left, transparent 0%, #fff 90%);
+            background-image: linear-gradient(to right, transparent 0%, #fff 90%);
+            body[md-theme="default-dark"] & {
+                background-image: -webkit-linear-gradient(left, transparent 0%, #525252 90%);
+                background-image: linear-gradient(to right, transparent 0%, #525252 90%);
+            }
         }
     }
 }
