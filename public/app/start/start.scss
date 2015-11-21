@@ -29,7 +29,6 @@ md-list#documents {
         }
         @include no-user-select();
         pagedown-viewer {
-            font-family: Arial;
             white-space: nowrap;
             height: 100%;
             overflow: hidden;
