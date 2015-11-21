@@ -9,7 +9,7 @@
             'ngSanitize',
             'ui.pagedown',
             'btford.socket-io',
-            'cfp.hotkeys',
+            // 'cfp.hotkeys',
             'switchTheme',
             'toggleFullscreen',
             'start'
