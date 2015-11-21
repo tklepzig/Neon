@@ -1,7 +1,6 @@
 'use strict';
 
 var gulp = require('gulp');
-var path = require('path');
 var plugins = require('gulp-load-plugins')({
     pattern: '*',
     scope: ['dependencies', 'devDependencies']
@@ -11,7 +10,7 @@ var config = require('./gulp/config.js')(plugins);
 
 //add all javascript files that are not bower main files (see '.bower.json' in the bower_components folder)
 //all javascript from the lib-dir must not be included here (see var javaScriptFile - beware of file order!!)
-config.srcVendorFiles.push(path.resolve(__dirname + '/public/bower_components/socket.io-client/socket.io.js'));
+// config.srcVendorFiles.push(path.resolve(__dirname + '/public/bower_components/path/to/js'));
 
 //add custom config values
   //config.answer = 42;

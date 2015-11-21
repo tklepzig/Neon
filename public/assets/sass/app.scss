@@ -13,7 +13,6 @@
     touch-action: none;
     cursor: pointer;
 }
-
 h1 {
     font-size: 3em;
     font-weight: lighter;
@@ -37,4 +36,7 @@ h5 {
 h6 {
     font-size: 0.75em;
     font-weight: normal;
+}
+pagedown-viewer {
+    line-height: 1.4;
 }

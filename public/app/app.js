@@ -7,7 +7,7 @@
             'ngStorage',
             'pascalprecht.translate',
             'ngSanitize',
-            'btford.markdown',
+            'ui.pagedown',
             'btford.socket-io',
             'cfp.hotkeys',
             'switchTheme',

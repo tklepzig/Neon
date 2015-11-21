@@ -28,7 +28,7 @@ md-list#documents {
             }
         }
         @include no-user-select();
-        div[btf-markdown] {
+        pagedown-viewer {
             font-family: Arial;
             white-space: nowrap;
             height: 100%;
