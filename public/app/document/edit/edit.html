@@ -3,8 +3,10 @@
         <md-button class="md-accent md-icon-button" ng-click="done()">
             <md-icon md-font-set="material-icons">done</md-icon>
         </md-button>
+        <!-- TODO: move to directive -->
         <h2>
-            <span class="md-headline">{{document.name}}</span>
+            <span ng-show="document.name.length === 0" class="md-headline" style="font-style: italic; opacity: 0.5;">Unnamed</span>
+            <span ng-show="document.name.length > 0" class="md-headline">{{document.name}}</span>
         </h2>
         <span flex></span>
         <switch-theme></switch-theme>

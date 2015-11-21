@@ -14,15 +14,15 @@
 </md-toolbar>
 
 <md-content flex layout md-scroll-y>
-    <md-list id="documents" layout-align="space-around center" layout-margin layout-wrap layout="row">
+    <md-list flex id="documents" layout-align="space-around center" layout-margin layout-wrap layout="row">
         <md-list-item class="md-2-line md-whiteframe-z2" flex-gt-lg="20" flex-lg="30" flex-md="45" flex-sm="80" ng-click="openDocument(document)" ng-repeat="document in documents">
             <div class="md-list-item-text">
-                <h1 class="md-title">
+                <h1 class="md-title" ng-show="document.name.length > 0">
                     {{document.name}}
                 </h1>
-                <div btf-markdown="document.text" style="font-family: Arial; min-height: 60px; max-height: 200px; overflow: hidden; color: rgba(255,255,255,0.7);"></div>
-                <div style="position: absolute; bottom: 0; left: 0; right: 0; width: auto; height: 50px;
-            background-image: linear-gradient(to bottom, transparent 0%, #424242 90%);"></div>
+                <div btf-markdown="document.text"></div>
+                <div class="fade-out-bottom"></div>
+                <div class="fade-out-right"></div>
             </div>
         </md-list-item>
     </md-list>

@@ -50,7 +50,7 @@
     }
 
     function start($rootScope, $localStorage) {
-        if ($localStorage.theme.replace(/"/g, '') === 'default-dark') {
+        if (typeof $localStorage.theme !== 'undefined' && $localStorage.theme.replace(/"/g, '') === 'default-dark') {
             $rootScope.currentTheme = 'default-dark';
         } else {
             $rootScope.currentTheme = 'default';

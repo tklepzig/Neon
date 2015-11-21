@@ -4,7 +4,8 @@
             <md-icon md-font-set="material-icons">arrow_back</md-icon>
         </md-button>
         <h2>
-            <span class="md-headline">{{document.name}}</span>
+            <span ng-show="document.name.length === 0" class="md-headline" style="font-style: italic; opacity: 0.5;">Unnamed</span>
+            <span ng-show="document.name.length > 0" class="md-headline">{{document.name}}</span>
         </h2>
         <span flex></span>
         <switch-theme></switch-theme>

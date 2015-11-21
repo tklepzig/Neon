@@ -1,6 +1,38 @@
+@mixin fade-out {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
 md-list#documents {
     > md-list-item {
         margin: 10px;
+        .md-list-item-text {
+            height: 260px;
+        }
         @include no-user-select();
+        div[btf-markdown] {
+            font-family: Arial;
+            white-space: nowrap;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.7;
+            margin: 4px 0;
+        }
+        div.fade-out-bottom {
+            @include fade-out;
+            left: 0;
+            width: auto;
+            height: 50px;
+            background-image: -webkit-linear-gradient(top, transparent 0%, #424242 90%);
+            background-image: linear-gradient(to bottom, transparent 0%, #424242 90%);
+        }
+        div.fade-out-right {
+            @include fade-out;
+            top: 0;
+            height: auto;
+            width: 50px;
+            background-image: -webkit-linear-gradient(left, transparent 0%, #424242 90%);
+            background-image: linear-gradient(to right, transparent 0%, #424242 90%);
+        }
     }
 }
