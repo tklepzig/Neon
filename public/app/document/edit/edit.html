@@ -15,5 +15,5 @@
 </md-toolbar>
 
 <md-content flex layout="column" md-scroll-y>
-    <textarea flex ng-model="document.text" autocorrect="off" spellcheck="true"></textarea>
+    <textarea flex ng-change="updateDocument()" ng-model="document.text" autocorrect="off" spellcheck="true"></textarea>
 </md-content>

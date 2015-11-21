@@ -50,15 +50,25 @@ return {
         };
 
         module.getDocument = function(id) {
-
             var deferred = $q.defer();
-
             socketService.emit('getDocument', id, function(document) {
                 deferred.resolve(document);
             });
-
             return deferred.promise;
         };
+
+        module.updateDocument = function(document) {
+            socketService.emit('updateDocument', document);
+        };
+
+        module.addDocument = function(callback) {
+            var deferred = $q.defer();
+            socketService.emit('addDocument', function(document) {
+                deferred.resolve(document);
+            });
+            return deferred.promise;
+        };
+
 
         return module;
     }

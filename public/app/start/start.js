@@ -16,8 +16,17 @@
         documentService.getAllDocuments().then(function(documents) {
             $scope.documents = documents;
         });
+
         $scope.openDocument = function(document) {
             $location.path('/document/' + document.id);
+        };
+
+        $scope.addDocument = function() {
+            documentService.addDocument().then(function(document) {
+                $scope.document = document;
+                $location.path('/document/' + document.id + '/edit');
+            });
+
         };
     }
 }());

@@ -51,14 +51,15 @@ socketIo.on('connection', function(socket) {
         callback(fileInteraction.getDocuments());
     });
 
-    socket.on('updateDocument', function(id, text) {
-        fileInteraction.updateDocument(id, text);
-        socket.broadcast.emit('documentUpdated', id, text);
+    socket.on('updateDocument', function(document) {
+        fileInteraction.updateDocument(document);
+        socket.broadcast.emit('documentUpdated', document);
     });
 
-    socket.on('addDocument', function(name) {
-        var id = fileInteraction.addDocument(name);
-        socket.broadcast.emit('documentAdded', id);
+    socket.on('addDocument', function(callback) {
+        var document = fileInteraction.addDocument();
+        socket.broadcast.emit('documentAdded', document);
+        callback(document);
     });
 
     socket.on('removeDocument', function(id) {

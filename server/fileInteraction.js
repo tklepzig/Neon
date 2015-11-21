@@ -77,23 +77,26 @@ function existsChanges() {
     return cache !== null && (data !== JSON.stringify(cache) || notExisting);
 }
 
-module.exports.addDocument = function(name) {
+module.exports.addDocument = function() {
     var id = uuid.v4();
-    getData()[id] = {
-        name: name,
+    var document = {
+        name: '',
         text: '',
         id: id
     };
+    getData()[id] = document;
 
-    return id;
+    return document;
 };
 
 module.exports.removeDocument = function(id) {
     delete getData()[id];
 };
 
-module.exports.updateDocument = function(id, text) {
-    getData()[id].text = text.replace(/\r?\n/g, '\r\n');
+module.exports.updateDocument = function(document) {
+    var doc = getData()[document.id];
+    doc.text = document.text.replace(/\r?\n/g, '\r\n');
+    doc.name = document.name;
 };
 
 module.exports.getDocument = function(id) {

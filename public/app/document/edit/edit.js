@@ -8,11 +8,11 @@
     function defineRoutes($routeProvider) {
         $routeProvider.when('/document/:id/edit', {
             templateUrl: 'app/document/edit/edit.html',
-            controller: 'EditController'//,
-            // hotkeys: [
-            //     ['ctrl+enter', 'Done', 'done()'],
-            //     ['esc', 'Done', 'done()']
-            // ]
+            controller: 'EditController' //,
+                // hotkeys: [
+                //     ['ctrl+enter', 'Done', 'done()'],
+                //     ['esc', 'Done', 'done()']
+                // ]
         });
     }
 
@@ -20,6 +20,10 @@
         documentService.getDocument($routeParams.id).then(function(document) {
             $scope.document = document;
         });
+
+        $scope.updateDocument = function() {
+            documentService.updateDocument($scope.document);
+        };
 
         $scope.done = function() {
             $location.path('/document/' + $scope.document.id);
