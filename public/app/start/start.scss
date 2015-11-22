@@ -1,4 +1,5 @@
-@mixin fade-out {
+$list-item-background-dark: #525252;
+@mixin overlay {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -6,18 +7,18 @@
 md-list#documents {
     > md-list-item {
         margin: 10px;
-        .md-ripple-container {
-            display: none;
-        }
         >button {
+            >.md-ripple-container {
+                display: none;
+            }
             body[md-theme="default-dark"] & {
-                background: #525252;
+                background: $list-item-background-dark;
             }
             &:hover {
                 background: inherit;
             }
             body[md-theme="default-dark"] &:hover {
-                background: #525252;
+                background: $list-item-background-dark;
             }
         }
         .md-list-item-text {
@@ -39,27 +40,52 @@ md-list#documents {
             }
         }
         div.fade-out-bottom {
-            @include fade-out;
+            @include overlay;
             left: 0;
             width: auto;
             height: 50px;
             background-image: -webkit-linear-gradient(top, transparent 0%, #fff 90%);
             background-image: linear-gradient(to bottom, transparent 0%, #fff 90%);
             body[md-theme="default-dark"] & {
-                background-image: -webkit-linear-gradient(top, transparent 0%, #525252 90%);
-                background-image: linear-gradient(to bottom, transparent 0%, #525252 90%);
+                background-image: -webkit-linear-gradient(top, transparent 0%, $list-item-background-dark 90%);
+                background-image: linear-gradient(to bottom, transparent 0%, $list-item-background-dark 90%);
             }
         }
         div.fade-out-right {
-            @include fade-out;
+            @include overlay;
             top: 0;
             height: auto;
             width: 50px;
             background-image: -webkit-linear-gradient(left, transparent 0%, #fff 90%);
             background-image: linear-gradient(to right, transparent 0%, #fff 90%);
             body[md-theme="default-dark"] & {
-                background-image: -webkit-linear-gradient(left, transparent 0%, #525252 90%);
-                background-image: linear-gradient(to right, transparent 0%, #525252 90%);
+                background-image: -webkit-linear-gradient(left, transparent 0%, $list-item-background-dark 90%);
+                background-image: linear-gradient(to right, transparent 0%, $list-item-background-dark 90%);
+            }
+        }
+        div.commands {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+            @include overlay;
+            left: 0;
+            width: auto;
+            padding-bottom: 4px;
+            height: 90px;
+            background-image: -webkit-linear-gradient(top, transparent 0%, #fff 50%);
+            background-image: linear-gradient(to bottom, transparent 0%, #fff 50%);
+            body[md-theme="default-dark"] & {
+                background-image: -webkit-linear-gradient(top, transparent 0%, $list-item-background-dark 50%);
+                background-image: linear-gradient(to bottom, transparent 0%, $list-item-background-dark 50%);
+            }
+            >button {
+                background: inherit;
+            }
+        }
+        &:hover {
+            div.commands {
+                visibility: visible;
+                opacity: 1;
             }
         }
     }

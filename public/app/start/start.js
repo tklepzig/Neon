@@ -26,7 +26,12 @@
                 $scope.document = document;
                 $location.path('/document/' + document.id + '/edit');
             });
+        };
 
+        $scope.editDocument = function(document, e) {
+            $location.path('/document/' + document.id + '/edit');
+            e.stopPropagation();
+            e.preventDefault();
         };
     }
 }());

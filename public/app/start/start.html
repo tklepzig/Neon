@@ -23,6 +23,11 @@
                 <pagedown-viewer content="document.text"></pagedown-viewer>
                 <div class="fade-out-bottom"></div>
                 <div class="fade-out-right"></div>
+                <div class="commands" layout="row" layout-align="end end">
+                    <md-button class="md-icon-button" ng-click="editDocument(document, $event)">
+                        <md-icon md-font-set="material-icons">edit</md-icon>
+                    </md-button>
+                </div>
             </div>
         </md-list-item>
     </md-list>
