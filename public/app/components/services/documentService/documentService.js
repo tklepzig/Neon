@@ -61,7 +61,7 @@ return {
             socketService.emit('updateDocument', document);
         };
 
-        module.addDocument = function(callback) {
+        module.addDocument = function() {
             var deferred = $q.defer();
             socketService.emit('addDocument', function(document) {
                 deferred.resolve(document);
@@ -69,6 +69,9 @@ return {
             return deferred.promise;
         };
 
+        module.removeDocument = function(id) {
+            socketService.emit('removeDocument', id);
+        };
 
         return module;
     }
