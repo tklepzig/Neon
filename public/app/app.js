@@ -35,8 +35,26 @@
         $translateProvider.preferredLanguage('de-DE');
         $translateProvider.fallbackLanguage('de-DE');
 
+
+        $mdThemingProvider.definePalette('lime-dark', {
+            '50': '#fffffe',
+            '100': '#ebefc1',
+            '200': '#dce394',
+            '300': '#cad55c',
+            '400': '#c2ce43',
+            '500': '#b4c132',
+            '600': '#9da92c',
+            '700': '#879025',
+            '800': '#70781f',
+            '900': '#596019',
+            'A100': '#fffffe',
+            'A200': '#ebefc1',
+            'A400': '#c2ce43',
+            'A700': '#879025'
+        });
+
         $mdThemingProvider.theme('default')
-            .primaryPalette('lime')
+            .primaryPalette('lime-dark')
             .accentPalette('deep-orange')
             .backgroundPalette('grey');
 
