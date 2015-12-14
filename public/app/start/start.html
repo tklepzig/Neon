@@ -23,12 +23,9 @@
                 <pagedown-viewer content="document.text"></pagedown-viewer>
                 <div class="fade-out-bottom"></div>
                 <div class="fade-out-right"></div>
-                <div class="commands" layout="row" layout-align="end end">
-                    <md-button class="md-icon-button" ng-click="deleteDocument(document, $event)">
-                        <md-icon md-font-set="material-icons">delete</md-icon>
-                    </md-button>
-                    <md-button class="md-icon-button" ng-click="editDocument(document, $event)">
-                        <md-icon md-font-set="material-icons">edit</md-icon>
+                <div class="menu" ng-show="isTouchSupported" layout="row" layout-align="end end">
+                    <md-button class="md-icon-button" ng-click="showMenu(document, $event)">
+                        <md-icon md-font-set="material-icons">more_vert</md-icon>
                     </md-button>
                 </div>
             </div>

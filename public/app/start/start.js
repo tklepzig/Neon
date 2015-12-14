@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('start', ['ngRoute', 'documentService', 'document'])
+    angular.module('start', ['ngRoute', 'documentService', 'document', 'touchService'])
         .config(defineRoutes)
         .controller('StartController', StartController);
 
@@ -12,10 +12,12 @@
         });
     }
 
-    function StartController($scope, $rootScope, $localStorage, $window, $location, $mdDialog, documentService) {
+    function StartController($scope, $rootScope, $localStorage, $window, $location, $mdDialog, documentService, touchService) {
         documentService.getAllDocuments().then(function(documents) {
             $scope.documents = documents;
         });
+
+        $scope.isTouchSupported = touchService.isSupported();
 
         $scope.openDocument = function(document) {
             $location.path('/document/' + document.id);
@@ -26,6 +28,12 @@
                 $scope.document = document;
                 $location.path('/document/' + document.id + '/edit');
             });
+        };
+
+        $scope.showMenu = function(document, e) {
+            e.stopPropagation();
+            e.preventDefault();
+            window.alert('show menu');
         };
 
         $scope.editDocument = function(document, e) {

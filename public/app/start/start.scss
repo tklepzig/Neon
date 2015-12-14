@@ -63,10 +63,7 @@ md-list#documents {
                 background-image: linear-gradient(to right, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 90%);
             }
         }
-        div.commands {
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.2s ease-in-out;
+        div.menu {
             @include overlay;
             left: 0;
             width: auto;
@@ -75,17 +72,11 @@ md-list#documents {
             background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #fff 50%);
             background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 50%);
             body[md-theme="default-dark"] & {
-                background-image: -webkit-linear-gradient(top, rgba(82, 82, 82, 0) 0% 0%, $list-item-background-dark 50%);
-                background-image: linear-gradient(to bottom, rgba(82, 82, 82, 0) 0% 0%, $list-item-background-dark 50%);
+                background-image: -webkit-linear-gradient(top, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 50%);
+                background-image: linear-gradient(to bottom, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 50%);
             }
             >button {
                 background: inherit;
-            }
-        }
-        &:hover {
-            div.commands {
-                visibility: visible;
-                opacity: 1;
             }
         }
     }
