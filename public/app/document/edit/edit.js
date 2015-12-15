@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document.edit', ['ngRoute', 'documentService'])
+    angular.module('document.edit', ['ngRoute', 'documentService', 'setFocus'])
         .config(defineRoutes)
         .controller('EditController', EditController);
 
@@ -19,8 +19,11 @@
     function EditController($scope, $location, $routeParams, documentService) {
 
         $scope.unsetDocumentName = 'Unnamed';
+        $scope.focusDocument = false;
+
         documentService.getDocument($routeParams.id).then(function(document) {
             $scope.document = document;
+            $scope.focusDocument = true;
         });
 
         $scope.updateDocument = function() {
@@ -35,6 +38,5 @@
         $scope.done = function() {
             $location.path('/document/' + $scope.document.id);
         };
-
     }
 }());
