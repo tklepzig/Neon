@@ -1,12 +1,12 @@
 <md-toolbar>
     <div class="md-toolbar-tools">
-        <md-button class="md-accent md-icon-button" ng-click="done()">
+        <md-button tabindex="1" class="md-accent md-icon-button" ng-click="done()">
             <md-icon md-font-set="material-icons">done</md-icon>
         </md-button>
         <!-- TODO: move to directive -->
         <h2>
-            <edit-in-place class="md-headline" dv="unsetDocumentName" ev="document.name" ng-show="document.name.length === 0" on-change="updateName(document, value)" style="font-style: italic; opacity: 0.5;"></edit-in-place>
-            <edit-in-place class="md-headline" dv="document.name" ev="document.name" ng-show="document.name.length > 0" on-change="updateName(document, value)"></edit-in-place>
+            <edit-in-place tabindex="2" class="md-headline" dv="unsetDocumentName" ev="document.name" ng-show="document.name.length === 0" on-change="updateName(document, value)" style="font-style: italic; opacity: 0.5;"></edit-in-place>
+            <edit-in-place tabindex="2" class="md-headline" dv="document.name" ev="document.name" ng-show="document.name.length > 0" on-change="updateName(document, value)"></edit-in-place>
         </h2>
         <span flex></span>
         <switch-theme></switch-theme>
@@ -15,5 +15,5 @@
 </md-toolbar>
 
 <md-content flex layout="column" md-scroll-y>
-    <textarea set-focus="focusDocument" autocorrect="off" flex ng-change="updateDocument()" ng-model="document.text" spellcheck="true"></textarea>
+    <textarea tabindex="3" set-focus="focusDocument" autocorrect="off" flex ng-change="updateDocument()" ng-model="document.text" spellcheck="true"></textarea>
 </md-content>
