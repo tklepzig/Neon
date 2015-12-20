@@ -16,6 +16,9 @@
                             element[0].focus();
                             if (element[0].selectionStart) {
                                 element[0].setSelectionRange(0, 0);
+                                if (element[0].scrollTop) {
+                                    element[0].scrollTop = 0;
+                                }
                             }
                             scope.trigger = false;
                         });
