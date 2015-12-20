@@ -18,6 +18,22 @@
         });
 
         $scope.hoveredDocument = null;
+        $scope.search = '';
+        $scope.showSearch = false;
+
+        $scope.startSearch = function() {
+            $scope.showSearch = true;
+
+            // TODO: improve this
+            setTimeout(function() {
+                document.getElementById('search').focus();
+            });
+        };
+
+        $scope.endSearch = function() {
+            $scope.search = '';
+            $scope.showSearch = false;
+        };
 
         $scope.mouseEnter = function(document) {
             $scope.hoveredDocument = document;

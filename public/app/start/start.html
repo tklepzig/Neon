@@ -2,28 +2,47 @@
     <md-icon md-font-set="material-icons">add</md-icon>
 </md-button>
 
-<md-toolbar>
+<md-toolbar ng-hide="showSearch">
     <div class="md-toolbar-tools">
         <h2>
             <span class="md-headline">{{'General.AppName' | translate}}</span>
         </h2>
         <span flex></span>
+        <md-button class="md-icon-button" ng-click="startSearch()">
+            <md-icon md-font-set="material-icons">search</md-icon>
+        </md-button>
         <switch-theme></switch-theme>
         <toggle-fullscreen></toggle-fullscreen>
     </div>
 </md-toolbar>
 
+<md-toolbar class="md-hue-1" ng-show="showSearch">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="endSearch()">
+            <md-icon md-font-set="material-icons">arrow_back</md-icon>
+        </md-button>
+        <md-input-container flex md-theme>
+            <label>&nbsp;</label>
+            <input id="search" ng-model="search" placeholder="Search">
+            <md-button class="md-icon-button" ng-click="search = ''" ng-show="search !== ''" style="position: absolute;
+        right: -16px; top: 16px;">
+                <md-icon md-font-set="material-icons" style="color: rgb(180, 193, 50);">close</md-icon>
+            </md-button>
+        </md-input-container>
+    </div>
+</md-toolbar>
+
 <md-content flex layout md-scroll-y>
     <md-list flex id="documents" layout-align="space-around center" layout-margin layout-wrap layout="row">
-        <md-list-item ng-mouseenter="mouseEnter(document)" ng-mouseleave="mouseLeave()" class="md-2-line md-whiteframe-z4" flex-gt-lg="20" flex-lg="30" flex-md="45" flex-sm="90" ng-click="openDocument(document)" ng-repeat="document in documents">
+        <md-list-item class="md-2-line md-whiteframe-z4" flex-gt-lg="20" flex-lg="30" flex-md="45" flex-sm="90" ng-click="openDocument(document)" ng-mouseenter="mouseEnter(document)" ng-mouseleave="mouseLeave()" ng-repeat="document in documents | filter: search">
             <div class="md-list-item-text">
                 <h1 class="md-title" ng-show="document.name.length > 0">
                     {{document.name}}
                 </h1>
-                <pagedown-viewer ng-class="{'has-title': document.name.length > 0}" content="document.text"></pagedown-viewer>
+                <pagedown-viewer content="document.text" ng-class="{'has-title': document.name.length > 0}"></pagedown-viewer>
                 <div class="fade-out-bottom"></div>
                 <div class="fade-out-right"></div>
-                <div class="menu" ng-show-touch layout="row" layout-align="end end">
+                <div class="menu" layout-align="end end" layout="row" ng-show-touch>
                     <md-button class="md-icon-button" ng-click="showMenu(document, $event)">
                         <md-icon md-font-set="material-icons">more_vert</md-icon>
                     </md-button>

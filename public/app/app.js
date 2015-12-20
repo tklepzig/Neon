@@ -108,11 +108,11 @@
             switch ($route.current.$$route.controller) {
                 case 'StartController':
                     {
-                        if (e.keyCode === 'N'.charCodeAt(0) && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                        if (e.keyCode === 'N'.charCodeAt(0) && !inputFocused && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.addDocument();
                             $route.current.scope.$apply();
-                        } else if (e.keyCode === 'E'.charCodeAt(0) && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                        } else if (e.keyCode === 'E'.charCodeAt(0) && !inputFocused && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             if ($route.current.scope.hoveredDocument !== null) {
                                 $route.current.scope.editDocument($route.current.scope.hoveredDocument);
