@@ -10,6 +10,7 @@
             'ui.pagedown',
             'btford.socket-io',
             // 'cfp.hotkeys',
+            'neon.touch',
             'switchTheme',
             'toggleFullscreen',
             'editInPlace',

@@ -10,7 +10,7 @@
 
         return {
             restrict: 'E',
-            template: '<md-button class="md-icon-button" ng-click="toggleFullscreen()"><md-icon md-font-set="material-icons">' + iconName + '</md-icon></md-button>',
+            template: '<md-button ng-show-touch class="md-icon-button" ng-click="toggleFullscreen()"><md-icon md-font-set="material-icons">' + iconName + '</md-icon></md-button>',
             link: function(scope, element) {
 
                 $document.on('fullscreenchange webkitfullscreenchange mozfullscreenchange MSFullscreenChange', function() {

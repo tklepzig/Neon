@@ -60,3 +60,9 @@ pagedown-viewer {
         display: inline-block;
     }
 }
+.md-toolbar-tools {
+    > h2 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('start', ['ngRoute', 'documentService', 'document', 'touchService'])
+    angular.module('start', ['ngRoute', 'documentService', 'document'])
         .config(defineRoutes)
         .controller('StartController', StartController);
 
@@ -12,7 +12,7 @@
         });
     }
 
-    function StartController($scope, $rootScope, $localStorage, $location, $mdDialog, documentService, touchService) {
+    function StartController($scope, $rootScope, $localStorage, $location, $mdDialog, documentService) {
         documentService.getAllDocuments().then(function(documents) {
             $scope.documents = documents;
         });
@@ -26,8 +26,6 @@
         $scope.mouseLeave = function() {
             $scope.hoveredDocument = null;
         };
-
-        $scope.isTouchSupported = touchService.isSupported();
 
         $scope.openDocument = function(document) {
             $location.path('/document/' + document.id);
