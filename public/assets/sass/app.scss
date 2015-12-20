@@ -9,9 +9,11 @@
     -ms-user-select: none;
     -webkit-user-select: none;
     user-select: none;
+    cursor: pointer;
+}
+@mixin no-touch-action {
     -ms-touch-action: none;
     touch-action: none;
-    cursor: pointer;
 }
 h1 {
     font-size: 3em;
