@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document.edit', ['ngRoute', 'documentService', 'setFocus'])
+    angular.module('document.edit', ['ngRoute', 'documentService', 'setFocus', 'ngAllowTab'])
         .config(defineRoutes)
         .controller('EditController', EditController);
 
