@@ -20,7 +20,7 @@
                 <h1 class="md-title" ng-show="document.name.length > 0">
                     {{document.name}}
                 </h1>
-                <pagedown-viewer content="document.text"></pagedown-viewer>
+                <pagedown-viewer ng-class="{'has-title': document.name.length > 0}" content="document.text"></pagedown-viewer>
                 <div class="fade-out-bottom"></div>
                 <div class="fade-out-right"></div>
                 <div class="menu" ng-show-touch layout="row" layout-align="end end">

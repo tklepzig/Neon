@@ -30,11 +30,17 @@ md-list#documents {
         }
         @include no-user-select();
         pagedown-viewer {
+            display: inline-block;
             white-space: nowrap;
-            height: 100%;
-            overflow: hidden;
-            opacity: 0.7;
-            margin: 4px 0;
+            margin: 4px 2px;
+            &.has-title {
+                opacity: 0.85;
+                -webkit-transform: scale(0.3, 0.3);
+                transform: scale(0.3, 0.3);
+                -webkit-transform-origin: top left;
+                transform-origin: top left;
+                margin: -10px 4px 0;
+            }
             * {
                 color: inherit;
             }
