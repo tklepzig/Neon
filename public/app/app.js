@@ -111,6 +111,12 @@
                             preventDefault = true;
                             $route.current.scope.addDocument();
                             $route.current.scope.$apply();
+                        } else if (e.keyCode === 'E'.charCodeAt(0) && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            if ($route.current.scope.hoveredDocument !== null) {
+                                $route.current.scope.editDocument($route.current.scope.hoveredDocument);
+                                $route.current.scope.$apply();
+                            }
                         }
                         break;
                     }

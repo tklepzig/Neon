@@ -17,6 +17,16 @@
             $scope.documents = documents;
         });
 
+        $scope.hoveredDocument = null;
+
+        $scope.mouseEnter = function(document) {
+            $scope.hoveredDocument = document;
+        };
+
+        $scope.mouseLeave = function() {
+            $scope.hoveredDocument = null;
+        };
+
         $scope.isTouchSupported = touchService.isSupported();
 
         $scope.openDocument = function(document) {
@@ -37,8 +47,12 @@
         };
 
         $scope.editDocument = function(document, e) {
-            e.stopPropagation();
-            e.preventDefault();
+
+            if (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+
             $location.path('/document/' + document.id + '/edit');
         };
 
