@@ -25,11 +25,11 @@
 var path = require('path');
 var express = require('express');
 var app = express();
-var fileInteraction = require('./fileInteraction.js');
 var http = require('http').Server(app);
 var socketIo = require('socket.io')(http);
 
-var config = require('./config.json')[process.env.NODE_ENV || 'development'];
+var config = require('./config.json')[process.env.NODE_ENV || 'production'];
+var fileInteraction = require('./fileInteraction.js')(config.notesFilePath, config.archiveFilePath);
 var port = process.env.PORT || config.port;
 console.log('using ' + config.publicFilePath + ' to serve public files');
 
