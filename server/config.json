@@ -2,8 +2,8 @@
     "development": {
         "port": "51101",
         "publicFilePath": "/../dist/public",
-        "notesFilePath": "/notes.json",
-        "archiveFilePath": "/archive"
+        "notesFilePath": "/../../notes.json",
+        "archiveFilePath": "/../../archive"
     },
     "production": {
         "port": "51101",

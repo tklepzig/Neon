@@ -20,8 +20,13 @@ module.exports = function(gulp, plugins, config) {
             .pipe(gulp.dest(config.destPublicPath + 'fonts'));
     });
 
+    gulp.task('copyStatic:package.json', function() {
+           return gulp.src('package.json')
+               .pipe(gulp.dest(config.destPath));
+       });
+
     // copy static files to dist
-    gulp.task('copyStatic', ['copyStatic:content', 'copyStatic:locales', 'copyStatic:fonts']);
+    gulp.task('copyStatic', ['copyStatic:content', 'copyStatic:locales', 'copyStatic:fonts', 'copyStatic:package.json']);
 
     /*----------watchers----------*/
 

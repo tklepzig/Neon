@@ -2,7 +2,8 @@
     "name": "neon",
     "scripts": {
         "postinstall": "bower install",
-        "start": "gulp dev"
+        "start": "node server/index.js",
+        "debug": "./start-dev.sh"
     },
     "devDependencies": {
         "gulp-rename": "~1.2.2",
