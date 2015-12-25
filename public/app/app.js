@@ -118,6 +118,19 @@
                                 $route.current.scope.editDocument($route.current.scope.hoveredDocument);
                                 $route.current.scope.$apply();
                             }
+                        } else if (e.keyCode === 'S'.charCodeAt(0) && !inputFocused && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            if (!$route.current.scope.showSearch) {
+                                $route.current.scope.startSearch();
+                                $route.current.scope.$apply();
+                            }
+                        } else if ((e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey)) {
+                            preventDefault = true;
+
+                            if ($route.current.scope.showSearch) {
+                                $route.current.scope.endSearch();
+                                $route.current.scope.$apply();
+                            }
                         }
                         break;
                     }

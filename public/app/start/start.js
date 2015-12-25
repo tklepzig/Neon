@@ -18,8 +18,13 @@
         });
 
         $scope.hoveredDocument = null;
-        $scope.search = '';
+        $scope.searchQuery = '';
         $scope.showSearch = false;
+
+        $scope.searchFilter = function(document) {
+            var re = new RegExp($scope.searchQuery, 'i');
+            return !$scope.searchQuery || re.test(document.name) || re.test(document.text);
+        };
 
         $scope.startSearch = function() {
             $scope.showSearch = true;
