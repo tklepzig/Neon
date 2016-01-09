@@ -140,7 +140,7 @@
                             preventDefault = true;
                             $route.current.scope.edit();
                             $route.current.scope.$apply();
-                        } else if ((e.keyCode === 13 && e.ctrlKey && !e.shiftKey && !e.altKey) || (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey)) {
+                        } else if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.back();
                             $route.current.scope.$apply();
