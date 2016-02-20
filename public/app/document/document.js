@@ -16,13 +16,32 @@
         });
     }
 
-    function DocumentController($scope, $location, $routeParams, documentService) {
+    function DocumentController($scope, $rootScope, $location, $routeParams, $mdDialog, documentService) {
         documentService.getDocument($routeParams.id).then(function(document) {
             $scope.document = document;
         });
 
         $scope.back = function() {
             $location.path('/');
+        };
+
+        $scope.delete = function(e) {
+            var documentName = '';
+            if ($scope.document.name.length > 0) {
+                documentName = ' "' + $scope.document.name + '" ';
+            }
+
+            var confirm = $mdDialog.confirm()
+                .title('Delete the document' + documentName + '?')
+                .content('This action can\'t be undone.')
+                .targetEvent(e)
+                .theme($rootScope.currentTheme)
+                .ok('Yes, delete')
+                .cancel('No');
+            $mdDialog.show(confirm).then(function() {
+                documentService.removeDocument($scope.document.id);
+                $location.path('/');
+            });
         };
 
         $scope.edit = function() {

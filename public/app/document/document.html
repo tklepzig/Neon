@@ -8,6 +8,9 @@
             <span ng-show="document.name.length > 0" class="md-headline">{{document.name}}</span>
         </h2>
         <span flex></span>
+        <md-button class="md-icon-button" ng-click="delete()">
+            <md-icon md-font-set="material-icons">delete</md-icon>
+        </md-button>
         <switch-theme></switch-theme>
         <toggle-fullscreen></toggle-fullscreen>
     </div>
