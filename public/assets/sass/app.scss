@@ -1,9 +1,11 @@
 //application wide styles here
+
 @mixin border-box-sizing {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+
 @mixin no-user-select {
     -moz-user-select: none;
     -ms-user-select: none;
@@ -11,62 +13,81 @@
     user-select: none;
     cursor: pointer;
 }
+
 @mixin no-touch-action {
     -ms-touch-action: none;
     touch-action: none;
 }
+
 h1 {
     font-size: 3em;
     font-weight: lighter;
 }
+
 h2 {
     font-size: 2em;
     font-weight: lighter;
 }
+
 h3 {
     font-size: 1.43em;
     font-weight: normal;
 }
+
 h4 {
     font-size: 1.14em;
     font-weight: normal;
 }
+
 h5 {
     font-size: 0.9em;
     font-weight: normal;
 }
+
 h6 {
     font-size: 0.75em;
     font-weight: normal;
 }
+
 pagedown-viewer {
     line-height: 1.4;
     font-family: Arial;
 }
+
 .edit-in-place {
     span {
         cursor: pointer;
     }
+
     input {
         display: none;
         border: 1px solid #666;
         outline: none;
         background: transparent;
     }
+
     &.active span {
         display: none;
     }
+
     &.active input {
         display: inline-block;
     }
 }
+
 .md-toolbar-tools {
     > h2 {
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
     > switch-theme:last-child > .md-button,
     > toggle-fullscreen:last-child > .md-button {
         margin-right: -8px;
     }
+}
+
+a,
+a:visited {
+    color: #95a216;
 }

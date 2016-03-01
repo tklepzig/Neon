@@ -8,7 +8,7 @@
     "production": {
         "port": "51101",
         "publicFilePath": "/../public",
-        "notesFilePath": "/notes.json",
-        "archiveFilePath": "/archive"
+        "notesFilePath": "/../../../notes.json",
+        "archiveFilePath": "/../../../archive"
     }
 }
