@@ -4,7 +4,7 @@ module.exports = function(gulp, plugins, config) {
 
     // copy content to dist
     gulp.task('copyStatic:content', function() {
-        return gulp.src([config.srcPublicPath + 'assets/**/*.*',  '!' + config.srcPublicPath + 'assets/sass/**/*.*'])
+        return gulp.src([config.srcPublicPath + 'assets/**/*.*', '!' + config.srcPublicPath + 'assets/sass/**/*.*'])
             .pipe(gulp.dest(config.destPublicPath + 'content'));
     });
 
@@ -21,12 +21,18 @@ module.exports = function(gulp, plugins, config) {
     });
 
     gulp.task('copyStatic:package.json', function() {
-           return gulp.src('package.json')
-               .pipe(gulp.dest(config.destPath));
-       });
+        return gulp.src('package.json')
+            .pipe(gulp.dest(config.destPath));
+    });
+
+    gulp.task('copyStatic:login.html', function() {
+        return gulp.src(config.srcPublicPath + 'login.html')
+            .pipe(gulp.dest(config.destPublicPath));
+    });
+
 
     // copy static files to dist
-    gulp.task('copyStatic', ['copyStatic:content', 'copyStatic:locales', 'copyStatic:fonts', 'copyStatic:package.json']);
+    gulp.task('copyStatic', ['copyStatic:content', 'copyStatic:locales', 'copyStatic:fonts', 'copyStatic:package.json', 'copyStatic:login.html']);
 
     /*----------watchers----------*/
 
