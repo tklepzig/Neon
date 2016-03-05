@@ -94,7 +94,6 @@ passport.serializeUser(function(user, cb) {
 });
 
 passport.deserializeUser(function(id, cb) {
-    //dummy, normally get from database, etc.
     cb(null, user);
 });
 
