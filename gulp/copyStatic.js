@@ -25,6 +25,11 @@ module.exports = function(gulp, plugins, config) {
             .pipe(gulp.dest(config.destPath));
     });
 
+    gulp.task('copyStatic:web.config', function() {
+        return gulp.src('web.config')
+            .pipe(gulp.dest(config.destPath));
+    });
+
     gulp.task('copyStatic:login.html', function() {
         return gulp.src(config.srcPublicPath + 'login.html')
             .pipe(gulp.dest(config.destPublicPath));
@@ -32,7 +37,7 @@ module.exports = function(gulp, plugins, config) {
 
 
     // copy static files to dist
-    gulp.task('copyStatic', ['copyStatic:content', 'copyStatic:locales', 'copyStatic:fonts', 'copyStatic:package.json', 'copyStatic:login.html']);
+    gulp.task('copyStatic', ['copyStatic:content', 'copyStatic:locales', 'copyStatic:fonts', 'copyStatic:web.config', 'copyStatic:package.json', 'copyStatic:login.html']);
 
     /*----------watchers----------*/
 
