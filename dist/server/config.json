@@ -1,16 +1,14 @@
 {
     "development": {
         "port": "51101",
-        "secret": "super secret!",
         "publicFilePath": "/../dist/public",
         "notesFilePath": "/../../notes.json",
         "archiveFilePath": "/../../archive"
     },
     "production": {
         "port": "51101",
-        "secret": "super secret!",
         "publicFilePath": "/../public",
-        "notesFilePath": "/../../../notes.json",
-        "archiveFilePath": "/../../../archive"
+        "notesFilePath": "/notes.json",
+        "archiveFilePath": "/archive"
     }
 }

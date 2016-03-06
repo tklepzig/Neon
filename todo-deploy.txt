@@ -1,3 +1,0 @@
-Generate SSL Certificate and key
-Change "secret" in config.json
-Generate Hash for user password and save it into user.json
