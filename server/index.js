@@ -29,7 +29,7 @@ var http = require('http').Server(app);
 var socketIo = require('socket.io')(http);
 
 var config = require('./config.json')[process.env.NODE_ENV || 'production'];
-var fileInteraction = require('./fileInteraction.js')(config.notesFilePath, config.archiveFilePath);
+var dataService = require('./dataService.js')({repoPath: config.repoPath, dataFilename: 'data.json'});
 var port = process.env.PORT || config.port;
 console.log('using ' + config.publicFilePath + ' to serve public files');
 
@@ -37,6 +37,8 @@ app.use(express.static(path.resolve(__dirname + config.publicFilePath)));
 app.get('/*', function(req, res) {
     res.sendFile(path.resolve(__dirname + config.publicFilePath + '/index.html'));
 });
+
+dataService.initialize();
 
 socketIo.on('connection', function(socket) {
     var clientIp = socket.request.connection.remoteAddress;
@@ -48,27 +50,27 @@ socketIo.on('connection', function(socket) {
 
     //client functions
     socket.on('getAllDocuments', function(callback) {
-        callback(fileInteraction.getDocuments());
+        callback(dataService.getDocuments());
     });
 
     socket.on('updateDocument', function(document) {
-        fileInteraction.updateDocument(document);
+        dataService.updateDocument(document);
         socket.broadcast.emit('documentUpdated', document);
     });
 
     socket.on('addDocument', function(callback) {
-        var document = fileInteraction.addDocument();
+        var document = dataService.addDocument();
         socket.broadcast.emit('documentAdded', document);
         callback(document);
     });
 
     socket.on('removeDocument', function(id) {
-        fileInteraction.removeDocument(id);
+        dataService.removeDocument(id);
         socket.broadcast.emit('documentRemoved', id);
     });
 
     socket.on('getDocument', function(id, callback) {
-        var document = fileInteraction.getDocument(id);
+        var document = dataService.getDocument(id);
         callback(document);
     });
 });
