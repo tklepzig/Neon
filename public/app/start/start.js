@@ -97,9 +97,5 @@
                 documentService.removeDocument(document.id);
             });
         };
-
-        $scope.logout=function () {
-            $location.path('/.auth/logout');
-        };
     }
 }());
