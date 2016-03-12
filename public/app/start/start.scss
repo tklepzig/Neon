@@ -1,38 +1,38 @@
 $list-item-background-dark: #525252;
+
 @mixin overlay {
     position: absolute;
     bottom: 0;
     right: 0;
 }
+
 md-list#documents {
     > md-list-item {
         margin: 10px;
+
         >button {
+            background: $list-item-background-dark;
+
             >.md-ripple-container {
                 display: none;
             }
-            body[md-theme="default-dark"] & {
-                background: $list-item-background-dark;
-            }
+
             &:hover {
-                background: inherit;
-            }
-            body[md-theme="default-dark"] &:hover {
                 background: $list-item-background-dark;
             }
         }
+
         .md-list-item-text {
             height: 220px;
-            color: rgba(0,0,0,0.87);
-            body[md-theme="default-dark"] & {
-                color: #fff;
-            }
+            color: #fff;
         }
-        @include no-user-select();
+@include no-user-select();
+
         pagedown-viewer {
             display: inline-block;
             white-space: nowrap;
             margin: 4px 2px;
+
             &.has-title {
                 opacity: 0.85;
                 -webkit-transform: scale(0.3, 0.3);
@@ -41,46 +41,39 @@ md-list#documents {
                 transform-origin: top left;
                 margin: -10px 4px 0;
             }
+
             * {
                 color: inherit;
             }
         }
+
         div.fade-out-bottom {
             @include overlay;
             left: 0;
             width: auto;
             height: 50px;
-            background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #fff 90%);
-            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 90%);
-            body[md-theme="default-dark"] & {
-                background-image: -webkit-linear-gradient(top, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 90%);
-                background-image: linear-gradient(to bottom, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 90%);
-            }
+            background-image: -webkit-linear-gradient(top, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 90%);
+            background-image: linear-gradient(to bottom, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 90%);
         }
+
         div.fade-out-right {
             @include overlay;
             top: 0;
             height: auto;
             width: 50px;
-            background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #fff 90%);
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #fff 90%);
-            body[md-theme="default-dark"] & {
-                background-image: -webkit-linear-gradient(left, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 90%);
-                background-image: linear-gradient(to right, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 90%);
-            }
+            background-image: -webkit-linear-gradient(left, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 90%);
+            background-image: linear-gradient(to right, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 90%);
         }
+
         div.menu {
             @include overlay;
             left: 0;
             width: auto;
             padding-bottom: 4px;
             height: 90px;
-            background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #fff 50%);
-            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 50%);
-            body[md-theme="default-dark"] & {
-                background-image: -webkit-linear-gradient(top, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 50%);
-                background-image: linear-gradient(to bottom, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 50%);
-            }
+            background-image: -webkit-linear-gradient(top, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 50%);
+            background-image: linear-gradient(to bottom, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 50%);
+
             >button {
                 background: inherit;
             }
