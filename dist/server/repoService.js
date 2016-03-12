@@ -1,0 +1,78 @@
+'use strict';
+
+module.exports = function(config) {
+
+    var module = {};
+
+    var git = require('nodegit');
+
+    module.clone = function() {
+        return git.Clone(config.remoteUrl, config.localPath, {
+            fetchOpts: {
+                callbacks: {
+                    credentials: function() {
+                        return git.Cred.userpassPlaintextNew(config.username, config.password);
+                    }
+                }
+            }
+        });
+    };
+
+    module.push = function() {
+        var repo;
+
+        return git.Repository.open(config.localPath)
+            .then(function(r) {
+                repo = r;
+                return repo.getRemote('origin');
+            }).then(function(remote) {
+                return remote.push(['refs/heads/master:refs/heads/master'], {
+                    callbacks: {
+                        credentials: function() {
+                            return git.Cred.userpassPlaintextNew(config.username, config.password);
+                        }
+                    }
+                });
+            }).then(function() {
+                // console.log('remote Pushed!');
+            })
+            .catch(function(reason) {
+                console.log(reason);
+            });
+    };
+
+    module.commitFile = function(filePath, commitMsg) {
+        var repo, oid;
+
+        return git.Repository.open(config.localPath)
+            .then(function(r) {
+                repo = r;
+                return repo.openIndex();
+            })
+            .then(function(index) {
+                filePath = filePath.replace(config.localPath, '');
+                if (filePath.charAt(0) === '/') {
+                    filePath = filePath.substr(1);
+                }
+
+                index.addByPath(filePath);
+                index.write();
+                return index.writeTree();
+            }).then(function(oidResult) {
+                oid = oidResult;
+                return git.Reference.nameToId(repo, 'HEAD');
+            }).then(function(head) {
+                return repo.getCommit(head);
+            }).then(function(parent) {
+                var author = git.Signature.now(config.author, config.authorEmail);
+                return repo.createCommit('HEAD', author, author, commitMsg, oid, [parent]);
+            }).then(function(commitId) {
+                // return console.log('New Commit: ', commitId);
+            })
+            .catch(function(reason) {
+                console.log(reason);
+            });
+    };
+
+    return module;
+};

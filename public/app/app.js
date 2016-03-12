@@ -11,7 +11,6 @@
             'btford.socket-io',
             // 'cfp.hotkeys',
             'neon.touch',
-            'switchTheme',
             'toggleFullscreen',
             'editInPlace',
             'start'
@@ -55,28 +54,14 @@
         });
 
         $mdThemingProvider.theme('default')
-            .primaryPalette('lime-dark')
-            .accentPalette('deep-orange')
-            .backgroundPalette('grey');
-
-        $mdThemingProvider.theme('default-dark')
             .primaryPalette('lime')
             .accentPalette('deep-orange')
             .backgroundPalette('grey').dark();
-
-        $mdThemingProvider.alwaysWatchTheme(true);
 
         $localStorageProvider.setKeyPrefix('neon');
     }
 
     function start($rootScope, $localStorage, $route, $document) {
-        if (typeof $localStorage.theme !== 'undefined' && $localStorage.theme.replace(/"/g, '') === 'default-dark') {
-            $rootScope.currentTheme = 'default-dark';
-        } else {
-            $rootScope.currentTheme = 'default';
-        }
-
-
         // TODO: move this to service or similar for general usage and config (controller - key(s) - callback (with scope as parameter))
         $document.bind('keydown', function(e) {
 
