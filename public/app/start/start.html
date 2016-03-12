@@ -8,10 +8,10 @@
             <span class="md-headline">{{'General.AppName' | translate}}</span>
         </h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="startSearch()">
+        <md-button class="md-icon-button" title="Search" ng-click="startSearch()">
             <md-icon md-font-set="material-icons">search</md-icon>
         </md-button>
-        <md-button class="md-icon-button" title="Logout" href="/.auth/logout">
+        <md-button class="md-icon-button" title="Logout" ng-click="logout()">
             <md-icon md-font-set="material-icons">exit_to_app</md-icon>
         </md-button>
         <toggle-fullscreen></toggle-fullscreen>
