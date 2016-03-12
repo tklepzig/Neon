@@ -8,11 +8,13 @@
             <span class="md-headline">{{'General.AppName' | translate}}</span>
         </h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="startSearch()">
+        <md-button class="md-icon-button" title="Search" ng-click="startSearch()">
             <md-icon md-font-set="material-icons">search</md-icon>
         </md-button>
+        <md-button class="md-icon-button" title="Logout" href="/.auth/logout" target="_self">
+            <md-icon md-font-set="material-icons">exit_to_app</md-icon>
+        </md-button>
         <toggle-fullscreen></toggle-fullscreen>
-        <switch-theme></switch-theme>
     </div>
 </md-toolbar>
 
@@ -34,7 +36,7 @@
 
 <md-content flex layout md-scroll-y>
     <md-list flex id="documents" layout-align="space-around center" layout-margin layout-wrap layout="row">
-        <md-list-item class="md-2-line md-whiteframe-z4" flex-gt-lg="20" flex-lg="30" flex-md="45" flex-sm="90" ng-click="openDocument(document)" ng-mouseenter="mouseEnter(document)" ng-mouseleave="mouseLeave()" ng-repeat="document in documents | filter: searchFilter">
+        <md-list-item class="md-2-line md-whiteframe-z4" flex-gt-lg="20" flex-lg="30" flex-md="45" flex-sm="90" ng-click="openDocument(document)" ng-mouseenter="mouseEnter(document)" ng-mouseleave="mouseLeave()" ng-repeat="document in documents | filter: searchFilter | orderBy: 'name'">
             <div class="md-list-item-text">
                 <h1 class="md-title" ng-show="document.name.length > 0">
                     {{document.name}}
