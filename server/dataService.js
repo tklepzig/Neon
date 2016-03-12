@@ -7,12 +7,13 @@ module.exports = function(config) {
     var module = {};
 
     var path = require('path');
-    var fs = require('fs');
     var uuid = require('node-uuid');
 
     var cache = null;
     var dataPath = path.join(config.repoPath, config.dataFilename);
-    var repo = require('repoService')({
+    var file = require('./file.js');
+    var directory = require('./directory.js');
+    var repo = require('./repoService.js')({
         remoteUrl: '',
         localPath: config.repoPath,
         username: '',
@@ -21,43 +22,18 @@ module.exports = function(config) {
         authorEmail: ''
     });
 
-    function existsFile(file) {
-        try {
-            fs.statSync(file);
-            return true;
-        } catch (ex) {
-            if (ex.code === 'ENOENT') { //file not found
-                return false;
-            } else {
-                throw ex;
-            }
-        }
-    }
-
-    function existsDirectory(directory) {
-        try {
-            fs.statSync(directory).isDirectory();
-            return true;
-        } catch (ex) {
-            if (ex.code === 'ENOENT') { //file not found
-                return false;
-            } else {
-                throw ex;
-            }
-        }
-    }
 
     //write to file, every 30 seconds
     setInterval(function() {
         if (existsChanges()) {
-            fs.writeFileSync(dataPath, JSON.stringify(cache));
+            file.write(dataPath, JSON.stringify(cache));
         }
     }, 10000);
 
     //commit and push, every 5 minutes
     setInterval(function() {
         if (existsChanges()) {
-            fs.writeFileSync(dataPath, JSON.stringify(cache));
+            file.write(dataPath, JSON.stringify(cache));
             repo.commitFile(dataPath).then(function() {
                 //commit done
                 if (pushAllowed) {
@@ -75,18 +51,18 @@ module.exports = function(config) {
 
 
     function existsChanges() {
-        if (!existsFile(dataPath)) {
+        if (!file.exist(dataPath)) {
             return true;
         } else {
-            var data = fs.readFileSync(dataPath, 'utf8');
+            var data = file.read(dataPath);
             return cache !== null && data !== JSON.stringify(cache);
         }
     }
 
     function getData() {
         if (cache === null) {
-            if (existsFile(dataPath)) {
-                var data = fs.readFileSync(dataPath, 'utf8');
+            if (file.exist(dataPath)) {
+                var data = file.read(dataPath);
                 cache = JSON.parse(data);
             } else {
                 cache = {};
@@ -99,7 +75,7 @@ module.exports = function(config) {
 
 
     module.initialize = function() {
-        if (!existsDirectory(config.repoPath)) {
+        if (!directory.exist(config.repoPath)) {
             repo.clone();
         }
     };
