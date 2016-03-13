@@ -22,32 +22,34 @@ module.exports = function(config) {
         authorEmail: ''
     });
 
-
-    //write to file, every 30 seconds
-    setInterval(function() {
+    var persistenceJobCounter = 0;
+    var persistenceJob = function() {
+        //every 10 seconds
         if (existsChanges()) {
             file.write(dataPath, JSON.stringify(cache));
         }
-    }, 10000);
+        if (++persistenceJobCounter === 30) {
+            persistenceJobCounter = 0;
+            //every 5 miutes (30*10 seconds)
+            if (existsChanges()) {
+                repo.commitFile(dataPath).then(function() {
+                    //commit done
+                    if (pushAllowed) {
+                        return repo.push();
+                    }
+                }).then(function() {
+                    //TODO: is this called when push is not allowed?
 
-    //commit and push, every 5 minutes
-    setInterval(function() {
-        if (existsChanges()) {
-            file.write(dataPath, JSON.stringify(cache));
-            repo.commitFile(dataPath).then(function() {
-                //commit done
-                if (pushAllowed) {
-                    return repo.push();
-                }
-            }).then(function() {
-                //TODO: is this called when push is not allowed?
-
-                //push done
-            }).catch(function(error) {
-                //something went wrong
-            });
+                    //push done
+                }).catch(function(error) {
+                    //something went wrong
+                });
+            }
         }
-    }, 5 * 60 * 1000);
+    };
+    //write every 10 seconds to file
+    //commit and push every 5 minutes
+    setInterval(persistenceJob, 10000);
 
 
     function existsChanges() {
