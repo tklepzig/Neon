@@ -1,8 +1,12 @@
 'use strict';
 
 //config:
+// remoteUrl
+// username
+// password
 // repoPath
 // dataFilename
+// isPushAllowed
 module.exports = function(config) {
     var module = {};
 
@@ -14,12 +18,12 @@ module.exports = function(config) {
     var file = require('./file.js');
     var directory = require('./directory.js');
     var repo = require('./repoService.js')({
-        remoteUrl: '',
+        remoteUrl: config.remoteUrl,
         localPath: config.repoPath,
-        username: '',
-        password: '',
-        author: '',
-        authorEmail: ''
+        username: config.username,
+        password: config.password,
+        author: 'neon',
+        authorEmail: 'neon@neon'
     });
 
     var persistenceJobCounter = 0;
@@ -34,15 +38,17 @@ module.exports = function(config) {
             if (existsChanges()) {
                 repo.commitFile(dataPath).then(function() {
                     //commit done
-                    if (pushAllowed) {
+                    console.log('Committed!');
+                    if (config.isPushAllowed) {
                         return repo.push();
                     }
                 }).then(function() {
                     //TODO: is this called when push is not allowed?
-
+                    console.log('Pushed!');
                     //push done
                 }).catch(function(error) {
                     //something went wrong
+                    console.log('Error: ' + error);
                 });
             }
         }

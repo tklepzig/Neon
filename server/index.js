@@ -27,9 +27,23 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var socketIo = require('socket.io')(http);
+var nconf = require('nconf');
 
 var config = require('./config.json')[process.env.NODE_ENV || 'production'];
-var dataService = require('./dataService.js')({repoPath: config.repoPath, dataFilename: 'data.json'});
+nconf.file('./secrets.json').env();
+var secrets = {
+    remoteUrl: nconf.get('remoteUrl'),
+    username: nconf.get('username'),
+    password: nconf.get('password')
+};
+var dataService = require('./dataService.js')({
+    repoPath: config.repoPath,
+    dataFilename: 'data.json',
+    isPushAllowed: config.isPushAllowed,
+    remoteUrl: secrets.remoteUrl,
+    username: secrets.username,
+    password: secrets.password
+});
 var port = process.env.PORT || config.port;
 console.log('using ' + config.publicFilePath + ' to serve public files');
 
