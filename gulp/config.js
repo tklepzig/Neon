@@ -25,7 +25,7 @@ module.exports = function(plugins) {
             '!' + srcPublicPath + 'bower_components'
         ],
         srcMainSassFile: srcPublicPath + 'assets/sass/main.scss',
-        srcServerFiles: 'server/**/*.*',
+        srcServerFiles: ['server/**/*.*', 'server/.gitignore'],
 
 
         destPath: destPath,
