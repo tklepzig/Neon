@@ -9,6 +9,6 @@
         "port": "51101",
         "publicFilePath": "/../public",
         "repoPath": "/neon-data",
-        "isPushAllowed": true
+        "isPushAllowed": false
     }
 }

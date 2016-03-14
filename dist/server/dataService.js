@@ -37,14 +37,15 @@ module.exports = function(config) {
             //every 5 miutes (30*10 seconds)
             repo.status().then(function(status) {
                 if (status.length > 0) {
-                    repo.commitFile(dataPath).then(function() {
+                    repo.commitFile(dataPath, 'neon change').then(function() {
                         //commit done
                         console.log('Committed!');
                         if (config.isPushAllowed) {
+                            console.log('start push');
                             return repo.push();
                         }
                     }).then(function() {
-                        //TODO: is this called when push is not allowed?
+                        //TODO: is this called when push is not allowed -> yes... :(
                         console.log('Pushed!');
                         //push done
                     }).catch(function(error) {
@@ -56,7 +57,7 @@ module.exports = function(config) {
         }
     };
 
-    function existChanges() {        
+    function existChanges() {
         if (cache === null) {
             return false;
         }

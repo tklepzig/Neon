@@ -18,6 +18,13 @@ module.exports = function(config) {
         });
     };
 
+    module.status = function() {
+        return git.Repository.open(config.localPath)
+            .then(function(repo) {
+                return repo.getStatus();
+            });
+    };
+
     module.push = function() {
         var repo;
 
