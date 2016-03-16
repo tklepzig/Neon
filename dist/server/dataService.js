@@ -37,14 +37,17 @@ module.exports = function(config) {
             //every 5 miutes (30*10 seconds)
             repo.status().then(function(status) {
                 if (status.length > 0) {
+                    console.log('start commit...');
                     repo.commitFile(dataPath, 'data changed').then(function() {
                         //commit done
+                        console.log('commit done.');
                         if (config.isPushAllowed) {
+                            console.log('push is allowed, pushing...');
                             return repo.push();
                         }
                     }).catch(function(error) {
                         //something went wrong
-                        console.log('Error: ' + error);
+                        console.log('Error while communicate with repo: ' + error);
                     });
                 }
             });
