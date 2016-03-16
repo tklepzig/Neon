@@ -58,15 +58,10 @@ module.exports = function(config) {
                 return repo.openIndex();
             })
             .then(function(index) {
-                console.log('filePath before replace: ' + filePath);
-
                 filePath = filePath.replace(config.localPath, '');
                 if (filePath.charAt(0) === path.sep) {
                     filePath = filePath.substr(1);
                 }
-
-                console.log('add file to git repo: ' + filePath);
-
                 index.addByPath(filePath);
                 index.write();
                 return index.writeTree();
