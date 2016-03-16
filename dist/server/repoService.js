@@ -60,7 +60,7 @@ module.exports = function(config) {
                 console.log('filePath before replace: ' + filePath);
 
                 filePath = filePath.replace(config.localPath, '');
-                if (filePath.charAt(0) === '/') {
+                if (filePath.charAt(0) === '/' || filePath.charAt(0) === '\\') {
                     filePath = filePath.substr(1);
                 }
 
