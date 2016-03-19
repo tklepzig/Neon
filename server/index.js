@@ -45,7 +45,9 @@ var dataService = require('./dataService.js')({
     password: secrets.repoPassword
 });
 var port = process.env.PORT || config.port;
+console.log('Configuration: ' + process.env.NODE_ENV || 'production');
 console.log('using ' + config.publicFilePath + ' to serve public files');
+console.log('Push is ' + (config.isPushAllowed ? 'enabled' : 'disabled'));
 
 app.use(express.static(path.resolve(__dirname + config.publicFilePath)));
 app.get('/*', function(req, res) {
