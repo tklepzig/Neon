@@ -1,6 +1,22 @@
 .md-button.md-fab.md-fab-bottom-right {
     position: fixed;
 }
+
 md-dialog {
     color: rgba(255,255,255,1.0);
+}
+
+md-toolbar {
+    box-shadow: #252525 0 0 20px 2px;
+}
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar):not(.start),
+md-toolbar:not(.md-menu-toolbar):not(.start) {
+    background-color: rgb(72, 72, 72);
+    color: white;
+    box-shadow: #252525 0 0 20px 2px;
+
+    md-icon {
+        color: white;
+    }
 }
