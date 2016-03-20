@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document.edit', ['ngRoute', 'documentService', 'setFocus', 'ngAllowTab'])
+    angular.module('document.edit', ['ngRoute', 'documentService', 'setFocus', 'ngAllowTab', 'ngEnter'])
         .config(defineRoutes)
         .controller('EditController', EditController);
 
@@ -17,8 +17,6 @@
     }
 
     function EditController($scope, $location, $routeParams, documentService) {
-
-        $scope.unsetDocumentName = 'Unnamed';
         $scope.focusDocument = false;
 
         documentService.getDocument($routeParams.id).then(function(document) {
@@ -26,13 +24,8 @@
             $scope.focusDocument = true;
         });
 
-        $scope.updateDocument = function() {
+        $scope.update = function() {
             documentService.updateDocument($scope.document);
-        };
-
-        $scope.updateName = function(document, name) {
-            document.name = name;
-            documentService.updateDocument(document);
         };
 
         $scope.done = function() {

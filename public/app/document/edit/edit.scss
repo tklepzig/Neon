@@ -1,5 +1,19 @@
-textarea {
+h2 > input {
+    border: 1px solid transparent;
+    outline: none;
+    background: transparent;
+    padding: 6px 4px;
 
+    &:hover {
+        border-color: #a8a8a8;
+    }
+
+    &:focus {
+        border-color: #666;
+    }
+}
+
+textarea {
     // border-radius: 0;
     // box-shadow: none;
     background-color: transparent;
