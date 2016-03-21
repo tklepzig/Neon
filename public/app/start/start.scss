@@ -1,5 +1,3 @@
-$list-item-background-dark: #525252;
-
 @mixin overlay {
     position: absolute;
     bottom: 0;
@@ -11,14 +9,14 @@ md-list#documents {
         margin: 10px;
 
         >button {
-            background: $list-item-background-dark;
+            background: $brownAccent;
 
             >.md-ripple-container {
                 display: none;
             }
 
             &:hover {
-                background: $list-item-background-dark;
+                background: $brownAccent;
             }
         }
 
@@ -52,8 +50,8 @@ md-list#documents {
             left: 0;
             width: auto;
             height: 50px;
-            background-image: -webkit-linear-gradient(top, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 90%);
-            background-image: linear-gradient(to bottom, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 90%);
+            background-image: -webkit-linear-gradient(top, rgba(82, 82, 82, 0) 0%, $brownAccent 90%);
+            background-image: linear-gradient(to bottom, rgba(82, 82, 82, 0) 0%, $brownAccent 90%);
         }
 
         div.fade-out-right {
@@ -61,8 +59,8 @@ md-list#documents {
             top: 0;
             height: auto;
             width: 50px;
-            background-image: -webkit-linear-gradient(left, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 90%);
-            background-image: linear-gradient(to right, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 90%);
+            background-image: -webkit-linear-gradient(left, rgba(82, 82, 82, 0) 0%, $brownAccent 90%);
+            background-image: linear-gradient(to right, rgba(82, 82, 82, 0) 0%, $brownAccent 90%);
         }
 
         div.menu {
@@ -71,8 +69,8 @@ md-list#documents {
             width: auto;
             padding-bottom: 4px;
             height: 90px;
-            background-image: -webkit-linear-gradient(top, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 50%);
-            background-image: linear-gradient(to bottom, rgba(82, 82, 82, 0) 0%, $list-item-background-dark 50%);
+            background-image: -webkit-linear-gradient(top, rgba(82, 82, 82, 0) 0%, $brownAccent 50%);
+            background-image: linear-gradient(to bottom, rgba(82, 82, 82, 0) 0%, $brownAccent 50%);
 
             >button {
                 background: inherit;
