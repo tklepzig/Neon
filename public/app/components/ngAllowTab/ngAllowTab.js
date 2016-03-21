@@ -11,7 +11,6 @@
         return function(scope, element) {
             element.bind('keydown', function(e) {
                 if (e.which === 9 && !e.ctrlKey && !e.altKey) {
-                    e.preventDefault();
                     var start = this.selectionStart;
                     var end = this.selectionEnd;
 
@@ -26,6 +25,10 @@
 
                     if (e.shiftKey) {
                         var charsBefore = element.val().substring(start - charCount, start);
+
+                        if (charsBefore.length === 0) {
+                            return;
+                        }
 
                         for (i = charCount; i > 0; i--) {
                             if (charsBefore[i - 1] !== ' ') {
@@ -43,6 +46,7 @@
                         this.selectionStart = this.selectionEnd = start + charCount;
                     }
 
+                    e.preventDefault();
                     element.triggerHandler('change');
                 }
             });
