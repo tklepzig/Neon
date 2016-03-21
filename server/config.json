@@ -1,14 +1,14 @@
 {
     "development": {
         "port": "51101",
-        "publicFilePath": "/../dist/public",
-        "notesFilePath": "/../../notes.json",
-        "archiveFilePath": "/../../archive"
+        "publicFilePath": "/../public",
+        "repoPath": "/neon-data",
+        "isPushAllowed": false
     },
     "production": {
         "port": "51101",
         "publicFilePath": "/../public",
-        "notesFilePath": "/notes.json",
-        "archiveFilePath": "/archive"
+        "repoPath": "/neon-data",
+        "isPushAllowed": true
     }
 }
