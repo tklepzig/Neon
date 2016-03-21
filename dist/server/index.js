@@ -27,16 +27,34 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var socketIo = require('socket.io')(http);
+var nconf = require('nconf');
 
 var config = require('./config.json')[process.env.NODE_ENV || 'production'];
-var fileInteraction = require('./fileInteraction.js')(config.notesFilePath, config.archiveFilePath);
+nconf.file(path.resolve(__dirname + '/secrets.json')).env();
+var secrets = {
+    repoUrl: nconf.get('repoUrl'),
+    repoUser: nconf.get('repoUser'),
+    repoPassword: nconf.get('repoPassword')
+};
+var dataService = require('./dataService.js')({
+    repoPath: path.resolve(__dirname + config.repoPath),
+    dataFilename: 'data.json',
+    isPushAllowed: config.isPushAllowed,
+    remoteUrl: secrets.repoUrl,
+    username: secrets.repoUser,
+    password: secrets.repoPassword
+});
 var port = process.env.PORT || config.port;
+console.log('Configuration: ' + process.env.NODE_ENV || 'production');
 console.log('using ' + config.publicFilePath + ' to serve public files');
+console.log('Push is ' + (config.isPushAllowed ? 'enabled' : 'disabled'));
 
 app.use(express.static(path.resolve(__dirname + config.publicFilePath)));
 app.get('/*', function(req, res) {
     res.sendFile(path.resolve(__dirname + config.publicFilePath + '/index.html'));
 });
+
+dataService.initialize();
 
 socketIo.on('connection', function(socket) {
     var clientIp = socket.request.connection.remoteAddress;
@@ -48,27 +66,27 @@ socketIo.on('connection', function(socket) {
 
     //client functions
     socket.on('getAllDocuments', function(callback) {
-        callback(fileInteraction.getDocuments());
+        callback(dataService.getDocuments());
     });
 
     socket.on('updateDocument', function(document) {
-        fileInteraction.updateDocument(document);
+        dataService.updateDocument(document);
         socket.broadcast.emit('documentUpdated', document);
     });
 
     socket.on('addDocument', function(callback) {
-        var document = fileInteraction.addDocument();
+        var document = dataService.addDocument();
         socket.broadcast.emit('documentAdded', document);
         callback(document);
     });
 
     socket.on('removeDocument', function(id) {
-        fileInteraction.removeDocument(id);
+        dataService.removeDocument(id);
         socket.broadcast.emit('documentRemoved', id);
     });
 
     socket.on('getDocument', function(id, callback) {
-        var document = fileInteraction.getDocument(id);
+        var document = dataService.getDocument(id);
         callback(document);
     });
 });

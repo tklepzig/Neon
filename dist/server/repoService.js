@@ -5,6 +5,7 @@ module.exports = function(config) {
     var module = {};
 
     var git = require('nodegit');
+    var path = require('path');
 
     module.clone = function() {
         return git.Clone(config.remoteUrl, config.localPath, {
@@ -16,6 +17,13 @@ module.exports = function(config) {
                 }
             }
         });
+    };
+
+    module.status = function() {
+        return git.Repository.open(config.localPath)
+            .then(function(repo) {
+                return repo.getStatus();
+            });
     };
 
     module.push = function() {
@@ -51,10 +59,9 @@ module.exports = function(config) {
             })
             .then(function(index) {
                 filePath = filePath.replace(config.localPath, '');
-                if (filePath.charAt(0) === '/') {
+                if (filePath.charAt(0) === path.sep) {
                     filePath = filePath.substr(1);
                 }
-
                 index.addByPath(filePath);
                 index.write();
                 return index.writeTree();
