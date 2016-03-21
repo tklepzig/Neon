@@ -1,15 +1,15 @@
 <md-toolbar>
     <div class="md-toolbar-tools">
-        <md-button tabindex="3" class="md-accent md-icon-button" ng-click="done()">
+        <md-button tabindex="1" class="md-accent md-icon-button" ng-click="done()">
             <md-icon md-font-set="material-icons">done</md-icon>
         </md-button>
         <h2 flex>
-            <input class="md-headline" type="text" ng-enter="focusDocument = true" tabindex="1" placeholder="Unnamed" ng-model="document.name" ng-model-options="{ debounce: 800 }" ng-change="update()">
+            <input tabindex="2" ng-keydown="nameKeyDown($event)" set-focus="focusName" class="md-headline" type="text" placeholder="Unnamed" ng-model="document.name" ng-model-options="{ debounce: 800 }" ng-change="update()">
         </h2>
         <toggle-fullscreen></toggle-fullscreen>
     </div>
 </md-toolbar>
 
 <md-content flex layout="column" md-scroll-y>
-    <textarea ng-allow-tab tabindex="2" set-focus="focusDocument" autocorrect="off" flex ng-model-options="{ debounce: 800 }" ng-change="update()" ng-model="document.text" spellcheck="true"></textarea>
+    <textarea tabindex="3" ng-keydown="textKeyDown($event)" ng-allow-tab set-focus="focusText" autocorrect="off" flex ng-model-options="{ debounce: 800 }" ng-change="update()" ng-model="document.text" spellcheck="true"></textarea>
 </md-content>
