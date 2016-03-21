@@ -1,7 +1,7 @@
 {
     "development": {
         "port": "51101",
-        "publicFilePath": "/../dist/public",
+        "publicFilePath": "/../public",
         "repoPath": "/neon-data",
         "isPushAllowed": false
     },
