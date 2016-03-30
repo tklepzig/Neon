@@ -26,8 +26,7 @@
         <md-input-container flex md-theme>
             <label>&nbsp;</label>
             <input id="search" ng-model="searchQuery" placeholder="Search">
-            <md-button class="md-icon-button" ng-click="searchQuery = ''" ng-show="searchQuery !== ''" style="position: absolute;
-        right: -16px; top: 16px;">
+            <md-button class="md-icon-button" ng-click="searchQuery = ''" ng-show="searchQuery !== ''" style="position: absolute; right: -16px; top: 16px;">
                 <md-icon md-font-set="material-icons" style="color: rgb(180, 193, 50);">close</md-icon>
             </md-button>
         </md-input-container>
@@ -36,19 +35,11 @@
 
 <md-content flex layout md-scroll-y>
     <md-list flex id="documents" layout-align="space-around center" layout-margin layout-wrap layout="row">
-        <md-list-item class="md-2-line md-whiteframe-z4" flex-gt-lg="20" flex-lg="30" flex-md="45" flex-sm="90" ng-click="openDocument(document)" ng-mouseenter="mouseEnter(document)" ng-mouseleave="mouseLeave()" ng-repeat="document in documents | filter: searchFilter | orderBy: 'name'">
-            <div class="md-list-item-text">
+        <md-list-item class="md-1-line md-whiteframe-z4" ng-click="openDocument(document)" ng-mouseenter="mouseEnter(document)" ng-mouseleave="mouseLeave()" ng-repeat="document in documents | filter: searchFilter | orderBy: 'name'">
+            <div class="md-list-item-text" layout="column">
                 <h1 class="md-title" ng-show="document.name.length > 0">
                     {{document.name}}
                 </h1>
-                <pagedown-viewer content="document.text" ng-class="{'has-title': document.name.length > 0}"></pagedown-viewer>
-                <div class="fade-out-bottom"></div>
-                <div class="fade-out-right"></div>
-                <div class="menu" layout-align="end end" layout="row" ng-show-touch>
-                    <md-button class="md-icon-button" ng-click="showMenu(document, $event)">
-                        <md-icon md-font-set="material-icons">more_vert</md-icon>
-                    </md-button>
-                </div>
             </div>
         </md-list-item>
     </md-list>

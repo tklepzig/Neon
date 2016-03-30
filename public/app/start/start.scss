@@ -1,3 +1,5 @@
+$brownAccent: #665430;
+
 @mixin overlay {
     position: absolute;
     bottom: 0;
@@ -6,75 +8,22 @@
 
 md-list#documents {
     > md-list-item {
-        margin: 10px;
-
-        >button {
+        // margin: 10px;
+        > button {
+            border-radius: 0;
             background: $brownAccent;
 
-            >.md-ripple-container {
-                display: none;
+            > .md-ripple-container {
+                border-radius: 0;
             }
-
-            &:hover {
-                background: $brownAccent;
-            }
+            // &:hover {
+            //     background: $brownAccent;
+            // }
         }
-
-        .md-list-item-text {
-            height: 220px;
-            color: #fff;
-        }
-@include no-user-select();
-
-        pagedown-viewer {
-            display: inline-block;
-            white-space: nowrap;
-            margin: 4px 2px;
-
-            &.has-title {
-                opacity: 0.85;
-                -webkit-transform: scale(0.3, 0.3);
-                transform: scale(0.3, 0.3);
-                -webkit-transform-origin: top left;
-                transform-origin: top left;
-                margin: -10px 4px 0;
-            }
-
-            * {
-                color: inherit;
-            }
-        }
-
-        div.fade-out-bottom {
-            @include overlay;
-            left: 0;
-            width: auto;
-            height: 50px;
-            background-image: -webkit-linear-gradient(top, rgba(82, 82, 82, 0) 0%, $brownAccent 90%);
-            background-image: linear-gradient(to bottom, rgba(82, 82, 82, 0) 0%, $brownAccent 90%);
-        }
-
-        div.fade-out-right {
-            @include overlay;
-            top: 0;
-            height: auto;
-            width: 50px;
-            background-image: -webkit-linear-gradient(left, rgba(82, 82, 82, 0) 0%, $brownAccent 90%);
-            background-image: linear-gradient(to right, rgba(82, 82, 82, 0) 0%, $brownAccent 90%);
-        }
-
-        div.menu {
-            @include overlay;
-            left: 0;
-            width: auto;
-            padding-bottom: 4px;
-            height: 90px;
-            background-image: -webkit-linear-gradient(top, rgba(82, 82, 82, 0) 0%, $brownAccent 50%);
-            background-image: linear-gradient(to bottom, rgba(82, 82, 82, 0) 0%, $brownAccent 50%);
-
-            >button {
-                background: inherit;
-            }
-        }
+        // .md-list-item-text {
+        //     height: 220px;
+        //     color: #fff;
+        // }
+        // @include no-user-select();
     }
 }
