@@ -46,7 +46,7 @@
 
 
         <md-list-item class="md-1-line md-whiteframe-z4" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openDocument(document)">
-            <md-icon md-font-set="material-icons">subject</md-icon>
+            <md-icon style="margin-right: 16px; margin-top: 12px; margin-left: 0;" md-font-set="material-icons">subject</md-icon>
             <div class="md-list-item-text" layout="column">
                 <h1 class="md-title">
                     Sample Document
@@ -55,13 +55,13 @@
         </md-list-item>
 
         <md-list-item class="md-3-line md-whiteframe-z4" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openDocument(document)">
-            <md-icon md-font-set="material-icons">folder</md-icon>
+            <md-icon style="margin-right: 16px; margin-top: 6px; align-self: center;" md-font-set="material-icons">folder</md-icon>
             <div class="md-list-item-text" layout="column">
-                <h1 class="md-title">
+                <span class="md-title">
                     Sample Group
-                </h1>
-                <h4>First highest prio item</h4>
-                <h4>Second highest prio item</h4>
+                    </h1>
+                    <h4>First highest prio item</h4>
+                    <p style="text-overflow: ellipsis; overflow: hidden;">Second highest prio item</p>
             </div>
         </md-list-item>
     </md-list>
