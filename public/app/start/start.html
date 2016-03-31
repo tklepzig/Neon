@@ -35,7 +35,7 @@
 
 <md-content flex layout md-scroll-y>
     <md-list flex id="documents" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap layout="row">
-        <md-list-item class="md-1-line md-whiteframe-z4" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openDocument(document)" ng-mouseenter="mouseEnter(document)" ng-mouseleave="mouseLeave()" ng-repeat="document in documents | filter: searchFilter | orderBy: 'name'">
+        <md-list-item class="md-1-line" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openDocument(document)" ng-mouseenter="mouseEnter(document)" ng-mouseleave="mouseLeave()" ng-repeat="document in documents | filter: searchFilter | orderBy: 'name'">
             <div class="md-list-item-text" layout="column">
                 <span class="title">
                     {{document.name}}
@@ -43,7 +43,7 @@
             </div>
         </md-list-item>
 
-        <md-list-item class="md-1-line md-whiteframe-z4" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openDocument(document)">
+        <md-list-item class="md-1-line" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openDocument(document)">
             <md-icon style="margin-right: 16px; margin-top: 12px; margin-left: 0;" md-font-set="material-icons">subject</md-icon>
             <div class="md-list-item-text" layout="column">
                 <span class="title">
@@ -52,7 +52,7 @@
             </div>
         </md-list-item>
 
-        <md-list-item class="md-3-line md-whiteframe-z4" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openDocument(document)">
+        <md-list-item class="md-3-line" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openDocument(document)">
             <md-icon style="margin-right: 16px; margin-top: 6px; align-self: center;" md-font-set="material-icons">folder</md-icon>
             <div class="md-list-item-text" layout="column">
                 <span class="title">
