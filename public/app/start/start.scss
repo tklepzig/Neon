@@ -1,14 +1,5 @@
-$brownAccent: #665430;
-
-@mixin overlay {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-}
-
 md-list#documents {
     > md-list-item {
-        // margin: 10px;
         > button {
             border-radius: 0;
             background: $brownAccent;
@@ -16,14 +7,19 @@ md-list#documents {
             > .md-ripple-container {
                 border-radius: 0;
             }
-            // &:hover {
-            //     background: $brownAccent;
-            // }
+
+            .md-list-item-text {
+                overflow: hidden;
+
+                > .md-title {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    @media (max-width: 959px) {
+                        font-size: 18px;
+                    }
+                }
+            }
         }
-        // .md-list-item-text {
-        //     height: 220px;
-        //     color: #fff;
-        // }
-        // @include no-user-select();
     }
 }

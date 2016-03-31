@@ -20,3 +20,33 @@ md-toolbar:not(.md-menu-toolbar):not(.start) {
         color: rgba(255,255,255,1.0);
     }
 }
+
+
+
+//override layout-padding and layout-margin rules
+//issue: https://github.com/angular/material/issues/4356
+//currently, the layout-margin and layout-padding rules are not responsible, so override this
+@media (max-width: $layout-breakpoint-sm - 1) {
+    // SMALLER THAN SMALL SCREEN
+    .layout-padding > *,
+    [layout-padding] > * {
+        padding: 4px !important;
+    }
+
+    .layout-margin > *,
+    [layout-margin] > * {
+        margin: 4px !important;
+    }
+}
+@media (min-width: $layout-breakpoint-sm) {
+    // BIGGER THAN SMALL SCREEN
+    .layout-padding > *,
+    [layout-padding] > * {
+        padding: 8px !important;
+    }
+
+    .layout-margin > *,
+    [layout-margin] > * {
+        margin: 8px !important;
+    }
+}
