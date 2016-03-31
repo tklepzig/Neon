@@ -11,13 +11,11 @@ md-list#documents {
             .md-list-item-text {
                 overflow: hidden;
 
-                > .md-title {
+                > .title {
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    @media (max-width: 959px) {
-                        font-size: 18px;
-                    }
+                    font-size: 18px;
                 }
             }
         }
