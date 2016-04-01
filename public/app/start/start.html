@@ -1,6 +1,20 @@
-<md-button class="md-fab md-fab-bottom-right" ng-click="addDocument()">
-    <md-icon md-font-set="material-icons">add</md-icon>
-</md-button>
+<md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right" ng-cloak>
+    <md-fab-trigger>
+        <md-button class="md-fab">
+            <md-icon md-font-set="material-icons">add</md-icon>
+        </md-button>
+    </md-fab-trigger>
+    <md-fab-actions>
+        <md-button class="md-fab md-raised md-mini">
+            <!-- <md-tooltip md-direction="left">Group</md-tooltip> -->
+            <md-icon md-font-set="material-icons">folder</md-icon>
+        </md-button>
+        <md-button class="md-fab md-raised md-mini" ng-click="addDocument()">
+            <!-- <md-tooltip md-direction="left">Document</md-tooltip> -->
+            <md-icon md-font-set="material-icons">subject</md-icon>
+        </md-button>
+    </md-fab-actions>
+</md-fab-speed-dial>
 
 <md-toolbar class="start" ng-hide="showSearch">
     <div class="md-toolbar-tools">
@@ -35,7 +49,8 @@
 
 <md-content flex layout md-scroll-y>
     <md-list flex id="documents" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap layout="row">
-        <md-list-item class="md-1-line" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openDocument(document)" ng-mouseenter="mouseEnter(document)" ng-mouseleave="mouseLeave()" ng-repeat="document in documents | filter: searchFilter | orderBy: 'name'">
+        <md-list-item class="md-1-line" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openDocument(document)"
+            ng-mouseenter="mouseEnter(document)" ng-mouseleave="mouseLeave()" ng-repeat="document in documents | filter: searchFilter | orderBy: 'name'">
             <div class="md-list-item-text" layout="column">
                 <span class="title">
                     {{document.name}}
