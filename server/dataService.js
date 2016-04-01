@@ -134,16 +134,16 @@ module.exports = function(config) {
         // delete getData()[id];
     };
 
-    module.updateDocument = function(document) {
-        // var doc = getData()[document.id];
-        // doc.text = document.text.replace(/\r?\n/g, '\r\n');
-        // doc.name = document.name;
+    module.updateGroup = function(group) {
+        var grp = module.getGroup(group.id);
+        grp.name = group.name;
     };
 
-    // module.getDocument = function(id) {
-    //     //TODO: error handling
-    //     return getData()[id];
-    // };
+    module.updateDocument = function(document) {
+        var doc = module.getDocument(document.id);
+        doc.text = document.text.replace(/\r?\n/g, '\r\n');
+        doc.name = document.name;
+    };
 
     module.getRoot = function() {
         var data = getData();
