@@ -38,7 +38,7 @@ var secrets = {
 };
 var dataService = require('./dataService.js')({
     repoPath: path.resolve(__dirname + config.repoPath),
-    dataFilename: 'data.json',
+    dataFilename: 'data-new.json',
     isPushAllowed: config.isPushAllowed,
     remoteUrl: secrets.repoUrl,
     username: secrets.repoUser,
@@ -66,7 +66,7 @@ socketIo.on('connection', function(socket) {
 
     //client functions
     socket.on('getAllDocuments', function(callback) {
-        callback(dataService.getDocuments());
+        callback(dataService.getRoot());
     });
 
     socket.on('updateDocument', function(document) {
