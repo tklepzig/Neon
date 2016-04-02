@@ -22,7 +22,13 @@
         });
 
         $scope.back = function() {
-            $location.path('/');
+            if (typeof $scope.document.parentId === 'undefined') {
+                //parent is root
+                $location.path('/');
+            } else {
+                //parent is group
+                $location.path('/group/' + $scope.document.parentId);
+            }
         };
 
         $scope.delete = function(e) {

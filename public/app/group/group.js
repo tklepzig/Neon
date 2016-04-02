@@ -18,10 +18,21 @@
         });
 
         $scope.back = function() {
-            //if parent is root
-                // $location.path('/');
-            // if parent is group
-                // $location.path('/group/' + parent.id);
+            if (typeof $scope.group.parentId === 'undefined') {
+                //parent is root
+                $location.path('/');
+            } else {
+                //parent is group
+                $location.path('/group/' + $scope.group.parentId);
+            }
+        };
+
+        $scope.openItem = function(item) {
+            if (item.type === 'document') {
+                $location.path('/document/' + item.id);
+            } else if (item.type === 'group') {
+                $location.path('/group/' + item.id);
+            }
         };
 
         // TODO: add hover functions (Edit)

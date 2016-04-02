@@ -17,6 +17,23 @@
                 "priority": "none",
                 "tags": [],
                 "id": "1"
+            },
+            "2": {
+                "name": "Group 2",
+                "children": {
+                    "3": {
+                        "name": "Subsubdocument 1",
+                        "text": "Test2",
+                        "type": "document",
+                        "priority": "none",
+                        "tags": [],
+                        "id": "3"
+                    }
+                },
+                "type": "group",
+                "priority": "none",
+                "tags": [],
+                "id": "2"
             }
         },
         "type": "group",

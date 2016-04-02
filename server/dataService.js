@@ -12,6 +12,7 @@ module.exports = function(config) {
 
     var path = require('path');
     var uuid = require('node-uuid');
+    var _ = require('underscore');
 
     var cache = null;
     var dataPath = path.join(config.repoPath, config.dataFilename);
@@ -130,6 +131,7 @@ module.exports = function(config) {
         return document;
     };
 
+    // TODO: implement for group and document
     module.removeDocument = function(id) {
         // delete getData()[id];
     };
@@ -170,7 +172,9 @@ module.exports = function(config) {
 
                 if (parentChildren[id].type === 'group') {
                     if (id === groupId) {
-                        return parentChildren[id];
+                        var tmp = _.clone(parentChildren[id]);
+                        tmp.parentId = parentGroup.id;
+                        return tmp;
                     } else {
                         var result = module.getGroup(groupId, parentChildren[id]);
                         if (typeof result !== 'undefined') {
@@ -195,7 +199,9 @@ module.exports = function(config) {
             if (parentChildren.hasOwnProperty(id)) {
 
                 if (parentChildren[id].type === 'document' && id === documentId) {
-                    return parentChildren[id];
+                    var tmp = _.clone(parentChildren[id]);
+                    tmp.parentId = parentGroup.id;
+                    return tmp;
                 } else if (parentChildren[id].type === 'group') {
                     var result = module.getDocument(documentId, parentChildren[id]);
                     if (typeof result !== 'undefined') {
