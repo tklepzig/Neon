@@ -1,0 +1,35 @@
+{
+    "5812ce00-131e-41f8-a36b-743ad6ad57a2": {
+        "name": "Group 1",
+        "children": {
+            "0": {
+                "name": "Subdocument 1",
+                "text": "Test2",
+                "type": "document",
+                "priority": "none",
+                "tags": [],
+                "id": "0"
+            },
+            "1": {
+                "name": "Subdocument 2",
+                "text": "Test2",
+                "type": "document",
+                "priority": "none",
+                "tags": [],
+                "id": "1"
+            }
+        },
+        "type": "group",
+        "priority": "none",
+        "tags": [],
+        "id": "5812ce00-131e-41f8-a36b-743ad6ad57a2"
+    },
+    "1ffc62a2-1b2c-4647-bfe3-9b4a0fa467fe": {
+        "name": "Document 1",
+        "text": "Test2",
+        "type": "document",
+        "priority": "none",
+        "tags": [],
+        "id": "1ffc62a2-1b2c-4647-bfe3-9b4a0fa467fe"
+    }
+}

@@ -90,43 +90,122 @@ module.exports = function(config) {
         }
     };
 
-    module.addDocument = function() {
+    module.addGroup = function(parentGroupId) {
+        var id = uuid.v4();
+        var group = {
+            name: '',
+            children: {},
+            type: 'group',
+            priority: 'none',
+            tags: [],
+            id: id
+        };
+
+        if (typeof parentGroupId !== 'undefined') {
+            module.getGroup(parentGroupId).children[id] = group;
+        } else {
+            getData()[id] = group;
+        }
+
+        return group;
+    };
+
+    module.addDocument = function(parentGroupId) {
         var id = uuid.v4();
         var document = {
             name: '',
             text: '',
+            type: 'document',
+            priority: 'none',
+            tags: [],
             id: id
         };
-        getData()[id] = document;
+
+        if (typeof parentGroupId !== 'undefined') {
+            module.getGroup(parentGroupId).children[id] = document;
+        } else {
+            getData()[id] = document;
+        }
 
         return document;
     };
 
     module.removeDocument = function(id) {
-        delete getData()[id];
+        // delete getData()[id];
+    };
+
+    module.updateGroup = function(group) {
+        var grp = module.getGroup(group.id);
+        grp.name = group.name;
     };
 
     module.updateDocument = function(document) {
-        var doc = getData()[document.id];
+        var doc = module.getDocument(document.id);
         doc.text = document.text.replace(/\r?\n/g, '\r\n');
         doc.name = document.name;
     };
 
-    module.getDocument = function(id) {
-        //TODO: error handling
-        return getData()[id];
-    };
-
-    module.getDocuments = function() {
+    module.getRoot = function() {
         var data = getData();
-        var docs = [];
+        var items = [];
 
-        for (var documentId in data) {
-            docs.push(data[documentId]);
+        for (var id in data) {
+            items.push(data[id]);
         }
 
-        return docs;
+        return items;
     };
+
+    module.getGroup = function(groupId, parentGroup) {
+        var parentChildren;
+
+        if (typeof parentGroup === 'undefined') {
+            parentGroup = parentChildren = getData();
+        } else {
+            parentChildren = parentGroup.children;
+        }
+
+        for (var id in parentChildren) {
+            if (parentChildren.hasOwnProperty(id)) {
+
+                if (parentChildren[id].type === 'group') {
+                    if (id === groupId) {
+                        return parentChildren[id];
+                    } else {
+                        var result = module.getGroup(groupId, parentChildren[id]);
+                        if (typeof result !== 'undefined') {
+                            return result;
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    module.getDocument = function(documentId, parentGroup) {
+        var parentChildren;
+
+        if (typeof parentGroup === 'undefined') {
+            parentGroup = parentChildren = getData();
+        } else {
+            parentChildren = parentGroup.children;
+        }
+
+        for (var id in parentChildren) {
+            if (parentChildren.hasOwnProperty(id)) {
+
+                if (parentChildren[id].type === 'document' && id === documentId) {
+                    return parentChildren[id];
+                } else if (parentChildren[id].type === 'group') {
+                    var result = module.getDocument(documentId, parentChildren[id]);
+                    if (typeof result !== 'undefined') {
+                        return result;
+                    }
+                }
+            }
+        }
+    };
+
 
 
     return module;

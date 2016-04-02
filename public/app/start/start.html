@@ -48,33 +48,15 @@
 </md-toolbar>
 
 <md-content flex layout md-scroll-y>
-    <md-list flex id="documents" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap layout="row">
-        <md-list-item class="md-1-line" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openDocument(document)"
-            ng-mouseenter="mouseEnter(document)" ng-mouseleave="mouseLeave()" ng-repeat="document in documents | filter: searchFilter | orderBy: 'name'">
+    <md-list flex id="items" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap layout="row">
+        <md-list-item ng-class="{'md-1-line': item.type === 'document', 'md-3-line': item.type === 'group'}" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openItem(item)" ng-mouseenter="mouseEnter(item)" ng-mouseleave="mouseLeave()" ng-repeat="item in items | filter: searchFilter | orderBy: 'name'">
+            <md-icon ng-class="{'document': item.type === 'document', 'group': item.type === 'group'}" md-font-set="material-icons">{{(item.type === 'group') ? 'folder' : 'subject'}}</md-icon>
             <div class="md-list-item-text" layout="column">
                 <span class="title">
-                    {{document.name}}
+                    {{item.name}}
                 </span>
-            </div>
-        </md-list-item>
-
-        <md-list-item class="md-1-line" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openDocument(document)">
-            <md-icon style="margin-right: 16px; margin-top: 12px; margin-left: 0;" md-font-set="material-icons">subject</md-icon>
-            <div class="md-list-item-text" layout="column">
-                <span class="title">
-                    Sample Document
-                </span>
-            </div>
-        </md-list-item>
-
-        <md-list-item class="md-3-line" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openDocument(document)">
-            <md-icon style="margin-right: 16px; margin-top: 6px; align-self: center;" md-font-set="material-icons">folder</md-icon>
-            <div class="md-list-item-text" layout="column">
-                <span class="title">
-                    Sample Group
-                </span>
-                <h4>First highest prio item</h4>
-                <p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">Second highest prio item</p>
+                <h4 ng-if="item.type === 'group'">first highest prio item</h4>
+                <p ng-if="item.type === 'group'">second highest prio item</p>
             </div>
         </md-list-item>
     </md-list>

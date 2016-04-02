@@ -1,6 +1,6 @@
 $temp: 0;
 
-md-list#documents {
+md-list#items {
     > md-list-item {
         background: transparent;
 
@@ -13,6 +13,20 @@ md-list#documents {
                 border-radius: 0;
             }
 
+            md-icon {
+                &.document {
+                    margin-right: 16px;
+                    margin-top: 12px;
+                    margin-left: 0;
+                }
+
+                &.group {
+                    margin-right: 16px;
+                    margin-top: 6px;
+                    align-self: center;
+                }
+            }
+
             .md-list-item-text {
                 overflow: hidden;
 
@@ -21,6 +35,12 @@ md-list#documents {
                     overflow: hidden;
                     text-overflow: ellipsis;
                     font-size: 18px;
+                }
+
+                > p {
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
                 }
             }
         }

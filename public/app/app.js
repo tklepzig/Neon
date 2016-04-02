@@ -125,18 +125,18 @@
         // TODO: move this to service or similar for general usage and config (controller - key(s) - callback (with scope as parameter))
         $document.bind('keydown', function(e) {
 
-            var inputFocused = false;
+            var inputElementHasFocus = false;
             var preventDefault = false;
             var inputNodeNames = ['input', 'select', 'textarea'];
             var element = e.target;
             var nodeName = element.nodeName.toLowerCase();
 
             if (element.contentEditable && element.contentEditable === 'true') {
-                inputFocused = true;
+                inputElementHasFocus = true;
             } else {
                 for (var i = 0; i < inputNodeNames.length; i++) {
                     if (inputNodeNames[i] === nodeName) {
-                        inputFocused = true;
+                        inputElementHasFocus = true;
                         break;
                     }
                 }
@@ -153,17 +153,17 @@
             switch ($route.current.$$route.controller) {
                 case 'StartController':
                     {
-                        if (e.keyCode === 'N'.charCodeAt(0) && !inputFocused && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                        if ((e.keyCode === 'N'.charCodeAt(0) || e.keyCode === 'D'.charCodeAt(0)) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.addDocument();
                             $route.current.scope.$apply();
-                        } else if (e.keyCode === 'E'.charCodeAt(0) && !inputFocused && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                        } else if (e.keyCode === 'E'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             if ($route.current.scope.hoveredDocument !== null) {
                                 $route.current.scope.editDocument($route.current.scope.hoveredDocument);
                                 $route.current.scope.$apply();
                             }
-                        } else if (e.keyCode === 'S'.charCodeAt(0) && !inputFocused && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                        } else if (e.keyCode === 'S'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             if (!$route.current.scope.showSearch) {
                                 $route.current.scope.startSearch();
@@ -194,7 +194,7 @@
                     }
                 case 'EditController':
                     {
-                        if ((e.keyCode === 13 && e.ctrlKey && !e.shiftKey && !e.altKey) || (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey)) {
+                        if (((e.keyCode === 13 && e.ctrlKey) || (e.keyCode === 27 && !e.ctrlKey)) && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.done();
                             $route.current.scope.$apply();
