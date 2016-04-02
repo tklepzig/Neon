@@ -14,16 +14,17 @@
 
     function GroupController($scope, $routeParams, $location, groupService) {
         groupService.getGroup($routeParams.id).then(function(group) {
-            $scope.group = group;
+            $scope.group = group.group;
+            $scope.metadata = group.metadata;
         });
 
         $scope.back = function() {
-            if (typeof $scope.group.parentId === 'undefined') {
+            if (typeof $scope.metadata.parentId === 'undefined') {
                 //parent is root
                 $location.path('/');
             } else {
                 //parent is group
-                $location.path('/group/' + $scope.group.parentId);
+                $location.path('/group/' + $scope.metadata.parentId);
             }
         };
 

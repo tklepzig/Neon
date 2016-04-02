@@ -12,7 +12,6 @@ module.exports = function(config) {
 
     var path = require('path');
     var uuid = require('node-uuid');
-    var _ = require('underscore');
 
     var cache = null;
     var dataPath = path.join(config.repoPath, config.dataFilename);
@@ -103,7 +102,7 @@ module.exports = function(config) {
         };
 
         if (typeof parentGroupId !== 'undefined') {
-            module.getGroup(parentGroupId).children[id] = group;
+            module.getGroup(parentGroupId).group.children[id] = group;
         } else {
             getData()[id] = group;
         }
@@ -123,7 +122,7 @@ module.exports = function(config) {
         };
 
         if (typeof parentGroupId !== 'undefined') {
-            module.getGroup(parentGroupId).children[id] = document;
+            module.getGroup(parentGroupId).group.children[id] = document;
         } else {
             getData()[id] = document;
         }
@@ -137,12 +136,12 @@ module.exports = function(config) {
     };
 
     module.updateGroup = function(group) {
-        var grp = module.getGroup(group.id);
+        var grp = module.getGroup(group.id).group;
         grp.name = group.name;
     };
 
     module.updateDocument = function(document) {
-        var doc = module.getDocument(document.id);
+        var doc = module.getDocument(document.id).document;
         doc.text = document.text.replace(/\r?\n/g, '\r\n');
         doc.name = document.name;
     };
@@ -172,9 +171,12 @@ module.exports = function(config) {
 
                 if (parentChildren[id].type === 'group') {
                     if (id === groupId) {
-                        var tmp = _.clone(parentChildren[id]);
-                        tmp.parentId = parentGroup.id;
-                        return tmp;
+                        return {
+                            group: parentChildren[id],
+                            metadata: {
+                                parentId: parentGroup.id
+                            }
+                        };
                     } else {
                         var result = module.getGroup(groupId, parentChildren[id]);
                         if (typeof result !== 'undefined') {
@@ -199,9 +201,12 @@ module.exports = function(config) {
             if (parentChildren.hasOwnProperty(id)) {
 
                 if (parentChildren[id].type === 'document' && id === documentId) {
-                    var tmp = _.clone(parentChildren[id]);
-                    tmp.parentId = parentGroup.id;
-                    return tmp;
+                    return {
+                        document: parentChildren[id],
+                        metadata: {
+                            parentId: parentGroup.id
+                        }
+                    };
                 } else if (parentChildren[id].type === 'group') {
                     var result = module.getDocument(documentId, parentChildren[id]);
                     if (typeof result !== 'undefined') {

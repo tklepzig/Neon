@@ -21,7 +21,8 @@
         $scope.focusName = false;
 
         documentService.getDocument($routeParams.id).then(function(document) {
-            $scope.document = document;
+            $scope.document = document.document;
+            $scope.metadata = document.metadata;
             $scope.focusText = true;
         });
 
@@ -48,7 +49,13 @@
         $scope.done = function() {
             if ($scope.document.name.length === 0 && $scope.document.text.length === 0) {
                 documentService.removeDocument($scope.document.id);
-                $location.path('/');
+                if (typeof $scope.metadata.parentId === 'undefined') {
+                    //parent is root
+                    $location.path('/');
+                } else {
+                    //parent is group
+                    $location.path('/group/' + $scope.metadata.parentId);
+                }
             } else {
                 $location.path('/document/' + $scope.document.id);
             }

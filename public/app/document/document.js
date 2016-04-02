@@ -18,16 +18,17 @@
 
     function DocumentController($scope, $location, $routeParams, $mdDialog, documentService) {
         documentService.getDocument($routeParams.id).then(function(document) {
-            $scope.document = document;
+            $scope.document = document.document;
+            $scope.metadata = document.metadata;
         });
 
         $scope.back = function() {
-            if (typeof $scope.document.parentId === 'undefined') {
+            if (typeof $scope.metadata.parentId === 'undefined') {
                 //parent is root
                 $location.path('/');
             } else {
                 //parent is group
-                $location.path('/group/' + $scope.document.parentId);
+                $location.path('/group/' + $scope.metadata.parentId);
             }
         };
 
