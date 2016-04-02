@@ -16,7 +16,7 @@
         });
     }
 
-    function DocumentController($scope, $rootScope, $location, $routeParams, $mdDialog, documentService) {
+    function DocumentController($scope, $location, $routeParams, $mdDialog, documentService) {
         documentService.getDocument($routeParams.id).then(function(document) {
             $scope.document = document;
         });
@@ -35,7 +35,6 @@
                 .title('Delete the document' + documentName + '?')
                 .content('This action can\'t be undone.')
                 .targetEvent(e)
-                .theme($rootScope.currentTheme)
                 .ok('Yes, delete')
                 .cancel('No');
             $mdDialog.show(confirm).then(function() {

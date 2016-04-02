@@ -12,7 +12,7 @@
         });
     }
 
-    function StartController($scope, $rootScope, $localStorage, $location, $mdDialog, documentService) {
+    function StartController($scope, $localStorage, $location, $mdDialog, documentService) {
         documentService.getAllDocuments().then(function(documents) {
             $scope.items = documents;
         });

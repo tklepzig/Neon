@@ -85,6 +85,11 @@ socketIo.on('connection', function(socket) {
         socket.broadcast.emit('documentRemoved', id);
     });
 
+    socket.on('getGroup', function(id, callback) {
+        var group = dataService.getGroup(id);
+        callback(group);
+    });
+
     socket.on('getDocument', function(id, callback) {
         var document = dataService.getDocument(id);
         callback(document);

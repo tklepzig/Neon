@@ -121,7 +121,7 @@
         $localStorageProvider.setKeyPrefix('neon');
     }
 
-    function start($rootScope, $localStorage, $route, $document) {
+    function start($localStorage, $route, $document) {
         // TODO: move this to service or similar for general usage and config (controller - key(s) - callback (with scope as parameter))
         $document.bind('keydown', function(e) {
 
