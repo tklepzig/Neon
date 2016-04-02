@@ -1,20 +1,4 @@
-<md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right" ng-cloak>
-    <md-fab-trigger>
-        <md-button class="md-fab">
-            <md-icon md-font-set="material-icons">add</md-icon>
-        </md-button>
-    </md-fab-trigger>
-    <md-fab-actions>
-        <md-button class="md-fab md-raised md-mini">
-            <!-- <md-tooltip md-direction="left">Group</md-tooltip> -->
-            <md-icon md-font-set="material-icons">folder</md-icon>
-        </md-button>
-        <md-button class="md-fab md-raised md-mini" ng-click="addDocument()">
-            <!-- <md-tooltip md-direction="left">Document</md-tooltip> -->
-            <md-icon md-font-set="material-icons">subject</md-icon>
-        </md-button>
-    </md-fab-actions>
-</md-fab-speed-dial>
+<fab-add ng-click-document="addDocument()"></fab-add>
 
 <md-toolbar class="start" ng-hide="showSearch">
     <div class="md-toolbar-tools">
