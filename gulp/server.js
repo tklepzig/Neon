@@ -17,7 +17,7 @@ module.exports = function(gulp, plugins, config) {
     });
 
     gulp.task('server', function(done) {
-        plugins.runSequence(['copy-server', 'start-server'], done);
+        plugins.runSequence('copy-server', 'start-server', done);
     });
 
 };
