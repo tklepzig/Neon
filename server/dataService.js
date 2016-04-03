@@ -131,9 +131,9 @@ module.exports = function(config) {
     };
 
     // TODO: implement for group and document
-    module.removeDocument = function(id) {
+    // module.removeDocument = function(id) {
         // delete getData()[id];
-    };
+    // };
 
     module.updateGroup = function(group) {
         var grp = module.getGroup(group.id).group;
