@@ -2,7 +2,7 @@
     <md-icon md-font-set="material-icons">add</md-icon>
 </md-button>
 
-<md-toolbar ng-hide="showSearch">
+<md-toolbar class="start" ng-hide="showSearch">
     <div class="md-toolbar-tools">
         <h2>
             <span class="md-headline">{{'General.AppName' | translate}}</span>
@@ -18,7 +18,7 @@
     </div>
 </md-toolbar>
 
-<md-toolbar class="md-hue-1" ng-show="showSearch">
+<md-toolbar class="start md-hue-1" ng-show="showSearch">
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" ng-click="endSearch()">
             <md-icon md-font-set="material-icons">arrow_back</md-icon>

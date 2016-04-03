@@ -3,9 +3,8 @@
         <md-button class="md-icon-button" ng-click="back()">
             <md-icon md-font-set="material-icons">arrow_back</md-icon>
         </md-button>
-        <!-- TODO: use directive (see edit) -->
-        <h2>
-            <span ng-show="document.name.length > 0" class="md-headline">{{document.name}}</span>
+        <h2 style="padding-left: 4px;" ng-show="document.name.length > 0" class="md-headline">
+            {{document.name}}
         </h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="delete()">
@@ -20,5 +19,5 @@
 </md-button>
 
 <md-content flex layout="column" md-scroll-y>
-    <pagedown-viewer content="document.text" flex style="margin: 8px 16px; font-size: 14pt;"></pagedown-viewer>
+    <pagedown-viewer content="document.text" flex style="margin: 8px 16px;"></pagedown-viewer>
 </md-content>

@@ -9,7 +9,7 @@ module.exports = function(gulp, plugins, config) {
 
     gulp.task('start-server', function() {
         plugins.nodemon({
-            script: 'server/index.js',
+            script: config.destServerPath + 'index.js',
             env: {
                 'NODE_ENV': 'development'
             }
@@ -17,7 +17,7 @@ module.exports = function(gulp, plugins, config) {
     });
 
     gulp.task('server', function(done) {
-        plugins.runSequence(['copy-server', 'start-server'], done);
+        plugins.runSequence('copy-server', 'start-server', done);
     });
 
 };

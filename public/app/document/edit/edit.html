@@ -3,16 +3,13 @@
         <md-button tabindex="1" class="md-accent md-icon-button" ng-click="done()">
             <md-icon md-font-set="material-icons">done</md-icon>
         </md-button>
-        <!-- TODO: move to directive -->
-        <h2>
-            <edit-in-place tabindex="2" class="md-headline" dv="unsetDocumentName" ev="document.name" ng-show="document.name.length === 0" on-change="updateName(document, value)" style="font-style: italic; opacity: 0.5;"></edit-in-place>
-            <edit-in-place tabindex="2" class="md-headline" dv="document.name" ev="document.name" ng-show="document.name.length > 0" on-change="updateName(document, value)"></edit-in-place>
+        <h2 class="md-headline" flex>
+            <input tabindex="2" ng-keydown="nameKeyDown($event)" set-focus="focusName" type="text" placeholder="Unnamed" ng-model="document.name" ng-change="update()">
         </h2>
-        <span flex></span>
         <toggle-fullscreen></toggle-fullscreen>
     </div>
 </md-toolbar>
 
 <md-content flex layout="column" md-scroll-y>
-    <textarea ng-allow-tab tabindex="3" set-focus="focusDocument" autocorrect="off" flex ng-change="updateDocument()" ng-model="document.text" spellcheck="true"></textarea>
+    <textarea tabindex="3" ng-keydown="textKeyDown($event)" ng-allow-tab set-focus="focusText" autocorrect="off" flex ng-change="update()" ng-model="document.text" spellcheck="true"></textarea>
 </md-content>
