@@ -179,6 +179,19 @@
                         }
                         break;
                     }
+                case 'GroupController':
+                    {
+                        if ((e.keyCode === 'N'.charCodeAt(0) || e.keyCode === 'D'.charCodeAt(0)) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.addDocument();
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.back();
+                            $route.current.scope.$apply();
+                        }
+                        break;
+                    }
                 case 'DocumentController':
                     {
                         if (e.keyCode === 'E'.charCodeAt(0) && !e.ctrlKey && !e.shiftKey && !e.altKey) {
