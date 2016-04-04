@@ -101,7 +101,7 @@ module.exports = function(config) {
             id: id
         };
 
-        if (typeof parentGroupId !== 'undefined') {
+        if (typeof parentGroupId !== 'undefined' && parentGroupId !== null) {
             module.getGroup(parentGroupId).group.children[id] = group;
         } else {
             getData()[id] = group;
@@ -121,7 +121,7 @@ module.exports = function(config) {
             id: id
         };
 
-        if (typeof parentGroupId !== 'undefined') {
+        if (typeof parentGroupId !== 'undefined' && parentGroupId !== null) {
             module.getGroup(parentGroupId).group.children[id] = document;
         } else {
             getData()[id] = document;

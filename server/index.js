@@ -74,8 +74,8 @@ socketIo.on('connection', function(socket) {
         socket.broadcast.emit('documentUpdated', document);
     });
 
-    socket.on('addDocument', function(callback) {
-        var document = dataService.addDocument();
+    socket.on('addDocument', function(parentGroupId, callback) {
+        var document = dataService.addDocument(parentGroupId);
         socket.broadcast.emit('documentAdded', document);
         callback(document);
     });

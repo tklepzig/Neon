@@ -29,9 +29,9 @@
             socketService.emit('updateDocument', document);
         };
 
-        module.addDocument = function() {
+        module.addDocument = function(parentGroupId) {
             var deferred = $q.defer();
-            socketService.emit('addDocument', function(document) {
+            socketService.emit('addDocument', parentGroupId, function(document) {
                 deferred.resolve(document);
             });
             return deferred.promise;

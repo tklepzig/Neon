@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('group', ['groupService'])
+    angular.module('group', ['documentService', 'groupService'])
         .config(defineRoutes)
         .controller('GroupController', GroupController);
 
@@ -12,7 +12,7 @@
         });
     }
 
-    function GroupController($scope, $routeParams, $location, groupService) {
+    function GroupController($scope, $routeParams, $location, documentService, groupService) {
         groupService.getGroup($routeParams.id).then(function(group) {
             $scope.group = group.group;
             $scope.metadata = group.metadata;
@@ -34,6 +34,12 @@
             } else if (item.type === 'group') {
                 $location.path('/group/' + item.id);
             }
+        };
+
+        $scope.addDocument = function() {
+            documentService.addDocument($scope.group.id).then(function(document) {
+                $location.path('/document/' + document.id + '/edit');
+            });
         };
 
         // TODO: add hover functions (Edit)
