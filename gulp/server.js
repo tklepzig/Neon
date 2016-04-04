@@ -21,4 +21,10 @@ module.exports = function(gulp, plugins, config) {
         plugins.runSequence('copy-server', 'start-server', done);
     });
 
+
+    /*----------watchers----------*/
+
+    gulp.task('watch:server', function() {
+        gulp.watch(config.srcServerFiles, ['copy-server']);
+    });
 };
