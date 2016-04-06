@@ -13,6 +13,7 @@
             'neon.touch',
             'toggleFullscreen',
             'editInPlace',
+            'zoomable',
             'start'
         ])
         .config(init)
