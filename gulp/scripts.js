@@ -7,12 +7,9 @@ module.exports = function(gulp, plugins, config) {
     var bowerVersion = require('../bower.json').version;
     var currentDate = new Date();
     var banner = ['/**',
-        ' * Build Time: <%= buildTime %> - Version: <%= version %> ',
+        ' * Build Time: <%= buildTime %>',
+        ' * Version: <%= version %> ',
         ' */',
-        'var BUILD = {',
-        '   TIME: \"<%= buildTime %>\",',
-        '   VERSION: \"<%= version %>\"',
-        '};',
         ''
     ].join('\n');
 
@@ -28,10 +25,6 @@ module.exports = function(gulp, plugins, config) {
         return gulp.src(config.srcJsFiles)
             .pipe(plugins.concat(config.destJsFile))
             .pipe(plugins.removeUseStrict())
-            .pipe(plugins.header(banner, {
-                buildTime: currentDate,
-                version: bowerVersion
-            }))
             .pipe(plugins.ngAnnotate())
             .pipe(plugins.uglify())
             .pipe(gulp.dest(config.destJsPath));
@@ -78,6 +71,10 @@ module.exports = function(gulp, plugins, config) {
         return gulp.src(config.destJsFiles)
             .pipe(vinylPath(del))
             .pipe(plugins.concat(config.destCombinedJsFile))
+            .pipe(plugins.header(banner, {
+                buildTime: currentDate,
+                version: bowerVersion
+            }))
             .pipe(gulp.dest(config.destJsPath));
     });
 
