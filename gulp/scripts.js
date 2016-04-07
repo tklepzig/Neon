@@ -4,7 +4,7 @@ var del = require('del');
 var vinylPath = require('vinyl-paths');
 
 module.exports = function(gulp, plugins, config) {
-    var bowerVersion = require('../bower.json').version;
+    var neonVersion = require('../package.json').version;
     var currentDate = new Date();
     var banner = ['/**',
         ' * Build Time: <%= buildTime %>',
@@ -35,7 +35,7 @@ module.exports = function(gulp, plugins, config) {
             .pipe(plugins.removeUseStrict())
             .pipe(plugins.header(banner, {
                 buildTime: currentDate,
-                version: bowerVersion
+                version: neonVersion
             }))
             .pipe(gulp.dest(config.destJsPath));
     });
@@ -73,7 +73,7 @@ module.exports = function(gulp, plugins, config) {
             .pipe(plugins.concat(config.destCombinedJsFile))
             .pipe(plugins.header(banner, {
                 buildTime: currentDate,
-                version: bowerVersion
+                version: neonVersion
             }))
             .pipe(gulp.dest(config.destJsPath));
     });
