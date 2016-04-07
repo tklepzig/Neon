@@ -74,15 +74,20 @@ socketIo.on('connection', function(socket) {
         socket.broadcast.emit('documentUpdated', document);
     });
 
-    socket.on('addDocument', function(callback) {
-        var document = dataService.addDocument();
+    socket.on('addDocument', function(parentGroupId, callback) {
+        var document = dataService.addDocument(parentGroupId);
         socket.broadcast.emit('documentAdded', document);
         callback(document);
     });
 
-    socket.on('removeDocument', function(id) {
-        dataService.removeDocument(id);
-        socket.broadcast.emit('documentRemoved', id);
+    // socket.on('removeDocument', function(id) {
+    //     dataService.removeDocument(id);
+    //     socket.broadcast.emit('documentRemoved', id);
+    // });
+
+    socket.on('getGroup', function(id, callback) {
+        var group = dataService.getGroup(id);
+        callback(group);
     });
 
     socket.on('getDocument', function(id, callback) {

@@ -101,8 +101,8 @@ module.exports = function(config) {
             id: id
         };
 
-        if (typeof parentGroupId !== 'undefined') {
-            module.getGroup(parentGroupId).children[id] = group;
+        if (typeof parentGroupId !== 'undefined' && parentGroupId !== null) {
+            module.getGroup(parentGroupId).group.children[id] = group;
         } else {
             getData()[id] = group;
         }
@@ -121,8 +121,8 @@ module.exports = function(config) {
             id: id
         };
 
-        if (typeof parentGroupId !== 'undefined') {
-            module.getGroup(parentGroupId).children[id] = document;
+        if (typeof parentGroupId !== 'undefined' && parentGroupId !== null) {
+            module.getGroup(parentGroupId).group.children[id] = document;
         } else {
             getData()[id] = document;
         }
@@ -130,17 +130,18 @@ module.exports = function(config) {
         return document;
     };
 
-    module.removeDocument = function(id) {
+    // TODO: implement for group and document
+    // module.removeDocument = function(id) {
         // delete getData()[id];
-    };
+    // };
 
     module.updateGroup = function(group) {
-        var grp = module.getGroup(group.id);
+        var grp = module.getGroup(group.id).group;
         grp.name = group.name;
     };
 
     module.updateDocument = function(document) {
-        var doc = module.getDocument(document.id);
+        var doc = module.getDocument(document.id).document;
         doc.text = document.text.replace(/\r?\n/g, '\r\n');
         doc.name = document.name;
     };
@@ -170,7 +171,12 @@ module.exports = function(config) {
 
                 if (parentChildren[id].type === 'group') {
                     if (id === groupId) {
-                        return parentChildren[id];
+                        return {
+                            group: parentChildren[id],
+                            metadata: {
+                                parentId: parentGroup.id
+                            }
+                        };
                     } else {
                         var result = module.getGroup(groupId, parentChildren[id]);
                         if (typeof result !== 'undefined') {
@@ -195,7 +201,12 @@ module.exports = function(config) {
             if (parentChildren.hasOwnProperty(id)) {
 
                 if (parentChildren[id].type === 'document' && id === documentId) {
-                    return parentChildren[id];
+                    return {
+                        document: parentChildren[id],
+                        metadata: {
+                            parentId: parentGroup.id
+                        }
+                    };
                 } else if (parentChildren[id].type === 'group') {
                     var result = module.getDocument(documentId, parentChildren[id]);
                     if (typeof result !== 'undefined') {
