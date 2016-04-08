@@ -147,14 +147,14 @@ module.exports = function(config) {
     };
 
     module.getRoot = function() {
-        var data = getData();
-        var items = [];
+        // var data = getData();
+        // var items = [];
+        //
+        // for (var id in data) {
+        //     items.push(data[id]);
+        // }
 
-        for (var id in data) {
-            items.push(data[id]);
-        }
-
-        return items;
+        return getData();
     };
 
     module.getGroup = function(groupId, parentGroup) {
