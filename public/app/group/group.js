@@ -88,9 +88,12 @@
             var confirm = $mdDialog.confirm()
                 .title('Delete the group' + groupName + '?')
                 .content('This action can\'t be undone.')
-                .targetEvent(e)
                 .ok('Yes, delete')
                 .cancel('No');
+
+            if (typeof e !== 'undefined') {
+                confirm.targetEvent(e);
+            }
             $mdDialog.show(confirm).then(function() {
                 groupService.removeGroup($scope.group.id);
                 $scope.back();

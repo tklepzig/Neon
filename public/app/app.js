@@ -194,6 +194,11 @@
                             preventDefault = true;
                             $route.current.scope.addGroup();
                             $route.current.scope.$apply();
+                        } else if ((e.keyCode === 'R'.charCodeAt(0) || e.keyCode === 46) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            //r or delete for removing group
+                            preventDefault = true;
+                            $route.current.scope.delete();
+                            $route.current.scope.$apply();
                         } else if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.back();
@@ -206,6 +211,11 @@
                         if (e.keyCode === 'E'.charCodeAt(0) && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.edit();
+                            $route.current.scope.$apply();
+                        } else if ((e.keyCode === 'R'.charCodeAt(0) || e.keyCode === 46) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            //r or delete for removing group
+                            preventDefault = true;
+                            $route.current.scope.delete();
                             $route.current.scope.$apply();
                         } else if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;

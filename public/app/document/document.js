@@ -41,9 +41,13 @@
             var confirm = $mdDialog.confirm()
                 .title('Delete the document' + documentName + '?')
                 .content('This action can\'t be undone.')
-                .targetEvent(e)
                 .ok('Yes, delete')
                 .cancel('No');
+
+            if (typeof e !== 'undefined') {
+                confirm.targetEvent(e);
+            }
+
             $mdDialog.show(confirm).then(function() {
                 documentService.removeDocument($scope.document.id);
                 $scope.back();
