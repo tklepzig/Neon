@@ -54,6 +54,8 @@
         $scope.nameKeyDown = function(e) {
             //escape or enter
             if (e.keyCode === 27 || e.keyCode === 13) {
+                //ensure to trigger watcher by setting to true and afterwards to false
+                $scope.focusName = true;
                 $scope.focusName = false;
                 e.preventDefault();
                 e.stopPropagation();
