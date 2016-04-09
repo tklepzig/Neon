@@ -69,6 +69,11 @@ socketIo.on('connection', function(socket) {
         callback(dataService.getRoot());
     });
 
+    socket.on('updateGroup', function(group) {
+        dataService.updateGroup(group);
+        socket.broadcast.emit('groupUpdated', group);
+    });
+
     socket.on('updateDocument', function(document) {
         dataService.updateDocument(document);
         socket.broadcast.emit('documentUpdated', document);

@@ -42,7 +42,10 @@
             });
         };
 
+        $scope.update = function() {
+            groupService.updateGroup($scope.group);
+        };
+
         // TODO: add hover functions (Edit)
-        // TODO: add keyboard shortcuts
     }
 }());

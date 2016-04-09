@@ -39,6 +39,23 @@ pagedown-viewer {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+
+        > input {
+            border: 1px solid transparent;
+            width: 100%;
+            outline: none;
+            background: transparent;
+            padding: 6px 4px;
+            color: rgba(255,255,255,1.0);
+
+            &:hover {
+                border-color: #474031;
+            }
+
+            &:focus {
+                border-color: #b29b69;
+            }
+        }
     }
 
     > toggle-fullscreen:last-child > .md-button {

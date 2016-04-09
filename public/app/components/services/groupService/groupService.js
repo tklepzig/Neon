@@ -15,6 +15,11 @@
             return deferred.promise;
         };
 
+        module.updateGroup = function(group) {
+            socketService.emit('updateGroup', group);
+        };
+
+
         return module;
     }
 }());
