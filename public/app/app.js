@@ -158,6 +158,10 @@
                             preventDefault = true;
                             $route.current.scope.addDocument();
                             $route.current.scope.$apply();
+                        } else if (e.keyCode === 'G'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.addGroup();
+                            $route.current.scope.$apply();
                         } else if (e.keyCode === 'E'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             if ($route.current.scope.hoveredDocument !== null) {
@@ -185,6 +189,10 @@
                         if ((e.keyCode === 'N'.charCodeAt(0) || e.keyCode === 'D'.charCodeAt(0)) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.addDocument();
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === 'G'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.addGroup();
                             $route.current.scope.$apply();
                         } else if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;

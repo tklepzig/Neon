@@ -19,6 +19,13 @@
             socketService.emit('updateGroup', group);
         };
 
+        module.addGroup = function(parentGroupId) {
+            var deferred = $q.defer();
+            socketService.emit('addGroup', parentGroupId, function(group) {
+                deferred.resolve(group);
+            });
+            return deferred.promise;
+        };
 
         return module;
     }

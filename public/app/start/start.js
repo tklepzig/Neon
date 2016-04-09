@@ -12,7 +12,7 @@
         });
     }
 
-    function StartController($scope, $localStorage, $location, $mdDialog, documentService) {
+    function StartController($scope, $localStorage, $location, $mdDialog, documentService, groupService) {
         documentService.getAllDocuments().then(function(documents) {
             $scope.items = documents;
         });
@@ -54,6 +54,12 @@
             } else if (item.type === 'group') {
                 $location.path('/group/' + item.id);
             }
+        };
+
+        $scope.addGroup = function() {
+            groupService.addGroup().then(function(group) {
+                $location.path('/group/' + group.id);
+            });
         };
 
         $scope.addDocument = function() {

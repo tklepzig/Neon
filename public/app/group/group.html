@@ -1,4 +1,4 @@
-<fab-add ng-click-document="addDocument()"></fab-add>
+<fab-add ng-click-document="addDocument()" ng-click-group="addGroup()"></fab-add>
 
 <md-toolbar>
     <div class="md-toolbar-tools">
@@ -6,7 +6,7 @@
             <md-icon md-font-set="material-icons">arrow_back</md-icon>
         </md-button>
         <h2 class="md-headline" flex>
-            <input type="text" placeholder="Unnamed Group" ng-model="group.name" ng-change="update()">
+            <input type="text" set-focus="focusName" placeholder="Unnamed Group" ng-model="group.name" ng-change="update()">
         </h2>
         <!-- <md-button class="md-icon-button" ng-click="delete()">
             <md-icon md-font-set="material-icons">delete</md-icon>

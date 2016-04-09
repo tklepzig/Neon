@@ -79,6 +79,12 @@ socketIo.on('connection', function(socket) {
         socket.broadcast.emit('documentUpdated', document);
     });
 
+    socket.on('addGroup', function(parentGroupId, callback) {
+        var group = dataService.addGroup(parentGroupId);
+        socket.broadcast.emit('groupAdded', group);
+        callback(group);
+    });
+
     socket.on('addDocument', function(parentGroupId, callback) {
         var document = dataService.addDocument(parentGroupId);
         socket.broadcast.emit('documentAdded', document);
