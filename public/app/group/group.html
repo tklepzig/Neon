@@ -6,7 +6,7 @@
             <md-icon md-font-set="material-icons">arrow_back</md-icon>
         </md-button>
         <h2 class="md-headline" flex>
-            <input type="text" set-focus="focusName" placeholder="{{'Group.Unnamed' | translate}}" ng-model="group.name" ng-change="update()">
+            <input type="text" set-focus="focusName" ng-keydown="nameKeyDown($event)" placeholder="{{'Group.Unnamed' | translate}}" ng-model="group.name" ng-change="update()">
         </h2>
         <md-button class="md-icon-button" ng-click="delete()">
             <md-icon md-font-set="material-icons">delete</md-icon>

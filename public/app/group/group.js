@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('group', ['documentService', 'groupService'])
+    angular.module('group', ['documentService', 'groupService', 'setFocus'])
         .config(defineRoutes)
         .controller('GroupController', GroupController);
 
@@ -41,6 +41,16 @@
                 $location.path('/group/' + item.id);
             }
         };
+
+        $scope.nameKeyDown = function(e) {
+            //escape or enter
+            if (e.keyCode === 27 || e.keyCode === 13) {
+                $scope.focusName = false;
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        };
+
 
         $scope.addGroup = function() {
             groupService.addGroup($scope.group.id).then(function(group) {

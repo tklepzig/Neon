@@ -17,8 +17,8 @@
     }
 
     function EditController($scope, $location, $routeParams, documentService) {
-        $scope.focusText = false;
         $scope.focusName = false;
+        $scope.focusText = false;
 
         documentService.getDocument($routeParams.id).then(function(document) {
             $scope.document = document.document;
@@ -29,16 +29,18 @@
         $scope.textKeyDown = function(e) {
             //F2 or up arrow at position 0
             if (e.keyCode === 113 || (e.keyCode === 38 && e.originalEvent.path.length > 0 && e.originalEvent.path[0].selectionStart === e.originalEvent.path[0].selectionEnd && e.originalEvent.path[0].selectionStart === 0)) {
-                $scope.focusText = false;
                 $scope.focusName = true;
+                $scope.focusText = false;
             }
         };
 
         $scope.nameKeyDown = function(e) {
-            //down arrow or enter
-            if (e.keyCode === 40 || e.keyCode === 13) {
-                $scope.focusText = true;
+            //escape, down arrow or enter
+            if (e.keyCode === 27 || e.keyCode === 40 || e.keyCode === 13) {
                 $scope.focusName = false;
+                $scope.focusText = true;
+                e.preventDefault();
+                e.stopPropagation();
             }
         };
 
