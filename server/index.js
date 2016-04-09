@@ -91,10 +91,15 @@ socketIo.on('connection', function(socket) {
         callback(document);
     });
 
-    // socket.on('removeDocument', function(id) {
-    //     dataService.removeDocument(id);
-    //     socket.broadcast.emit('documentRemoved', id);
-    // });
+    socket.on('removeGroup', function(id) {
+        dataService.removeGroup(id);
+        socket.broadcast.emit('groupRemoved', id);
+    });
+
+    socket.on('removeDocument', function(id) {
+        dataService.removeDocument(id);
+        socket.broadcast.emit('documentRemoved', id);
+    });
 
     socket.on('getGroup', function(id, callback) {
         var group = dataService.getGroup(id);

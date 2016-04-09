@@ -37,10 +37,10 @@
             return deferred.promise;
         };
 
-        // module.removeDocument = function(id) {
-        //     socketService.emit('removeDocument', id);
-        // };
-
+        module.removeDocument = function(id) {
+            socketService.emit('removeDocument', id);
+        };
+        
         return module;
     }
 }());

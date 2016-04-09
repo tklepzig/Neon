@@ -32,23 +32,23 @@
             }
         };
 
-        // $scope.delete = function(e) {
-        //     var documentName = '';
-        //     if ($scope.document.name.length > 0) {
-        //         documentName = ' "' + $scope.document.name + '" ';
-        //     }
-        //
-        //     var confirm = $mdDialog.confirm()
-        //         .title('Delete the document' + documentName + '?')
-        //         .content('This action can\'t be undone.')
-        //         .targetEvent(e)
-        //         .ok('Yes, delete')
-        //         .cancel('No');
-        //     $mdDialog.show(confirm).then(function() {
-        //         documentService.removeDocument($scope.document.id);
-        //         $location.path('/');
-        //     });
-        // };
+        $scope.delete = function(e) {
+            var documentName = '';
+            if ($scope.document.name.length > 0) {
+                documentName = ' "' + $scope.document.name + '" ';
+            }
+
+            var confirm = $mdDialog.confirm()
+                .title('Delete the document' + documentName + '?')
+                .content('This action can\'t be undone.')
+                .targetEvent(e)
+                .ok('Yes, delete')
+                .cancel('No');
+            $mdDialog.show(confirm).then(function() {
+                documentService.removeDocument($scope.document.id);
+                $scope.back();
+            });
+        };
 
         $scope.edit = function() {
             $location.path('/document/' + $scope.document.id + '/edit');

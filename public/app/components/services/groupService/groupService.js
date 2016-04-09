@@ -27,6 +27,10 @@
             return deferred.promise;
         };
 
+        module.removeGroup = function(id) {
+            socketService.emit('removeGroup', id);
+        };
+
         return module;
     }
 }());

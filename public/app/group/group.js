@@ -12,7 +12,7 @@
         });
     }
 
-    function GroupController($scope, $routeParams, $location, documentService, groupService) {
+    function GroupController($scope, $routeParams, $location, $mdDialog, documentService, groupService) {
         $scope.focusName = false;
 
         groupService.getGroup($routeParams.id).then(function(group) {
@@ -56,6 +56,24 @@
 
         $scope.update = function() {
             groupService.updateGroup($scope.group);
+        };
+
+        $scope.delete = function(e) {
+            var groupName = '';
+            if ($scope.group.name.length > 0) {
+                groupName = ' "' + $scope.group.name + '" ';
+            }
+
+            var confirm = $mdDialog.confirm()
+                .title('Delete the group' + groupName + '?')
+                .content('This action can\'t be undone.')
+                .targetEvent(e)
+                .ok('Yes, delete')
+                .cancel('No');
+            $mdDialog.show(confirm).then(function() {
+                groupService.removeGroup($scope.group.id);
+                $scope.back();
+            });
         };
 
         // TODO: add hover functions (Edit)
