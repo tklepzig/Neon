@@ -21,6 +21,15 @@
         $scope.searchQuery = '';
         $scope.showSearch = false;
 
+        //DRY
+        $scope.getAliasDocumentName = function(document) {
+            var indexOfFirstLineBreak = document.text.indexOf('\r\n');
+            if (indexOfFirstLineBreak === -1) {
+                return document.text;
+            }
+            return document.text.substring(0, indexOfFirstLineBreak);
+        };
+
         $scope.searchFilter = function(document) {
             var re = new RegExp($scope.searchQuery, 'i');
             return !$scope.searchQuery || re.test(document.name) || re.test(document.text);

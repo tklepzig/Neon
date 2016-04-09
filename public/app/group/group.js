@@ -24,6 +24,15 @@
             }
         });
 
+        //DRY
+        $scope.getAliasDocumentName = function(document) {
+            var indexOfFirstLineBreak = document.text.indexOf('\r\n');
+            if (indexOfFirstLineBreak === -1) {
+                return document.text;
+            }
+            return document.text.substring(0, indexOfFirstLineBreak);
+        };
+
         $scope.back = function() {
             if (typeof $scope.metadata.parentId === 'undefined') {
                 //parent is root

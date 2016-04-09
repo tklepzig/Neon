@@ -22,7 +22,7 @@
             <md-icon ng-class="{'document': item.type === 'document', 'group': item.type === 'group'}" md-font-set="material-icons">{{(item.type === 'group') ? 'folder' : 'subject'}}</md-icon>
             <div class="md-list-item-text" layout="column">
                 <span class="title">
-                    {{item.name.length > 0 ? item.name : ('Group.Unnamed' | translate)}}
+                    {{item.name.length > 0 ? item.name : (item.type === 'document' ? getAliasDocumentName(item) : ('Group.Unnamed' | translate))}}
                 </span>
                 <!-- <h4 ng-if="item.type === 'group'">first highest prio item</h4> -->
                 <!-- <p ng-if="item.type === 'group'">second highest prio item</p> -->
