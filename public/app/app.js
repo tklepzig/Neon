@@ -33,8 +33,8 @@
             suffix: '.json'
         });
         $translateProvider.useSanitizeValueStrategy('sanitize');
-        $translateProvider.preferredLanguage('de-DE');
-        $translateProvider.fallbackLanguage('de-DE');
+        $translateProvider.preferredLanguage('en-GB');
+        $translateProvider.fallbackLanguage('en-GB');
 
         $mdThemingProvider.definePalette('dark-brown', {
             '50': '#ffb830',

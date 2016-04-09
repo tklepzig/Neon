@@ -6,7 +6,7 @@
             <md-icon md-font-set="material-icons">arrow_back</md-icon>
         </md-button>
         <h2 class="md-headline" flex>
-            <input type="text" set-focus="focusName" placeholder="Unnamed Group" ng-model="group.name" ng-change="update()">
+            <input type="text" set-focus="focusName" placeholder="{{'Group.Unnamed' | translate}}" ng-model="group.name" ng-change="update()">
         </h2>
         <!-- <md-button class="md-icon-button" ng-click="delete()">
             <md-icon md-font-set="material-icons">delete</md-icon>
@@ -22,7 +22,7 @@
             <md-icon ng-class="{'document': item.type === 'document', 'group': item.type === 'group'}" md-font-set="material-icons">{{(item.type === 'group') ? 'folder' : 'subject'}}</md-icon>
             <div class="md-list-item-text" layout="column">
                 <span class="title">
-                    {{item.name}}
+                    {{item.name.length > 0 ? item.name : ('Group.Unnamed' | translate)}}
                 </span>
                 <h4 ng-if="item.type === 'group'">first highest prio item</h4>
                 <p ng-if="item.type === 'group'">second highest prio item</p>
