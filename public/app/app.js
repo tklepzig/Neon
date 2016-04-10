@@ -122,7 +122,7 @@
         $localStorageProvider.setKeyPrefix('neon');
     }
 
-    function start($localStorage, $route, $document) {
+    function start($localStorage, $route, $document, $rootScope, $filter) {
         // TODO: move this to service or similar for general usage and config (controller - key(s) - callback (with scope as parameter))
         $document.bind('keydown', function(e) {
 
@@ -242,5 +242,41 @@
             }
         });
 
+
+        $rootScope.getItemName = function(item) {
+            if (item.name.length > 0) {
+                return item.name;
+            } else if (item.type === 'document') {
+                var indexOfFirstLineBreak = item.text.indexOf('\r\n');
+                if (indexOfFirstLineBreak === -1) {
+                    return item.text;
+                }
+                return item.text.substring(0, indexOfFirstLineBreak);
+            } else {
+                return $filter('translate')('Group.Unnamed');
+            }
+        };
+
+        $rootScope.getItemCssClass = function(item) {
+            var cssClass;
+
+            if (item.type === 'group') {
+                cssClass = 'md-3-line';
+            } else if (item.priority === 'high') {
+                cssClass = 'md-2-line';
+            }
+
+            if (item.priority === 'high') {
+                cssClass += ' prio-high';
+            }
+            if (item.priority === 'medium') {
+                cssClass += ' prio-medium';
+            }
+            if (item.priority === 'low') {
+                cssClass += ' prio-low';
+            }
+
+            return cssClass;
+        };
     }
 })();

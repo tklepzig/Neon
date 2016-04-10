@@ -12,7 +12,7 @@
         });
     }
 
-    function StartController($scope, $localStorage, $location, $mdDialog, $filter, documentService, groupService) {
+    function StartController($scope, $localStorage, $location, $mdDialog, documentService, groupService) {
         documentService.getAllDocuments().then(function(documents) {
             $scope.items = documents;
         });
@@ -20,24 +20,6 @@
         $scope.hoveredDocument = null;
         $scope.searchQuery = '';
         $scope.showSearch = false;
-
-        //DRY
-        $scope.getItemName = function(item) {
-            if (item.name.length > 0) {
-                return item.name;
-            } else if (item.type === 'document') {
-                var indexOfFirstLineBreak = item.text.indexOf('\r\n');
-                if (indexOfFirstLineBreak === -1) {
-                    return item.text;
-                }
-                return item.text.substring(0, indexOfFirstLineBreak);
-            } else {
-                return $filter('translate')('Group.Unnamed');
-            }
-        };
-        $scope.getItemCssClass = function(item) {
-            return item.type === 'group' ? 'md-3-line' : '';
-        };
 
         $scope.searchFilter = function(document) {
             var re = new RegExp($scope.searchQuery, 'i');

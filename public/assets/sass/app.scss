@@ -63,6 +63,83 @@ pagedown-viewer {
     }
 }
 
+md-list#items {
+    > md-list-item {
+        background: transparent;
+
+        > button {
+            border-radius: 0;
+            background: $brownAccent;
+            box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.6), 0 8px 10px 1px rgba(0, 0, 0, 0.4), 0 3px 14px 2px rgba(0, 0, 0, 0.4);
+
+            > .md-ripple-container {
+                border-radius: 0;
+            }
+
+            md-icon {
+                &.document {
+                    margin-right: 16px;
+                    margin-top: 12px;
+                    margin-left: 0;
+                }
+
+                &.group {
+                    margin-right: 16px;
+                    margin-top: 6px;
+                    align-self: center;
+                }
+            }
+
+            .md-list-item-text {
+                overflow: hidden;
+
+                > .title {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    font-size: 18px;
+                }
+
+                > p {
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+            }
+        }
+
+        &.prio-high {
+            > button {
+                background: #a90000;
+
+                .md-list-item-text {
+                    > .title {
+                        font-size: 2.2em;
+                    }
+                }
+            }
+        }
+
+        &.prio-medium {
+            > button {
+                background: #d68403;
+
+                .md-list-item-text {
+                    > .title {
+                        font-size: 1.5em;
+                    }
+                }
+            }
+        }
+
+        &.prio-low {
+            > button {
+                background: #4d7314;
+            }
+        }
+    }
+}
+
 a,
 a:visited {
     color: #c88400;
