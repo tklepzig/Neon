@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document', ['ngRoute', 'document.edit', 'documentService'])
+    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'priorityMenu'])
         .config(defineRoutes)
         .controller('DocumentController', DocumentController);
 
@@ -59,6 +59,11 @@
 
         $scope.edit = function() {
             $location.path('/document/' + $scope.document.id + '/edit');
+        };
+
+        $scope.setPriority = function(priority) {
+            $scope.document.priority = priority;
+            documentService.updateDocument($scope.document);
         };
     }
 }());

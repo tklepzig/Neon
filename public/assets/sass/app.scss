@@ -173,3 +173,24 @@ a,
 a:visited {
     color: #c88400;
 }
+
+md-menu-content {
+    background: $brownAccent;
+    color: rgba(255,255,255,1.0);
+
+    md-menu-divider {
+        background: rgba(255,255,255,0.2);
+    }
+}
+
+.fgPrioHigh {
+    color: $prioHigh;
+}
+
+.fgPrioMedium {
+    color: $prioMedium;
+}
+
+.fgPrioLow {
+    color: $prioLow;
+}

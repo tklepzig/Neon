@@ -155,12 +155,14 @@ module.exports = function(config) {
     module.updateGroup = function(group) {
         var grp = module.getGroup(group.id).group;
         grp.name = group.name;
+        grp.priority = group.priority;
     };
 
     module.updateDocument = function(document) {
         var doc = module.getDocument(document.id).document;
         doc.text = document.text.replace(/\r?\n/g, '\r\n');
         doc.name = document.name;
+        doc.priority = document.priority;
     };
 
     module.getRoot = function() {

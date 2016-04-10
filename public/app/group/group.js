@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('group', ['documentService', 'groupService', 'setFocus'])
+    angular.module('group', ['documentService', 'groupService', 'setFocus', 'priorityMenu'])
         .config(defineRoutes)
         .controller('GroupController', GroupController);
 
@@ -89,6 +89,11 @@
                 groupService.removeGroup($scope.group.id);
                 $scope.back();
             });
+        };
+
+        $scope.setPriority = function(priority) {
+            $scope.group.priority = priority;
+            groupService.updateGroup($scope.group);
         };
 
         // TODO: add hover functions (Edit)
