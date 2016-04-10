@@ -96,6 +96,7 @@ md-list#items {
         background: transparent;
 
         > button {
+            padding: 0 10px;
             border-radius: 0;
             background: $brownAccent;
             box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.6), 0 8px 10px 1px rgba(0, 0, 0, 0.4), 0 3px 14px 2px rgba(0, 0, 0, 0.4);
@@ -107,13 +108,13 @@ md-list#items {
 
             md-icon {
                 &.document {
-                    margin-right: 16px;
+                    margin-right: 10px;
                     margin-top: 12px;
                     margin-left: 0;
                 }
 
                 &.group {
-                    margin-right: 16px;
+                    margin-right: 10px;
                     margin-top: 6px;
                     align-self: center;
                 }
@@ -143,7 +144,7 @@ md-list#items {
 
                 .md-list-item-text {
                     > .title {
-                        font-size: 2.2em;
+                        font-size: 1.6em;
                     }
                 }
             }
@@ -155,7 +156,7 @@ md-list#items {
 
                 .md-list-item-text {
                     > .title {
-                        font-size: 1.5em;
+                        font-size: 1.4em;
                     }
                 }
             }
