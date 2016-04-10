@@ -34,11 +34,11 @@
 <!-- TODO: move to directive? -->
 <md-content flex layout md-scroll-y>
     <md-list flex id="items" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap layout="row">
-        <md-list-item ng-class="{'md-1-line': item.type === 'document', 'md-3-line': item.type === 'group'}" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openItem(item)" ng-mouseenter="mouseEnter(item)" ng-mouseleave="mouseLeave()" ng-repeat="item in items">
+        <md-list-item ng-class="getItemCssClass(item)" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openItem(item)" ng-mouseenter="mouseEnter(item)" ng-mouseleave="mouseLeave()" ng-repeat="item in items">
             <md-icon ng-class="{'document': item.type === 'document', 'group': item.type === 'group'}" md-font-set="material-icons">{{(item.type === 'group') ? 'folder' : 'subject'}}</md-icon>
             <div class="md-list-item-text" layout="column">
                 <span class="title">
-                    {{item.name.length > 0 ? item.name : (item.type === 'document' ? getAliasDocumentName(item) : ('Group.Unnamed' | translate))}}
+                    {{getItemName(item)}}
                 </span>
                 <!-- <h4 ng-if="item.type === 'group'">first highest prio item</h4> -->
                 <!-- <p ng-if="item.type === 'group'">second highest prio item</p> -->

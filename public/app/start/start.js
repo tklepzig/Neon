@@ -12,7 +12,7 @@
         });
     }
 
-    function StartController($scope, $localStorage, $location, $mdDialog, documentService, groupService) {
+    function StartController($scope, $localStorage, $location, $mdDialog, $filter, documentService, groupService) {
         documentService.getAllDocuments().then(function(documents) {
             $scope.items = documents;
         });
@@ -22,12 +22,21 @@
         $scope.showSearch = false;
 
         //DRY
-        $scope.getAliasDocumentName = function(document) {
-            var indexOfFirstLineBreak = document.text.indexOf('\r\n');
-            if (indexOfFirstLineBreak === -1) {
-                return document.text;
+        $scope.getItemName = function(item) {
+            if (item.name.length > 0) {
+                return item.name;
+            } else if (item.type === 'document') {
+                var indexOfFirstLineBreak = item.text.indexOf('\r\n');
+                if (indexOfFirstLineBreak === -1) {
+                    return item.text;
+                }
+                return item.text.substring(0, indexOfFirstLineBreak);
+            } else {
+                return $filter('translate')('Group.Unnamed');
             }
-            return document.text.substring(0, indexOfFirstLineBreak);
+        };
+        $scope.getItemCssClass = function(item) {
+            return item.type === 'group' ? 'md-3-line' : '';
         };
 
         $scope.searchFilter = function(document) {
