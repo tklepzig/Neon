@@ -257,7 +257,7 @@
             }
         };
 
-        $rootScope.getItemCssClass = function(item) {
+        $rootScope.getItemTileCssClass = function(item) {
             var cssClass;
 
             if (item.type === 'group') {
@@ -268,15 +268,29 @@
 
             if (item.priority === 'high') {
                 cssClass += ' prio-high';
-            }
-            if (item.priority === 'medium') {
+            } else if (item.priority === 'medium') {
                 cssClass += ' prio-medium';
-            }
-            if (item.priority === 'low') {
+            } else if (item.priority === 'low') {
                 cssClass += ' prio-low';
             }
 
             return cssClass;
+        };
+
+        $rootScope.getItemToolbarCssClass = function(item) {
+            if (item.priority === 'high') {
+                return 'prio-high';
+            }
+
+            if (item.priority === 'medium') {
+                return 'prio-medium';
+            }
+
+            if (item.priority === 'low') {
+                return 'prio-low';
+            }
+
+            return '';
         };
     }
 })();

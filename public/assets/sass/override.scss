@@ -10,18 +10,6 @@ md-toolbar {
     box-shadow: #000 0 0 20px 4px;
 }
 
-md-toolbar.md-default-theme:not(.md-menu-toolbar):not(.start),
-md-toolbar:not(.md-menu-toolbar):not(.start) {
-    background-color: $brownAccent;
-    color: rgba(255,255,255,1.0);
-    box-shadow: #000 0 0 20px 4px;
-
-    md-icon {
-        color: rgba(255,255,255,1.0);
-    }
-}
-
-
 
 //override layout-padding and layout-margin rules
 //issue: https://github.com/angular/material/issues/4356

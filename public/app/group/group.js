@@ -14,6 +14,8 @@
 
     function GroupController($scope, $routeParams, $location, $mdDialog, documentService, groupService) {
         $scope.focusName = false;
+        $scope.group = {};
+        $scope.metadata = {};
 
         groupService.getGroup($routeParams.id).then(function(group) {
             $scope.group = group.group;
