@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('start', ['ngRoute', 'documentService', 'document', 'group', 'fabAdd'])
+    angular.module('start', ['ngRoute', 'documentService', 'document', 'group', 'fabAdd', 'orderByPriority'])
         .config(defineRoutes)
         .controller('StartController', StartController);
 

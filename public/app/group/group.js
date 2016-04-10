@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('group', ['documentService', 'groupService', 'setFocus', 'priorityMenu'])
+    angular.module('group', ['documentService', 'groupService', 'setFocus', 'priorityMenu', 'orderByPriority'])
         .config(defineRoutes)
         .controller('GroupController', GroupController);
 
