@@ -263,9 +263,6 @@
                 return [];
             }
 
-            var tmp = $filter('orderByPriority')(item.children);
-            console.log(tmp.slice(0, 2));
-
             return $filter('orderByPriority')(item.children).slice(0, 2);
         };
 
