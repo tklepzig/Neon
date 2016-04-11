@@ -14,6 +14,7 @@
             'toggleFullscreen',
             'editInPlace',
             'zoomable',
+            'orderByPriority',
             'start'
         ])
         .config(init)
@@ -255,6 +256,17 @@
             } else {
                 return $filter('translate')('Group.Unnamed');
             }
+        };
+
+        $rootScope.getPreviewItems = function(item) {
+            if (item.type !== 'group') {
+                return [];
+            }
+
+            var tmp = $filter('orderByPriority')(item.children);
+            console.log(tmp.slice(0, 2));
+
+            return $filter('orderByPriority')(item.children).slice(0, 2);
         };
 
         $rootScope.getItemTileCssClass = function(item) {

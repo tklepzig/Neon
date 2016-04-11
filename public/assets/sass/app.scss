@@ -130,10 +130,8 @@ md-list#items {
                     font-size: 18px;
                 }
 
-                > p {
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
+                > h4:nth-of-type(2) {
+                    color: rgba(255,255,255,0.7);
                 }
             }
         }
