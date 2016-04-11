@@ -131,25 +131,25 @@ module.exports = function(config) {
     };
 
     module.removeGroup = function(id) {
-        var group = module.getGroup(id);
-
-        if (typeof group.metadata.parentId === 'undefined') {
-            delete getData()[id];
-        } else {
-            var parentGroup = module.getGroup(group.metadata.parentId);
-            delete parentGroup.group.children[id];
-        }
+        var group = module.getGroup(id).group;
+        group.deleted = true;
+        // if (typeof group.metadata.parentId === 'undefined') {
+        //     delete getData()[id];
+        // } else {
+        //     var parentGroup = module.getGroup(group.metadata.parentId);
+        //     delete parentGroup.group.children[id];
+        // }
     };
 
     module.removeDocument = function(id) {
-        var document = module.getDocument(id);
-
-        if (typeof document.metadata.parentId === 'undefined') {
-            delete getData()[id];
-        } else {
-            var parentGroup = module.getGroup(document.metadata.parentId);
-            delete parentGroup.group.children[id];
-        }
+        var document = module.getDocument(id).document;
+        document.deleted = true;
+        // if (typeof document.metadata.parentId === 'undefined') {
+        //     delete getData()[id];
+        // } else {
+        //     var parentGroup = module.getGroup(document.metadata.parentId);
+        //     delete parentGroup.group.children[id];
+        // }
     };
 
     module.updateGroup = function(group) {

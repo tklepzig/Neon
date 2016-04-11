@@ -9,6 +9,9 @@
         <md-button disabled class="md-icon-button" title="Search" ng-click="startSearch()">
             <md-icon md-font-set="material-icons">search</md-icon>
         </md-button>
+        <md-button class="md-icon-button" title="Trash">
+            <md-icon md-font-set="material-icons">delete</md-icon>
+        </md-button>
         <md-button class="md-icon-button" title="Logout" href="/.auth/logout" target="_self">
             <md-icon md-font-set="material-icons">exit_to_app</md-icon>
         </md-button>
@@ -34,7 +37,7 @@
 <!-- TODO: move to directive? -->
 <md-content flex layout md-scroll-y>
     <md-list flex id="items" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap layout="row">
-        <md-list-item ng-class="getItemTileCssClass(item)" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openItem(item)" ng-mouseenter="mouseEnter(item)" ng-mouseleave="mouseLeave()" ng-repeat="item in items | orderByPriority">
+        <md-list-item ng-if="!item.deleted" ng-class="getItemTileCssClass(item)" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openItem(item)" ng-mouseenter="mouseEnter(item)" ng-mouseleave="mouseLeave()" ng-repeat="item in items | orderByPriority">
             <md-icon ng-class="{'document': item.type === 'document', 'group': item.type === 'group'}" md-font-set="material-icons">{{(item.type === 'group') ? 'folder' : 'subject'}}</md-icon>
             <div class="md-list-item-text" layout="column">
                 <span class="title">
