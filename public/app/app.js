@@ -263,7 +263,19 @@
                 return [];
             }
 
-            return $filter('orderByPriority')(item.children).slice(0, 2);
+            var previewItems = [];
+            var childrenOrderedByPriority = $filter('orderByPriority')(item.children);
+            for (var i = 0; i < childrenOrderedByPriority.length; i++) {
+                var previewItem = childrenOrderedByPriority[i];
+                if (previewItems.length < 2) {
+                    if (!previewItem.deleted) {
+                        previewItems.push(previewItem);
+                    }
+                } else {
+                    break;
+                }
+            }
+            return previewItems;
         };
 
         $rootScope.getItemTileCssClass = function(item) {
