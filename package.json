@@ -42,6 +42,7 @@
     "vinyl-paths": "~1.0.0"
   },
   "dependencies": {
+    "colors": "^1.1.2",
     "express": "~4.13.3",
     "nconf": "^0.8.4",
     "node-uuid": "~1.4.7",

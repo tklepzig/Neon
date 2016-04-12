@@ -28,6 +28,7 @@ var app = express();
 var http = require('http').Server(app);
 var socketIo = require('socket.io')(http);
 var nconf = require('nconf');
+require('colors');
 
 var config = require('./config.json')[process.env.NODE_ENV || 'production'];
 nconf.file(path.resolve(__dirname + '/secrets.json')).env();
@@ -45,9 +46,15 @@ var dataService = require('./dataService.js')({
     password: secrets.repoPassword
 });
 var port = process.env.PORT || config.port;
-console.log('Configuration: ' + (process.env.NODE_ENV || 'production'));
+
+if (process.env.NODE_ENV === 'development') {
+    console.log('Configuration: ' + 'development'.bold.green);
+} else {
+    console.log('Configuration: ' + (process.env.NODE_ENV || 'production').bold.red);
+}
+
 console.log('using ' + config.publicFilePath + ' to serve public files');
-console.log('Push is ' + (config.isPushAllowed ? 'enabled' : 'disabled'));
+console.log('Push is ' + (config.isPushAllowed ? 'enabled'.bold.red : 'disabled'.bold.green));
 
 app.use(express.static(path.resolve(__dirname + config.publicFilePath)));
 app.get('/*', function(req, res) {
@@ -66,7 +73,12 @@ socketIo.on('connection', function(socket) {
 
     //client functions
     socket.on('getAllDocuments', function(callback) {
-        callback(dataService.getDocuments());
+        callback(dataService.getRoot());
+    });
+
+    socket.on('updateGroup', function(group) {
+        dataService.updateGroup(group);
+        socket.broadcast.emit('groupUpdated', group);
     });
 
     socket.on('updateDocument', function(document) {
@@ -74,15 +86,31 @@ socketIo.on('connection', function(socket) {
         socket.broadcast.emit('documentUpdated', document);
     });
 
-    socket.on('addDocument', function(callback) {
-        var document = dataService.addDocument();
+    socket.on('addGroup', function(parentGroupId, callback) {
+        var group = dataService.addGroup(parentGroupId);
+        socket.broadcast.emit('groupAdded', group);
+        callback(group);
+    });
+
+    socket.on('addDocument', function(parentGroupId, callback) {
+        var document = dataService.addDocument(parentGroupId);
         socket.broadcast.emit('documentAdded', document);
         callback(document);
+    });
+
+    socket.on('removeGroup', function(id) {
+        dataService.removeGroup(id);
+        socket.broadcast.emit('groupRemoved', id);
     });
 
     socket.on('removeDocument', function(id) {
         dataService.removeDocument(id);
         socket.broadcast.emit('documentRemoved', id);
+    });
+
+    socket.on('getGroup', function(id, callback) {
+        var group = dataService.getGroup(id);
+        callback(group);
     });
 
     socket.on('getDocument', function(id, callback) {

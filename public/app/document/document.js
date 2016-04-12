@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document', ['ngRoute', 'document.edit', 'documentService'])
+    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'priorityMenu'])
         .config(defineRoutes)
         .controller('DocumentController', DocumentController);
 
@@ -16,13 +16,23 @@
         });
     }
 
-    function DocumentController($scope, $rootScope, $location, $routeParams, $mdDialog, documentService) {
+    function DocumentController($scope, $location, $routeParams, $mdDialog, documentService) {
+        $scope.document = {};
+        $scope.metadata = {};
+
         documentService.getDocument($routeParams.id).then(function(document) {
-            $scope.document = document;
+            $scope.document = document.document;
+            $scope.metadata = document.metadata;
         });
 
         $scope.back = function() {
-            $location.path('/');
+            if (typeof $scope.metadata.parentId === 'undefined') {
+                //parent is root
+                $location.path('/');
+            } else {
+                //parent is group
+                $location.path('/group/' + $scope.metadata.parentId);
+            }
         };
 
         $scope.delete = function(e) {
@@ -34,18 +44,26 @@
             var confirm = $mdDialog.confirm()
                 .title('Delete the document' + documentName + '?')
                 .content('This action can\'t be undone.')
-                .targetEvent(e)
-                .theme($rootScope.currentTheme)
                 .ok('Yes, delete')
                 .cancel('No');
+
+            if (typeof e !== 'undefined') {
+                confirm.targetEvent(e);
+            }
+
             $mdDialog.show(confirm).then(function() {
                 documentService.removeDocument($scope.document.id);
-                $location.path('/');
+                $scope.back();
             });
         };
 
         $scope.edit = function() {
             $location.path('/document/' + $scope.document.id + '/edit');
+        };
+
+        $scope.setPriority = function(priority) {
+            $scope.document.priority = priority;
+            documentService.updateDocument($scope.document);
         };
     }
 }());

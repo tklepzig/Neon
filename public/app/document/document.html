@@ -1,4 +1,4 @@
-<md-toolbar>
+<md-toolbar ng-class="getItemToolbarCssClass(document)">
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" ng-click="back()">
             <md-icon md-font-set="material-icons">arrow_back</md-icon>
@@ -7,7 +7,8 @@
             {{document.name}}
         </h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="delete()">
+        <priority-menu set-priority="setPriority(priority)"></priority-menu>
+        <md-button class="md-icon-button" ng-click="delete($event)">
             <md-icon md-font-set="material-icons">delete</md-icon>
         </md-button>
         <toggle-fullscreen></toggle-fullscreen>

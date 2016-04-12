@@ -1,5 +1,8 @@
 //application wide styles here
 $brownAccent: #665430;
+$prioHigh: #a90000;
+$prioMedium: #a96f00;
+$prioLow: #4d7314;
 @mixin border-box-sizing {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -34,19 +37,159 @@ pagedown-viewer {
     font-family: Arial;
 }
 
-.md-toolbar-tools {
-    > h2 {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+md-toolbar {
+    &:not(.start) {
+        background: $brownAccent;
+        color: rgba(255,255,255,1.0);
+        box-shadow: #000 0 0 20px 4px;
+        transition: background-color 0.3s ease-out;
+
+        md-icon {
+            color: rgba(255,255,255,1.0);
+        }
     }
 
-    > toggle-fullscreen:last-child > .md-button {
-        margin-right: -8px;
+    &.prio-high {
+        background: $prioHigh;
+    }
+
+    &.prio-medium {
+        background: $prioMedium;
+    }
+
+    &.prio-low {
+        background: $prioLow;
+    }
+
+    > .md-toolbar-tools {
+        > h2 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            > input {
+                border: 1px solid transparent;
+                width: 100%;
+                outline: none;
+                background: transparent;
+                padding: 6px 4px;
+                color: rgba(255,255,255,1.0);
+
+                &:hover {
+                    border-color: #474031;
+                }
+
+                &:focus {
+                    border-color: #b29b69;
+                }
+            }
+        }
+
+        > toggle-fullscreen:last-child > .md-button {
+            margin-right: -8px;
+        }
+    }
+}
+
+md-list#items {
+    > md-list-item {
+        background: transparent;
+
+        > button {
+            padding: 0 10px;
+            border-radius: 0;
+            background: $brownAccent;
+            box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.6), 0 8px 10px 1px rgba(0, 0, 0, 0.4), 0 3px 14px 2px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.3s ease-out;
+
+            > .md-ripple-container {
+                border-radius: 0;
+            }
+
+            md-icon {
+                &.document {
+                    margin-right: 10px;
+                    margin-top: 12px;
+                    margin-left: 0;
+                }
+
+                &.group {
+                    margin-right: 10px;
+                    margin-top: 6px;
+                    align-self: center;
+                }
+            }
+
+            .md-list-item-text {
+                overflow: hidden;
+
+                > .title {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    font-size: 18px;
+                }
+
+                > h4:nth-of-type(2) {
+                    color: rgba(255,255,255,0.7);
+                }
+            }
+        }
+
+        &.prio-high {
+            > button {
+                background: $prioHigh;
+
+                .md-list-item-text {
+                    > .title {
+                        font-size: 1.6em;
+                    }
+                }
+            }
+        }
+
+        &.prio-medium {
+            > button {
+                background: $prioMedium;
+
+                .md-list-item-text {
+                    > .title {
+                        font-size: 1.4em;
+                    }
+                }
+            }
+        }
+
+        &.prio-low {
+            > button {
+                background: $prioLow;
+            }
+        }
     }
 }
 
 a,
 a:visited {
-    color: #95a216;
+    color: #c88400;
+}
+
+md-menu-content {
+    background: $brownAccent;
+    color: rgba(255,255,255,1.0);
+
+    md-menu-divider {
+        background: rgba(255,255,255,0.2);
+    }
+}
+
+.fgPrioHigh {
+    color: $prioHigh;
+}
+
+.fgPrioMedium {
+    color: $prioMedium;
+}
+
+.fgPrioLow {
+    color: $prioLow;
 }

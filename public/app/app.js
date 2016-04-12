@@ -14,6 +14,7 @@
             'toggleFullscreen',
             'editInPlace',
             'zoomable',
+            'orderByPriority',
             'start'
         ])
         .config(init)
@@ -33,8 +34,8 @@
             suffix: '.json'
         });
         $translateProvider.useSanitizeValueStrategy('sanitize');
-        $translateProvider.preferredLanguage('de-DE');
-        $translateProvider.fallbackLanguage('de-DE');
+        $translateProvider.preferredLanguage('en-GB');
+        $translateProvider.fallbackLanguage('en-GB');
 
         $mdThemingProvider.definePalette('dark-brown', {
             '50': '#ffb830',
@@ -122,22 +123,22 @@
         $localStorageProvider.setKeyPrefix('neon');
     }
 
-    function start($rootScope, $localStorage, $route, $document) {
+    function start($localStorage, $route, $document, $rootScope, $filter) {
         // TODO: move this to service or similar for general usage and config (controller - key(s) - callback (with scope as parameter))
         $document.bind('keydown', function(e) {
 
-            var inputFocused = false;
+            var inputElementHasFocus = false;
             var preventDefault = false;
             var inputNodeNames = ['input', 'select', 'textarea'];
             var element = e.target;
             var nodeName = element.nodeName.toLowerCase();
 
             if (element.contentEditable && element.contentEditable === 'true') {
-                inputFocused = true;
+                inputElementHasFocus = true;
             } else {
                 for (var i = 0; i < inputNodeNames.length; i++) {
                     if (inputNodeNames[i] === nodeName) {
-                        inputFocused = true;
+                        inputElementHasFocus = true;
                         break;
                     }
                 }
@@ -154,17 +155,21 @@
             switch ($route.current.$$route.controller) {
                 case 'StartController':
                     {
-                        if (e.keyCode === 'N'.charCodeAt(0) && !inputFocused && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                        if ((e.keyCode === 'N'.charCodeAt(0) || e.keyCode === 'D'.charCodeAt(0)) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.addDocument();
                             $route.current.scope.$apply();
-                        } else if (e.keyCode === 'E'.charCodeAt(0) && !inputFocused && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                        } else if (e.keyCode === 'G'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.addGroup();
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === 'E'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             if ($route.current.scope.hoveredDocument !== null) {
                                 $route.current.scope.editDocument($route.current.scope.hoveredDocument);
                                 $route.current.scope.$apply();
                             }
-                        } else if (e.keyCode === 'S'.charCodeAt(0) && !inputFocused && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                        } else if (e.keyCode === 'S'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             if (!$route.current.scope.showSearch) {
                                 $route.current.scope.startSearch();
@@ -180,11 +185,38 @@
                         }
                         break;
                     }
+                case 'GroupController':
+                    {
+                        if ((e.keyCode === 'N'.charCodeAt(0) || e.keyCode === 'D'.charCodeAt(0)) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.addDocument();
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === 'G'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.addGroup();
+                            $route.current.scope.$apply();
+                        } else if ((e.keyCode === 'R'.charCodeAt(0) || e.keyCode === 46) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            //r or delete for removing group
+                            preventDefault = true;
+                            $route.current.scope.delete();
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.back();
+                            $route.current.scope.$apply();
+                        }
+                        break;
+                    }
                 case 'DocumentController':
                     {
                         if (e.keyCode === 'E'.charCodeAt(0) && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.edit();
+                            $route.current.scope.$apply();
+                        } else if ((e.keyCode === 'R'.charCodeAt(0) || e.keyCode === 46) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            //r or delete for removing group
+                            preventDefault = true;
+                            $route.current.scope.delete();
                             $route.current.scope.$apply();
                         } else if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
@@ -195,7 +227,7 @@
                     }
                 case 'EditController':
                     {
-                        if ((e.keyCode === 13 && e.ctrlKey && !e.shiftKey && !e.altKey) || (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey)) {
+                        if (((e.keyCode === 13 && e.ctrlKey) || (e.keyCode === 27 && !e.ctrlKey)) && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.done();
                             $route.current.scope.$apply();
@@ -211,5 +243,75 @@
             }
         });
 
+
+        $rootScope.getItemName = function(item) {
+            if (item.name.length > 0) {
+                return item.name;
+            } else if (item.type === 'document') {
+                var indexOfFirstLineBreak = item.text.indexOf('\r\n');
+                if (indexOfFirstLineBreak === -1) {
+                    return item.text;
+                }
+                return item.text.substring(0, indexOfFirstLineBreak);
+            } else {
+                return $filter('translate')('Group.Unnamed');
+            }
+        };
+
+        $rootScope.getPreviewItems = function(item) {
+            if (item.type !== 'group') {
+                return [];
+            }
+
+            var previewItems = [];
+            var childrenOrderedByPriority = $filter('orderByPriority')(item.children);
+            for (var i = 0; i < childrenOrderedByPriority.length; i++) {
+                var previewItem = childrenOrderedByPriority[i];
+                if (previewItems.length < 2) {
+                    if (!previewItem.deleted) {
+                        previewItems.push(previewItem);
+                    }
+                } else {
+                    break;
+                }
+            }
+            return previewItems;
+        };
+
+        $rootScope.getItemTileCssClass = function(item) {
+            var cssClass;
+
+            if (item.type === 'group') {
+                cssClass = 'md-3-line';
+            } else if (item.priority === 'high') {
+                cssClass = 'md-2-line';
+            }
+
+            if (item.priority === 'high') {
+                cssClass += ' prio-high';
+            } else if (item.priority === 'medium') {
+                cssClass += ' prio-medium';
+            } else if (item.priority === 'low') {
+                cssClass += ' prio-low';
+            }
+
+            return cssClass;
+        };
+
+        $rootScope.getItemToolbarCssClass = function(item) {
+            if (item.priority === 'high') {
+                return 'prio-high';
+            }
+
+            if (item.priority === 'medium') {
+                return 'prio-medium';
+            }
+
+            if (item.priority === 'low') {
+                return 'prio-low';
+            }
+
+            return '';
+        };
     }
 })();

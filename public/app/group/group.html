@@ -1,0 +1,32 @@
+<fab-add ng-click-document="addDocument()" ng-click-group="addGroup()"></fab-add>
+
+<md-toolbar ng-class="getItemToolbarCssClass(group)">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="back()">
+            <md-icon md-font-set="material-icons">arrow_back</md-icon>
+        </md-button>
+        <h2 class="md-headline" flex>
+            <input type="text" set-focus="focusName" ng-keydown="nameKeyDown($event)" placeholder="{{'Group.Unnamed' | translate}}" ng-model="group.name" ng-change="update()">
+        </h2>
+        <priority-menu set-priority="setPriority(priority)"></priority-menu>
+        <md-button class="md-icon-button" ng-click="delete($event)">
+            <md-icon md-font-set="material-icons">delete</md-icon>
+        </md-button>
+        <toggle-fullscreen></toggle-fullscreen>
+    </div>
+</md-toolbar>
+
+<!-- TODO: move to directive? -->
+<md-content flex layout md-scroll-y>
+    <md-list flex id="items" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap layout="row">
+        <md-list-item ng-if="!item.deleted" ng-class="getItemTileCssClass(item)" flex-xs="50" flex-sm="33" flex-md="25" flex-lg="20" flex-xl="15" ng-click="openItem(item)" ng-mouseenter="mouseEnter(item)" ng-mouseleave="mouseLeave()" ng-repeat="item in group.children | orderByPriority">
+            <md-icon ng-class="{'document': item.type === 'document', 'group': item.type === 'group'}" md-font-set="material-icons">{{(item.type === 'group') ? 'folder' : 'subject'}}</md-icon>
+            <div class="md-list-item-text" layout="column">
+                <span class="title">
+                    {{getItemName(item)}}
+                </span>
+                <h4 ng-repeat="previewItem in getPreviewItems(item)">{{getItemName(previewItem)}}</h4>
+            </div>
+        </md-list-item>
+    </md-list>
+</md-content>

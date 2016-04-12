@@ -20,7 +20,10 @@
                                     element[0].scrollTop = 0;
                                 }
                             }
-                            scope.trigger = false;
+                        });
+                    } else if (value === false) {
+                        $timeout(function() {
+                            element[0].blur();
                         });
                     }
                 });

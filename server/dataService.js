@@ -90,43 +90,152 @@ module.exports = function(config) {
         }
     };
 
-    module.addDocument = function() {
+    module.addGroup = function(parentGroupId) {
+        var id = uuid.v4();
+        var group = {
+            name: '',
+            children: {},
+            type: 'group',
+            priority: 'none',
+            tags: [],
+            id: id
+        };
+
+        if (typeof parentGroupId !== 'undefined' && parentGroupId !== null) {
+            module.getGroup(parentGroupId).group.children[id] = group;
+        } else {
+            getData()[id] = group;
+        }
+
+        return group;
+    };
+
+    module.addDocument = function(parentGroupId) {
         var id = uuid.v4();
         var document = {
             name: '',
             text: '',
+            type: 'document',
+            priority: 'none',
+            tags: [],
             id: id
         };
-        getData()[id] = document;
+
+        if (typeof parentGroupId !== 'undefined' && parentGroupId !== null) {
+            module.getGroup(parentGroupId).group.children[id] = document;
+        } else {
+            getData()[id] = document;
+        }
 
         return document;
     };
 
+    module.removeGroup = function(id) {
+        var group = module.getGroup(id).group;
+        group.deleted = true;
+        // if (typeof group.metadata.parentId === 'undefined') {
+        //     delete getData()[id];
+        // } else {
+        //     var parentGroup = module.getGroup(group.metadata.parentId);
+        //     delete parentGroup.group.children[id];
+        // }
+    };
+
     module.removeDocument = function(id) {
-        delete getData()[id];
+        var document = module.getDocument(id).document;
+        document.deleted = true;
+        // if (typeof document.metadata.parentId === 'undefined') {
+        //     delete getData()[id];
+        // } else {
+        //     var parentGroup = module.getGroup(document.metadata.parentId);
+        //     delete parentGroup.group.children[id];
+        // }
+    };
+
+    module.updateGroup = function(group) {
+        var grp = module.getGroup(group.id).group;
+        grp.name = group.name;
+        grp.priority = group.priority;
     };
 
     module.updateDocument = function(document) {
-        var doc = getData()[document.id];
+        var doc = module.getDocument(document.id).document;
         doc.text = document.text.replace(/\r?\n/g, '\r\n');
         doc.name = document.name;
+        doc.priority = document.priority;
     };
 
-    module.getDocument = function(id) {
-        //TODO: error handling
-        return getData()[id];
+    module.getRoot = function() {
+        // var data = getData();
+        // var items = [];
+        //
+        // for (var id in data) {
+        //     items.push(data[id]);
+        // }
+
+        return getData();
     };
 
-    module.getDocuments = function() {
-        var data = getData();
-        var docs = [];
+    module.getGroup = function(groupId, parentGroup) {
+        var parentChildren;
 
-        for (var documentId in data) {
-            docs.push(data[documentId]);
+        if (typeof parentGroup === 'undefined') {
+            parentGroup = parentChildren = getData();
+        } else {
+            parentChildren = parentGroup.children;
         }
 
-        return docs;
+        for (var id in parentChildren) {
+            if (parentChildren.hasOwnProperty(id)) {
+
+                if (parentChildren[id].type === 'group') {
+                    if (id === groupId) {
+                        return {
+                            group: parentChildren[id],
+                            metadata: {
+                                parentId: parentGroup.id
+                            }
+                        };
+                    } else {
+                        var result = module.getGroup(groupId, parentChildren[id]);
+                        if (typeof result !== 'undefined') {
+                            return result;
+                        }
+                    }
+                }
+            }
+        }
     };
+
+    module.getDocument = function(documentId, parentGroup) {
+        var parentChildren;
+
+        if (typeof parentGroup === 'undefined') {
+            parentGroup = parentChildren = getData();
+        } else {
+            parentChildren = parentGroup.children;
+        }
+
+        for (var id in parentChildren) {
+            if (parentChildren.hasOwnProperty(id)) {
+
+                if (parentChildren[id].type === 'document' && id === documentId) {
+                    return {
+                        document: parentChildren[id],
+                        metadata: {
+                            parentId: parentGroup.id
+                        }
+                    };
+                } else if (parentChildren[id].type === 'group') {
+                    var result = module.getDocument(documentId, parentChildren[id]);
+                    if (typeof result !== 'undefined') {
+                        return result;
+                    }
+                }
+            }
+        }
+    };
+
 
 
     return module;

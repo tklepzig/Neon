@@ -1,6 +1,11 @@
 {
-  "General":
-  {
-    "AppName":"Neon"
-  }
+    "General": {
+        "AppName": "Neon"
+    },
+    "Document": {
+        "Unnamed": "Unbenanntes Dokument"
+    },
+    "Group": {
+        "Unnamed": "Unbenannte Gruppe"
+    }
 }
