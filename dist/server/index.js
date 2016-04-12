@@ -39,7 +39,7 @@ var secrets = {
 };
 var dataService = require('./dataService.js')({
     repoPath: path.resolve(__dirname + config.repoPath),
-    dataFilename: 'data-new.json',
+    dataFilename: 'data.json',
     isPushAllowed: config.isPushAllowed,
     remoteUrl: secrets.repoUrl,
     username: secrets.repoUser,
