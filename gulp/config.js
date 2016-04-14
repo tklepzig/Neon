@@ -43,9 +43,11 @@ module.exports = function(plugins) {
     };
 
     config.destJsFiles = [config.destJsPath + config.destVendorFile, config.destJsPath + config.destJsFile, config.destJsPath + config.destTemplateFile];
-    config.srcVendorFiles = plugins.mainBowerFiles().filter(function(file) {
-        return file.indexOf('.js') > -1 && file.indexOf('.css') === -1;
-    });
+
+    //ensure that jQuery is included beofre angular
+    config.srcVendorFiles = [srcPublicPath + 'bower_components/jquery/dist/jquery.min.js'].concat(plugins.mainBowerFiles().filter(function(file) {
+        return file.indexOf('.js') > -1 && file.indexOf('jquery.js') === -1 && file.indexOf('.css') === -1;
+    }));
 
     return config;
 };
