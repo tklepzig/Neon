@@ -41,6 +41,14 @@
             socketService.emit('removeDocument', id);
         };
 
+        module.moveDocument = function(id, oldParentId, newParentId) {
+            var deferred = $q.defer();
+            socketService.emit('moveItem', id, oldParentId, newParentId, function() {
+                deferred.resolve();
+            });
+            return deferred.promise;
+        };
+
         return module;
     }
 }());

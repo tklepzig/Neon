@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('group', ['documentService', 'groupService', 'setFocus', 'priorityMenu'])
+    angular.module('group', ['documentService', 'groupService', 'setFocus', 'priorityMenu', 'moveItemMenu'])
         .config(defineRoutes)
         .controller('GroupController', GroupController);
 
@@ -94,6 +94,16 @@
         $scope.setPriority = function(priority) {
             $scope.group.priority = priority;
             groupService.updateGroup($scope.group);
+        };
+
+        $scope.moveToGroup = function(groupId) {
+            groupService.moveGroup($scope.group.id, $scope.metadata.parentId, groupId).then(function() {
+                if (typeof groupId === 'undefined') {
+                    $location.path('/').replace();
+                } else {
+                    $location.path('/group/' + groupId).replace();
+                }
+            });
         };
 
         // TODO: add hover functions (Edit)

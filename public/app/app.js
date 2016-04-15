@@ -11,6 +11,7 @@
             'btford.socket-io',
             // 'cfp.hotkeys',
             'neon.touch',
+            'socketService',
             'toggleFullscreen',
             'editInPlace',
             'zoomable',

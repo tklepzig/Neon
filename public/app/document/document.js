@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'vibrationService', 'priorityMenu'])
+    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'vibrationService', 'priorityMenu', 'moveItemMenu'])
         .config(defineRoutes)
         .controller('DocumentController', DocumentController);
 
@@ -67,6 +67,16 @@
         $scope.setPriority = function(priority) {
             $scope.document.priority = priority;
             documentService.updateDocument($scope.document);
+        };
+
+        $scope.moveToGroup = function(groupId) {
+            documentService.moveDocument($scope.document.id, $scope.metadata.parentId, groupId).then(function() {
+                if (typeof groupId === 'undefined') {
+                    $location.path('/').replace();
+                } else {
+                    $location.path('/group/' + groupId).replace();
+                }
+            });
         };
     }
 }());
