@@ -28,10 +28,10 @@
         $scope.back = function() {
             if (typeof $scope.metadata.parentId === 'undefined') {
                 //parent is root
-                $location.path('/');
+                $location.path('/').replace();
             } else {
                 //parent is group
-                $location.path('/group/' + $scope.metadata.parentId);
+                $location.path('/group/' + $scope.metadata.parentId).replace();
             }
         };
 
@@ -58,7 +58,7 @@
         };
 
         $scope.edit = function() {
-            $location.path('/document/' + $scope.document.id + '/edit');
+            $location.path('/document/' + $scope.document.id + '/edit').replace();
         };
 
         $scope.setPriority = function(priority) {
