@@ -15,7 +15,8 @@
             'editInPlace',
             'zoomable',
             'orderByPriority',
-            'start'
+            'start',
+            'socketService'
         ])
         .config(init)
         .run(start);
@@ -120,10 +121,11 @@
                 default: '500'
             }).dark();
 
+        $mdThemingProvider.theme('error-toast');
         $localStorageProvider.setKeyPrefix('neon');
     }
 
-    function start($localStorage, $route, $document, $rootScope, $filter) {
+    function start($localStorage, $route, $document, $rootScope, $filter, $mdToast, socketService) {
         // TODO: move this to service or similar for general usage and config (controller - key(s) - callback (with scope as parameter))
         $document.bind('keydown', function(e) {
 
@@ -241,6 +243,22 @@
                 e.preventDefault();
                 return false;
             }
+        });
+
+
+        var connectionErrorToast;
+        function showConnectionErrorToast() {
+            return $mdToast.show($mdToast.simple().hideDelay(0).textContent('Connection to server lost.').theme('error-toast'));
+        }
+
+        socketService.on('connect', function() {
+            $mdToast.hide(connectionErrorToast);
+        });
+        socketService.on('disconnect', function() {
+            connectionErrorToast = showConnectionErrorToast();
+        });
+        socketService.on('connect_error', function() {
+            connectionErrorToast = showConnectionErrorToast();
         });
 
 

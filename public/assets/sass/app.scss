@@ -193,3 +193,14 @@ md-menu-content {
 .fgPrioLow {
     color: $prioLow;
 }
+
+md-toast.md-error-toast-theme {
+    .md-toast-content {
+        background-color: #b53216;
+        color: white;
+        font-weight: bold;
+        font-size: 1.1em;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+}

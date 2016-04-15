@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('groupService', ['socketService'])
+    angular.module('groupService', [])
         .factory('groupService', groupService);
 
     function groupService($q, socketService) {

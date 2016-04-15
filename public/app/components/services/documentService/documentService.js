@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('documentService', ['socketService'])
+    angular.module('documentService', [])
         .factory('documentService', documentService);
 
     function documentService($q, socketService) {
@@ -40,7 +40,7 @@
         module.removeDocument = function(id) {
             socketService.emit('removeDocument', id);
         };
-        
+
         return module;
     }
 }());
