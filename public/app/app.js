@@ -247,20 +247,12 @@
 
 
         var connectionErrorToast;
-        function showConnectionErrorToast() {
-            return $mdToast.show($mdToast.simple().hideDelay(0).textContent('Connection to server lost.').theme('error-toast'));
-        }
-
         socketService.on('connect', function() {
             $mdToast.hide(connectionErrorToast);
         });
         socketService.on('disconnect', function() {
-            connectionErrorToast = showConnectionErrorToast();
+            connectionErrorToast = $mdToast.show($mdToast.simple().hideDelay(0).textContent('Connection to server lost.').theme('error-toast'));
         });
-        socketService.on('connect_error', function() {
-            connectionErrorToast = showConnectionErrorToast();
-        });
-
 
         $rootScope.getItemName = function(item) {
             if (item.name.length > 0) {
