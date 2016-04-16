@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'priorityMenu'])
+    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'vibrationService', 'priorityMenu'])
         .config(defineRoutes)
         .controller('DocumentController', DocumentController);
 
@@ -16,7 +16,7 @@
         });
     }
 
-    function DocumentController($scope, $location, $routeParams, $mdDialog, documentService) {
+    function DocumentController($scope, $location, $routeParams, $mdDialog, documentService, vibrationService) {
         $scope.document = {};
         $scope.metadata = {};
 
@@ -26,6 +26,9 @@
         });
 
         $scope.back = function() {
+
+            vibrationService.vibrate(20);
+
             if (typeof $scope.metadata.parentId === 'undefined') {
                 //parent is root
                 $location.path('/').replace();
