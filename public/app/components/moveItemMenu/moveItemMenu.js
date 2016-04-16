@@ -8,7 +8,8 @@
         return {
             restrict: 'E',
             scope: {
-                moveItem: '&'
+                moveItem: '&',
+                excludeGroupId: '='
             },
             templateUrl: 'app/components/moveItemMenu/moveItemMenu.html',
             link: function($scope) {
