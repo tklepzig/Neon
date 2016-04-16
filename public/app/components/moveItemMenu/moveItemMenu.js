@@ -9,7 +9,7 @@
             restrict: 'E',
             scope: {
                 moveItem: '&',
-                excludeGroupId: '='
+                excludeGroupIds: '='
             },
             templateUrl: 'app/components/moveItemMenu/moveItemMenu.html',
             link: function($scope) {

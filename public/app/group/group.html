@@ -8,7 +8,7 @@
         <h2 class="md-headline" flex>
             <input type="text" set-focus="focusName" ng-keydown="nameKeyDown($event)" placeholder="{{'Group.Unnamed' | translate}}" ng-model="group.name" ng-change="update()">
         </h2>
-        <move-item-menu move-item="moveToGroup(groupId)" exclude-group-id="group.id"></move-item-menu>
+        <move-item-menu move-item="moveToGroup(groupId)" exclude-group-ids="[group.id, metadata.parentId]"></move-item-menu>
         <priority-menu set-priority="setPriority(priority)"></priority-menu>
         <md-button class="md-icon-button" ng-click="delete($event)">
             <md-icon md-font-set="material-icons">delete</md-icon>
