@@ -1,0 +1,18 @@
+<md-menu ng-if="show">
+    <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)" title="Move">
+        <md-icon md-menu-origin md-font-set="material-icons">forward</md-icon>
+    </md-button>
+    <md-menu-content width="2">
+        <md-menu-item ng-if="!group.deleted && excludeGroupIds.indexOf(group.id) === -1" ng-repeat="group in groups">
+            <md-button ng-click="moveItem({groupId: group.id})">
+                {{getItemName(group)}}
+            </md-button>
+        </md-menu-item>
+        <md-menu-divider ng-if="excludeGroupIds.indexOf(undefined) === -1"></md-menu-divider>
+        <md-menu-item ng-if="excludeGroupIds.indexOf(undefined) === -1">
+            <md-button ng-click="moveItem()">
+                Root
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>

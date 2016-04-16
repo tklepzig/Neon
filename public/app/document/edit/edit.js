@@ -53,13 +53,13 @@
                 documentService.removeDocument($scope.document.id);
                 if (typeof $scope.metadata.parentId === 'undefined') {
                     //parent is root
-                    $location.path('/');
+                    $location.path('/').replace();
                 } else {
                     //parent is group
-                    $location.path('/group/' + $scope.metadata.parentId);
+                    $location.path('/group/' + $scope.metadata.parentId).replace();
                 }
             } else {
-                $location.path('/document/' + $scope.document.id);
+                $location.path('/document/' + $scope.document.id).replace();
             }
         };
     }

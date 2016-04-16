@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('documentService', ['socketService'])
+    angular.module('documentService', [])
         .factory('documentService', documentService);
 
     function documentService($q, socketService) {
@@ -40,7 +40,15 @@
         module.removeDocument = function(id) {
             socketService.emit('removeDocument', id);
         };
-        
+
+        module.moveDocument = function(id, oldParentId, newParentId) {
+            var deferred = $q.defer();
+            socketService.emit('moveItem', id, oldParentId, newParentId, function() {
+                deferred.resolve();
+            });
+            return deferred.promise;
+        };
+
         return module;
     }
 }());

@@ -1,11 +1,19 @@
 (function() {
     'use strict';
 
-    angular.module('groupService', ['socketService'])
+    angular.module('groupService', [])
         .factory('groupService', groupService);
 
     function groupService($q, socketService) {
         var module = {};
+
+        module.getAllGroups = function() {
+            var deferred = $q.defer();
+            socketService.emit('getAllGroups', function(groups) {
+                deferred.resolve(groups);
+            });
+            return deferred.promise;
+        };
 
         module.getGroup = function(id) {
             var deferred = $q.defer();
@@ -29,6 +37,14 @@
 
         module.removeGroup = function(id) {
             socketService.emit('removeGroup', id);
+        };
+
+        module.moveGroup = function(id, oldParentId, newParentId) {
+            var deferred = $q.defer();
+            socketService.emit('moveItem', id, oldParentId, newParentId, function() {
+                deferred.resolve();
+            });
+            return deferred.promise;
         };
 
         return module;

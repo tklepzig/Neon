@@ -1,6 +1,6 @@
 {
   "name": "neon",
-  "version": "v1.1.0",
+  "version": "v1.2.0",
   "scripts": {
     "start": "node server/index.js",
     "debug": "./start-dev.sh"

@@ -98,6 +98,12 @@ socketIo.on('connection', function(socket) {
         callback(document);
     });
 
+    socket.on('moveItem', function(id, oldParentId, newParentId, callback) {
+        dataService.moveItem(id, oldParentId, newParentId);
+        socket.broadcast.emit('itemMoved', id, oldParentId, newParentId);
+        callback();
+    });
+
     socket.on('removeGroup', function(id) {
         dataService.removeGroup(id);
         socket.broadcast.emit('groupRemoved', id);
@@ -106,6 +112,11 @@ socketIo.on('connection', function(socket) {
     socket.on('removeDocument', function(id) {
         dataService.removeDocument(id);
         socket.broadcast.emit('documentRemoved', id);
+    });
+
+    socket.on('getAllGroups', function(callback) {
+        var groups = dataService.getAllGroups();
+        callback(groups);
     });
 
     socket.on('getGroup', function(id, callback) {

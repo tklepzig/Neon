@@ -50,21 +50,21 @@
 
         $scope.openItem = function(item) {
             if (item.type === 'document') {
-                $location.path('/document/' + item.id);
+                $location.path('/document/' + item.id).replace();
             } else if (item.type === 'group') {
-                $location.path('/group/' + item.id);
+                $location.path('/group/' + item.id).replace();
             }
         };
 
         $scope.addGroup = function() {
             groupService.addGroup().then(function(group) {
-                $location.path('/group/' + group.id);
+                $location.path('/group/' + group.id).replace();
             });
         };
 
         $scope.addDocument = function() {
             documentService.addDocument().then(function(document) {
-                $location.path('/document/' + document.id + '/edit');
+                $location.path('/document/' + document.id + '/edit').replace();
             });
         };
 
@@ -73,7 +73,7 @@
                 e.stopPropagation();
                 e.preventDefault();
             }
-            $location.path('/document/' + document.id + '/edit');
+            $location.path('/document/' + document.id + '/edit').replace();
         };
     }
 }());

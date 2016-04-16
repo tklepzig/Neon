@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'priorityMenu'])
+    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'vibrationService', 'priorityMenu', 'moveItemMenu'])
         .config(defineRoutes)
         .controller('DocumentController', DocumentController);
 
@@ -16,7 +16,7 @@
         });
     }
 
-    function DocumentController($scope, $location, $routeParams, $mdDialog, documentService) {
+    function DocumentController($scope, $location, $routeParams, $mdDialog, documentService, vibrationService) {
         $scope.document = {};
         $scope.metadata = {};
 
@@ -26,12 +26,15 @@
         });
 
         $scope.back = function() {
+
+            vibrationService.vibrate(20);
+
             if (typeof $scope.metadata.parentId === 'undefined') {
                 //parent is root
-                $location.path('/');
+                $location.path('/').replace();
             } else {
                 //parent is group
-                $location.path('/group/' + $scope.metadata.parentId);
+                $location.path('/group/' + $scope.metadata.parentId).replace();
             }
         };
 
@@ -58,12 +61,22 @@
         };
 
         $scope.edit = function() {
-            $location.path('/document/' + $scope.document.id + '/edit');
+            $location.path('/document/' + $scope.document.id + '/edit').replace();
         };
 
         $scope.setPriority = function(priority) {
             $scope.document.priority = priority;
             documentService.updateDocument($scope.document);
+        };
+
+        $scope.moveToGroup = function(groupId) {
+            documentService.moveDocument($scope.document.id, $scope.metadata.parentId, groupId).then(function() {
+                if (typeof groupId === 'undefined') {
+                    $location.path('/').replace();
+                } else {
+                    $location.path('/group/' + groupId).replace();
+                }
+            });
         };
     }
 }());
