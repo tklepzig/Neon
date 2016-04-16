@@ -130,6 +130,39 @@ module.exports = function(config) {
         return document;
     };
 
+    module.moveItem = function(id, oldParentId, newParentId) {
+
+        if (typeof oldParentId === 'undefined' || oldParentId === null) {
+            oldParentId = null;
+        }
+
+        if (typeof newParentId === 'undefined' || newParentId === null) {
+            newParentId = null;
+        }
+
+        if (oldParentId === newParentId || (oldParentId === null && newParentId === null)) {
+            //old and new are equal, so do nothing
+            return;
+        }
+
+        var oldParent;
+        var newParent;
+
+        if (oldParentId === null) {
+            oldParent = getData();
+        } else {
+            oldParent = module.getGroup(oldParentId).group.children;
+        }
+        if (newParentId === null) {
+            newParent = getData();
+        } else {
+            newParent = module.getGroup(newParentId).group.children;
+        }
+
+        newParent[id] = oldParent[id];
+        delete oldParent[id];
+    };
+
     module.removeGroup = function(id) {
         var group = module.getGroup(id).group;
         group.deleted = true;
@@ -174,6 +207,31 @@ module.exports = function(config) {
         // }
 
         return getData();
+    };
+
+    module.getAllGroups = function(parentGroup, groups) {
+        var parentChildren;
+
+        if (typeof groups === 'undefined') {
+            groups = [];
+        }
+
+        if (typeof parentGroup === 'undefined') {
+            parentGroup = parentChildren = getData();
+        } else {
+            parentChildren = parentGroup.children;
+        }
+
+        for (var id in parentChildren) {
+            if (parentChildren.hasOwnProperty(id)) {
+                if (parentChildren[id].type === 'group') {
+                    groups.push(parentChildren[id]);
+                    module.getAllGroups(parentChildren[id], groups);
+                }
+            }
+        }
+
+        return groups;
     };
 
     module.getGroup = function(groupId, parentGroup) {
