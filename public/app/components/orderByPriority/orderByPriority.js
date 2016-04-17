@@ -24,7 +24,18 @@
                 filtered.push(item);
             });
             filtered.sort(function(a, b) {
-                return (getPriorityAsNumber(a.priority) > getPriorityAsNumber(b.priority) ? 1 : -1);
+
+                var aPrio = getPriorityAsNumber(a.priority);
+                var bPrio = getPriorityAsNumber(b.priority);
+
+                if (aPrio < bPrio) {
+                    return -1;
+                }
+                if (aPrio > bPrio) {
+                    return 1;
+                }
+
+                return 0;
             });
             return filtered;
         };
