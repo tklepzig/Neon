@@ -26,7 +26,10 @@ var path = require('path');
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var socketIo = require('socket.io')(http);
+var socketIo = require('socket.io')(http, {
+  pingTimeout: 2000,
+  pingInterval: 2000
+});
 var nconf = require('nconf');
 require('colors');
 
