@@ -3,7 +3,7 @@
         <md-icon md-menu-origin md-font-set="material-icons">forward</md-icon>
     </md-button>
     <md-menu-content width="2">
-        <md-menu-item ng-if="!group.deleted && excludeGroupIds.indexOf(group.id) === -1" ng-repeat="group in groups">
+        <md-menu-item ng-if="!group.deleted && excludeGroupIds.indexOf(group.id) === -1" ng-repeat="group in groups | orderBy: getItemName">
             <md-button ng-click="moveItem({groupId: group.id})">
                 {{getItemName(group)}}
             </md-button>
