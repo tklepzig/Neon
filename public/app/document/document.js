@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'vibrationService', 'priorityMenu', 'moveItemMenu'])
+    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'priorityMenu', 'moveItemMenu'])
         .config(defineRoutes)
         .controller('DocumentController', DocumentController);
 
@@ -26,9 +26,6 @@
         });
 
         $scope.back = function() {
-
-            vibrationService.vibrate(20);
-
             if (typeof $scope.metadata.parentId === 'undefined') {
                 //parent is root
                 $location.path('/').replace();

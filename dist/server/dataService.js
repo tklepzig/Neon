@@ -295,6 +295,25 @@ module.exports = function(config) {
     };
 
 
+    module.migrate = function(parentGroup) {
+        if (typeof parentGroup === 'undefined') {
+            parentGroup = getData();
+        }
+
+        for (var id in parentGroup) {
+            if (parentGroup.hasOwnProperty(id)) {
+                if (parentGroup[id].type === 'group') {
+                    //add new properties to group
+                    // parentGroup[id].lastModified = new Date();
+
+                    module.migrate(parentGroup[id].children);
+                } else if (parentGroup[id].type === 'document') {
+                    //add new properties to document
+                    // parentGroup[id].lastModified = new Date();
+                }
+            }
+        }
+    };
 
     return module;
 };

@@ -65,6 +65,7 @@ app.get('/*', function(req, res) {
 });
 
 dataService.initialize();
+// dataService.migrate();
 
 socketIo.on('connection', function(socket) {
     var clientIp = socket.request.connection.remoteAddress;
