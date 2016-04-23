@@ -17,6 +17,7 @@
     }
 
     function EditController($scope, $location, $routeParams, documentService) {
+        $scope.ready = false;
         $scope.focusName = false;
         $scope.focusText = false;
 
@@ -24,6 +25,7 @@
             $scope.document = document.document;
             $scope.metadata = document.metadata;
             $scope.focusText = true;
+            $scope.ready = true;
         });
 
         $scope.textKeyDown = function(e) {

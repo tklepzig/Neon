@@ -13,6 +13,7 @@
     }
 
     function GroupController($scope, $routeParams, $location, $mdDialog, documentService, groupService) {
+        $scope.ready = false;
         $scope.focusName = false;
         $scope.group = {};
         $scope.metadata = {};
@@ -33,6 +34,7 @@
             if ($scope.group.name.length === 0) {
                 $scope.focusName = true;
             }
+            $scope.ready = true;
         });
 
         $scope.back = function() {

@@ -21,5 +21,8 @@
 </md-button>
 
 <md-content flex layout="column" md-scroll-y>
-    <pagedown-viewer zoomable content="document.text" flex style="margin: 8px 16px;"></pagedown-viewer>
+    <div flex ng-if="!ready" layout="row" layout-align="center center">
+        <md-progress-circular md-diameter="80" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <pagedown-viewer ng-if="ready" zoomable content="document.text" flex style="margin: 8px 16px;"></pagedown-viewer>
 </md-content>

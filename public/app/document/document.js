@@ -17,6 +17,7 @@
     }
 
     function DocumentController($scope, $location, $routeParams, $mdDialog, documentService) {
+        $scope.ready = false;
         $scope.document = {};
         $scope.metadata = {};
 
@@ -27,6 +28,7 @@
         documentService.getDocument($routeParams.id).then(function(document) {
             $scope.document = document.document;
             $scope.metadata = document.metadata;
+            $scope.ready = true;
         });
 
         $scope.back = function() {
