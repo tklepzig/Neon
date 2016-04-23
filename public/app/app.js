@@ -252,7 +252,17 @@
             $mdToast.hide(connectionErrorToast);
         });
         socketService.on('disconnect', function() {
-            connectionErrorToast = $mdToast.show($mdToast.simple().hideDelay(0).textContent('Connection to server lost.').theme('error-toast'));
+            connectionErrorToast = $mdToast.show($mdToast
+                    .simple()
+                    .hideDelay(0)
+                    .textContent('Connection to server lost.')
+                    .action('Reconnect')
+                    .theme('error-toast'))
+                .then(function(response) {
+                    if (response === 'ok') {
+                        socketService.connect();
+                    }
+                });
         });
 
         $rootScope.getItemName = function(item) {
