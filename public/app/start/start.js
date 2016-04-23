@@ -13,13 +13,22 @@
     }
 
     function StartController($scope, $localStorage, $location, $mdDialog, documentService, groupService) {
-        documentService.getAllDocuments().then(function(documents) {
-            $scope.items = documents;
-        });
-
         $scope.hoveredDocument = null;
         $scope.searchQuery = '';
         $scope.showSearch = false;
+
+        $scope.view = 'grid';
+        $scope.flexValues = {
+            xs: 50,
+            sm: 33,
+            md: 25,
+            lg: 20,
+            xl: 15
+        };
+
+        documentService.getAllDocuments().then(function(documents) {
+            $scope.items = documents;
+        });
 
         $scope.searchFilter = function(document) {
             var re = new RegExp($scope.searchQuery, 'i');
@@ -74,6 +83,28 @@
                 e.preventDefault();
             }
             $location.path('/document/' + document.id + '/edit').replace();
+        };
+
+        $scope.toggleView = function() {
+            if ($scope.view === 'grid') {
+                $scope.view = 'lines';
+                $scope.flexValues = {
+                    xs: 100,
+                    sm: 100,
+                    md: 100,
+                    lg: 100,
+                    xl: 100
+                };
+            } else if ($scope.view === 'lines') {
+                $scope.view = 'grid';
+                $scope.flexValues = {
+                    xs: 50,
+                    sm: 33,
+                    md: 25,
+                    lg: 20,
+                    xl: 15
+                };
+            }
         };
     }
 }());
