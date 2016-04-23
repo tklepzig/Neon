@@ -17,6 +17,15 @@
         $scope.group = {};
         $scope.metadata = {};
 
+        $scope.view = 'grid';
+        $scope.flexValues = {
+            xs: 50,
+            sm: 33,
+            md: 25,
+            lg: 20,
+            xl: 15
+        };
+
         groupService.getGroup($routeParams.id).then(function(group) {
             $scope.group = group.group;
             $scope.metadata = group.metadata;
@@ -104,6 +113,28 @@
                     $location.path('/group/' + groupId).replace();
                 }
             });
+        };
+
+        $scope.toggleView = function() {
+            if ($scope.view === 'grid') {
+                $scope.view = 'lines';
+                $scope.flexValues = {
+                    xs: 100,
+                    sm: 100,
+                    md: 100,
+                    lg: 100,
+                    xl: 100
+                };
+            } else if ($scope.view === 'lines') {
+                $scope.view = 'grid';
+                $scope.flexValues = {
+                    xs: 50,
+                    sm: 33,
+                    md: 25,
+                    lg: 20,
+                    xl: 15
+                };
+            }
         };
 
         // TODO: add hover functions (Edit)
