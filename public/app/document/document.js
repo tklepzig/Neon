@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'vibrationService', 'priorityMenu', 'moveItemMenu'])
+    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'priorityMenu', 'moveItemMenu'])
         .config(defineRoutes)
         .controller('DocumentController', DocumentController);
 
@@ -16,9 +16,13 @@
         });
     }
 
-    function DocumentController($scope, $location, $routeParams, $mdDialog, documentService, vibrationService) {
+    function DocumentController($scope, $location, $routeParams, $mdDialog, documentService) {
         $scope.document = {};
         $scope.metadata = {};
+
+        $('pagedown-viewer').on('click', 'a', function() {
+            $(this).attr('target', '_blank');
+        });
 
         documentService.getDocument($routeParams.id).then(function(document) {
             $scope.document = document.document;
@@ -26,9 +30,6 @@
         });
 
         $scope.back = function() {
-
-            vibrationService.vibrate(20);
-
             if (typeof $scope.metadata.parentId === 'undefined') {
                 //parent is root
                 $location.path('/').replace();

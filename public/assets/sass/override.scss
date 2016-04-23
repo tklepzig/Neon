@@ -10,7 +10,24 @@ md-toolbar {
     box-shadow: #000 0 0 20px 4px;
 }
 
+md-menu-item.header {
+    padding: 0;
+    margin: 0;
+    height: 24px;
+    min-height: 24px;
 
+    button[disabled] {
+        padding: 0;
+        margin: 2px 0;
+        height: 100%;
+        min-height: 100%;
+        line-height: 12px;
+        font-size: 13px;
+        margin-left: 20px;
+        padding-bottom: 2px;
+        color: rgba(255,255,255,0.6) !important;
+    }
+}
 //override layout-padding and layout-margin rules
 //issue: https://github.com/angular/material/issues/4356
 //currently, the layout-margin and layout-padding rules are not responsible, so override this
