@@ -246,7 +246,6 @@
             }
         });
 
-
         var connectionErrorToast;
         socketService.on('connect', function() {
             $mdToast.hide(connectionErrorToast);
@@ -260,7 +259,7 @@
                     .theme('error-toast'))
                 .then(function(response) {
                     if (response === 'ok') {
-                        socketService.connect();
+                        socketService.reconnect();
                     }
                 });
         });
