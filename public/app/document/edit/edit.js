@@ -6,7 +6,7 @@
         .controller('EditController', EditController);
 
     function defineRoutes($routeProvider) {
-        $routeProvider.when('/document/:id/edit/:isNew', {
+        $routeProvider.when('/document/:id/edit/:isNew?', {
             templateUrl: 'app/document/edit/edit.html',
             controller: 'EditController' //,
                 // hotkeys: [
