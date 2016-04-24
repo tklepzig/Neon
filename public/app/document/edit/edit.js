@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document.edit', ['ngRoute', 'documentService', 'setFocus', 'ngAllowTab'])
+    angular.module('document.edit', ['ngRoute', 'documentService', 'vibrationService', 'setFocus', 'ngAllowTab'])
         .config(defineRoutes)
         .controller('EditController', EditController);
 
@@ -16,7 +16,7 @@
         });
     }
 
-    function EditController($scope, $location, $routeParams, documentService) {
+    function EditController($scope, $location, $routeParams, documentService, vibrationService) {
         $scope.ready = false;
         $scope.focusName = false;
         $scope.focusText = false;
@@ -51,6 +51,7 @@
         };
 
         $scope.done = function() {
+            vibrationService.vibrate(20);
             if ($scope.document.name.length === 0 && $scope.document.text.length === 0) {
                 documentService.removeDocument($scope.document.id);
                 if (typeof $scope.metadata.parentId === 'undefined') {

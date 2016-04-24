@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('group', ['documentService', 'groupService', 'setFocus', 'priorityMenu', 'moveItemMenu'])
+    angular.module('group', ['documentService', 'groupService', 'vibrationService', 'setFocus', 'priorityMenu', 'moveItemMenu'])
         .config(defineRoutes)
         .controller('GroupController', GroupController);
 
@@ -12,7 +12,7 @@
         });
     }
 
-    function GroupController($scope, $routeParams, $location, $mdDialog, documentService, groupService) {
+    function GroupController($scope, $routeParams, $location, $mdDialog, documentService, groupService, vibrationService) {
         $scope.ready = false;
         $scope.focusName = false;
         $scope.group = {};
@@ -38,6 +38,8 @@
         });
 
         $scope.back = function() {
+            vibrationService.vibrate(20);
+
             if (typeof $scope.metadata.parentId === 'undefined') {
                 //parent is root
                 $location.path('/').replace();
