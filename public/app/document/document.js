@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'priorityMenu', 'moveItemMenu'])
+    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'vibrationService', 'priorityMenu', 'moveItemMenu'])
         .config(defineRoutes)
         .controller('DocumentController', DocumentController);
 
@@ -16,7 +16,8 @@
         });
     }
 
-    function DocumentController($scope, $location, $routeParams, $mdDialog, documentService) {
+    function DocumentController($scope, $location, $routeParams, $mdDialog, documentService, vibrationService) {
+        $scope.ready = false;
         $scope.document = {};
         $scope.metadata = {};
 
@@ -27,9 +28,11 @@
         documentService.getDocument($routeParams.id).then(function(document) {
             $scope.document = document.document;
             $scope.metadata = document.metadata;
+            $scope.ready = true;
         });
 
         $scope.back = function() {
+            vibrationService.vibrate(20);
             if (typeof $scope.metadata.parentId === 'undefined') {
                 //parent is root
                 $location.path('/').replace();

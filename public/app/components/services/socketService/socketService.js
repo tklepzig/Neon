@@ -5,23 +5,21 @@
         .factory('socketService', socketService);
 
     function socketService(socketFactory) {
-        //optionally with specific socket.io object:
+        var myIoSocket = io.connect();
+        var mySocket = socketFactory({
+            ioSocket: myIoSocket
+        });
 
-        // var myIoSocket = io.connect();
-        // var mySocket = socketFactory({
-        //     ioSocket: myIoSocket
-        // });
-        //
-        // //check if connected: myIoSocket.connected
-        //
-        // function reconnect() {
-        //     myIoSocket = io.connect(undefined, {
-        //         'force new connection': true
-        //     });
-        // }
-        //
-        // return mySocket;
+        mySocket.isConnected = function() {
+            return myIoSocket.connected;
+        };
 
-        return socketFactory();
+        mySocket.reconnect = function() {
+            myIoSocket = io.connect(undefined, {
+                'force new connection': true
+            });
+        };
+
+        return mySocket;
     }
 }());

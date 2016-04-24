@@ -4,12 +4,15 @@
             <md-icon md-font-set="material-icons">done</md-icon>
         </md-button>
         <h2 class="md-headline" flex>
-            <input tabindex="2" ng-keydown="nameKeyDown($event)" set-focus="focusName" type="text" placeholder="{{'Document.Unnamed' | translate}}" ng-model="document.name" ng-change="update()">
+            <input ng-if="ready" tabindex="2" ng-keydown="nameKeyDown($event)" set-focus="focusName" type="text" placeholder="{{'Document.Unnamed' | translate}}" ng-model="document.name" ng-change="update()">
         </h2>
         <toggle-fullscreen></toggle-fullscreen>
     </div>
 </md-toolbar>
 
 <md-content flex layout="column" md-scroll-y>
-    <textarea zoomable tabindex="3" ng-keydown="textKeyDown($event)" ng-allow-tab set-focus="focusText" autocorrect="off" flex ng-change="update()" ng-model="document.text" spellcheck="true"></textarea>
+    <div flex ng-if="!ready" layout="row" layout-align="center center">
+        <md-progress-circular md-diameter="80" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <textarea ng-if="ready" zoomable tabindex="3" ng-keydown="textKeyDown($event)" ng-allow-tab set-focus="focusText" autocorrect="off" flex ng-change="update()" ng-model="document.text" spellcheck="true"></textarea>
 </md-content>

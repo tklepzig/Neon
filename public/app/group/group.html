@@ -6,7 +6,7 @@
             <md-icon md-font-set="material-icons">arrow_back</md-icon>
         </md-button>
         <h2 class="md-headline" flex>
-            <input type="text" set-focus="focusName" ng-keydown="nameKeyDown($event)" placeholder="{{'Group.Unnamed' | translate}}" ng-model="group.name" ng-change="update()">
+            <input ng-if="ready" type="text" set-focus="focusName" ng-keydown="nameKeyDown($event)" placeholder="{{'Group.Unnamed' | translate}}" ng-model="group.name" ng-change="update()">
         </h2>
         <priority-menu set-priority="setPriority(priority)"></priority-menu>
         <md-button class="md-icon-button" ng-click="toggleView()" title="Switch to {{view === 'grid' ? 'lines' : 'grid'}} view">
@@ -22,7 +22,10 @@
 
 <!-- TODO: move to directive? -->
 <md-content flex layout md-scroll-y>
-    <md-list flex id="items" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap layout="row">
+    <div flex ng-if="!ready" layout="row" layout-align="center center">
+        <md-progress-circular md-diameter="80" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-list ng-if="ready" flex id="items" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap layout="row">
         <md-list-item ng-if="!item.deleted" ng-class="getItemTileCssClass(item)" flex-xs="{{flexValues.xs}}" flex-sm="{{flexValues.sm}}" flex-md="{{flexValues.md}}" flex-lg="{{flexValues.lg}}" flex-xl="{{flexValues.xl}}" ng-click="openItem(item)" ng-mouseenter="mouseEnter(item)" ng-mouseleave="mouseLeave()" ng-repeat="item in group.children | orderByPriority" title="{{getItemName(item)}}">
             <md-icon ng-class="{'document': item.type === 'document', 'group': item.type === 'group'}" md-font-set="material-icons">{{(item.type === 'group') ? 'folder' : 'subject'}}</md-icon>
             <div class="md-list-item-text" layout="column">

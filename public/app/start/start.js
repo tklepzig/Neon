@@ -13,6 +13,7 @@
     }
 
     function StartController($scope, $localStorage, $location, $mdDialog, documentService, groupService) {
+        $scope.ready = false;
         $scope.hoveredDocument = null;
         $scope.searchQuery = '';
         $scope.showSearch = false;
@@ -28,6 +29,7 @@
 
         documentService.getAllDocuments().then(function(documents) {
             $scope.items = documents;
+            $scope.ready = true;
         });
 
         $scope.searchFilter = function(document) {
@@ -73,7 +75,7 @@
 
         $scope.addDocument = function() {
             documentService.addDocument().then(function(document) {
-                $location.path('/document/' + document.id + '/edit').replace();
+                $location.path('/document/' + document.id + '/edit/0').replace();
             });
         };
 
