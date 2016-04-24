@@ -75,7 +75,7 @@
 
         $scope.addDocument = function() {
             documentService.addDocument($scope.group.id).then(function(document) {
-                $location.path('/document/' + document.id + '/edit').replace();
+                $location.path('/document/' + document.id + '/edit/0').replace();
             });
         };
 
