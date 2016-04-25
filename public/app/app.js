@@ -171,6 +171,11 @@
                             preventDefault = true;
                             $route.current.scope.delete();
                             $route.current.scope.$apply();
+                        } else if (e.keyCode === 'V'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            //r or delete for removing group
+                            preventDefault = true;
+                            $route.current.scope.toggleView();
+                            $route.current.scope.$apply();
                         }
                         // else if (e.keyCode === 'E'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                         //     preventDefault = true;
