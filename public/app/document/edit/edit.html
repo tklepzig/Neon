@@ -1,4 +1,4 @@
-<md-toolbar>
+<md-toolbar ng-class="getItemToolbarCssClass(document)">
     <div class="md-toolbar-tools">
         <md-button tabindex="1" class="md-accent md-icon-button" ng-click="done()">
             <md-icon md-font-set="material-icons">done</md-icon>
@@ -6,6 +6,7 @@
         <h2 class="md-headline" flex>
             <input ng-if="ready" tabindex="2" ng-keydown="nameKeyDown($event)" set-focus="focusName" type="text" placeholder="{{'Document.Unnamed' | translate}}" ng-model="document.name" ng-change="update()">
         </h2>
+        <priority-menu set-priority="setPriority(priority)"></priority-menu>
         <toggle-fullscreen></toggle-fullscreen>
     </div>
 </md-toolbar>
