@@ -12,7 +12,7 @@
                 excludeGroupIds: '='
             },
             templateUrl: 'app/components/moveItemMenu/moveItemMenu.html',
-            link: function($scope) {
+            controller: function($scope, $timeout) {
                 $scope.show = true;
                 $scope.getItemName = $rootScope.getItemName;
 
@@ -22,6 +22,14 @@
                         $scope.show = false;
                     }
                 });
+
+                $scope.open = function($mdOpenMenu, $event) {
+                    //give some time to close touch keyboard on mobile devices
+                    //otherwise the menu would be super small due to the document size change
+                    $timeout(function () {
+                        $mdOpenMenu($event);
+                    }, 200);
+                };
             }
         };
     }
