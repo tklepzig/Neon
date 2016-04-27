@@ -20,6 +20,8 @@
         $scope.ready = false;
         $scope.focusName = false;
         $scope.focusText = false;
+        $scope.document = {};
+        $scope.metadata = {};
 
         documentService.getDocument($routeParams.id).then(function(document) {
             $scope.document = document.document;
