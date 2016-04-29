@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'vibrationService', 'priorityMenu', 'moveItemMenu'])
+    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'vibrationService', 'itemOptions'])
         .config(defineRoutes)
         .controller('DocumentController', DocumentController);
 

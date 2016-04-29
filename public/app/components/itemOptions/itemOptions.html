@@ -1,0 +1,36 @@
+<priority-menu set-priority="setPriority({priority: priority})"></priority-menu>
+<move-item-menu move-item="moveItem({groupId: groupId})" exclude-group-ids="excludeGroupIds"></move-item-menu>
+<md-button class="md-icon-button" ng-click="deleteItem($event)">
+    <md-icon md-font-set="material-icons">delete</md-icon>
+</md-button>
+<toggle-fullscreen></toggle-fullscreen>
+<md-menu>
+    <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+        <md-icon md-menu-origin md-font-set="material-icons">more_vert</md-icon>
+    </md-button>
+    <md-menu-content width="2">
+        <md-menu-item>
+            <md-button>
+                Delete
+            </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item class="header">
+            <md-button disabled>
+                Set Priority
+            </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+            <md-button>
+                Toggle Fullscreen
+            </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item class="header">
+            <md-button disabled>
+                Move To Group
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>
