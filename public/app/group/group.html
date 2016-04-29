@@ -9,16 +9,28 @@
         <md-button disabled class="md-icon-button" title="Search" ng-click="startSearch()">
             <md-icon md-font-set="material-icons">search</md-icon>
         </md-button>
-        <md-button class="md-icon-button" title="Trash">
-            <md-icon md-font-set="material-icons">delete</md-icon>
-        </md-button>
         <md-button class="md-icon-button" ng-click="toggleView()" title="Switch to {{view === 'grid' ? 'lines' : 'grid'}} view">
             <md-icon md-font-set="material-icons">{{view === 'grid' ? 'view_stream' : 'view_module'}}</md-icon>
         </md-button>
-        <md-button class="md-icon-button" title="Logout" href="/.auth/logout" target="_self">
-            <md-icon md-font-set="material-icons">exit_to_app</md-icon>
-        </md-button>
         <toggle-fullscreen></toggle-fullscreen>
+        <md-menu>
+            <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                <md-icon md-menu-origin md-font-set="material-icons">more_vert</md-icon>
+            </md-button>
+            <md-menu-content width="2">
+                <md-menu-item>
+                    <md-button>
+                        Open Trash
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item>
+                    <md-button style="color: rgba(255,255,255,1.0);" title="Logout" href="/.auth/logout" target="_self">
+                        Logout
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
     </div>
 </md-toolbar>
 
@@ -43,7 +55,8 @@
             <md-icon md-font-set="material-icons">arrow_back</md-icon>
         </md-button>
         <h2 class="md-headline" flex>
-            <input ng-if="ready" type="text" set-focus="focusName" ng-keydown="nameKeyDown($event)" placeholder="{{'Group.Unnamed' | translate}}" ng-model="group.name" ng-change="update()">
+            <input ng-if="ready" type="text" set-focus="focusName" ng-keydown="nameKeyDown($event)" placeholder="{{'Group.Unnamed' | translate}}"
+                ng-model="group.name" ng-change="update()">
         </h2>
         <priority-menu set-priority="setPriority(priority)"></priority-menu>
         <md-button class="md-icon-button" ng-click="toggleView()" title="Switch to {{view === 'grid' ? 'lines' : 'grid'}} view">
@@ -62,20 +75,11 @@
     <div flex ng-if="!ready" layout="row" layout-align="center center">
         <md-progress-circular md-diameter="80" md-mode="indeterminate"></md-progress-circular>
     </div>
-    <md-list ng-if="ready" flex id="items" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap layout="row">
-        <md-list-item
-            ng-if="!item.deleted"
-            ng-class="getItemTileCssClass(item)"
-            flex-xs="{{flexValues.xs}}"
-            flex-sm="{{flexValues.sm}}"
-            flex-md="{{flexValues.md}}"
-            flex-lg="{{flexValues.lg}}"
-            flex-xl="{{flexValues.xl}}"
-            ng-click="openItem(item)"
-            ng-mouseenter="mouseEnter(item)"
-            ng-mouseleave="mouseLeave()"
-            ng-repeat="item in group.children | orderByPriority"
-            title="{{getItemName(item)}}">
+    <md-list ng-if="ready" flex id="items" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap
+        layout="row">
+        <md-list-item ng-if="!item.deleted" ng-class="getItemTileCssClass(item)" flex-xs="{{flexValues.xs}}" flex-sm="{{flexValues.sm}}"
+            flex-md="{{flexValues.md}}" flex-lg="{{flexValues.lg}}" flex-xl="{{flexValues.xl}}" ng-click="openItem(item)" ng-mouseenter="mouseEnter(item)"
+            ng-mouseleave="mouseLeave()" ng-repeat="item in group.children | orderByPriority" title="{{getItemName(item)}}">
             <md-icon ng-class="{'document': item.type === 'document', 'group': item.type === 'group'}" md-font-set="material-icons">{{(item.type === 'group') ? 'folder' : 'subject'}}</md-icon>
             <div class="md-list-item-text" layout="column">
                 <span class="title">
