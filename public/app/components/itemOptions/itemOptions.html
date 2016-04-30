@@ -1,4 +1,4 @@
-<md-menu>
+<md-menu class="itemOptionsButton">
     <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)" title="Priority">
         <md-icon md-menu-origin md-font-set="material-icons">swap_vert</md-icon>
     </md-button>
@@ -31,7 +31,7 @@
     </md-menu-content>
 </md-menu>
 
-<md-menu ng-show="ready" ng-if="showMoveItemMenu">
+<md-menu class="itemOptionsButton" ng-show="ready" ng-if="showMoveItemMenu">
     <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)" title="Move">
         <md-icon md-menu-origin md-font-set="material-icons">forward</md-icon>
     </md-button>
@@ -50,16 +50,19 @@
     </md-menu-content>
 </md-menu>
 
-<md-button ng-show="ready" class="md-icon-button" ng-click="deleteItem($event)">
+<md-button ng-show="ready" class="md-icon-button itemOptionsButton" ng-click="deleteItem($event)">
     <md-icon md-font-set="material-icons">delete</md-icon>
 </md-button>
 
-<toggle-fullscreen></toggle-fullscreen>
-<md-menu ng-show="ready">
-    <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+<toggle-fullscreen class="itemOptionsButton"></toggle-fullscreen>
+
+
+
+<md-menu ng-show="ready" class="itemOptionsMenu">
+    <md-button style="margin-right: -8px;" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
         <md-icon md-menu-origin md-font-set="material-icons">more_vert</md-icon>
     </md-button>
-    <md-menu-content width="2">
+    <md-menu-content width="4">
         <md-menu-item>
             <md-button>
                 Delete
