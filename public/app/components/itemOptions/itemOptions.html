@@ -1,10 +1,10 @@
-<priority-menu set-priority="setPriority({priority: priority})"></priority-menu>
-<move-item-menu move-item="moveItem({groupId: groupId})" exclude-group-ids="excludeGroupIds"></move-item-menu>
-<md-button class="md-icon-button" ng-click="deleteItem($event)">
+<priority-menu ng-show="ready" set-priority="setPriority(priority)"></priority-menu>
+<move-item-menu ng-show="ready" move-item="moveItem(groupId)" exclude-group-ids="[parentId]"></move-item-menu>
+<md-button ng-show="ready" class="md-icon-button" ng-click="delete($event)">
     <md-icon md-font-set="material-icons">delete</md-icon>
 </md-button>
 <toggle-fullscreen></toggle-fullscreen>
-<md-menu>
+<md-menu ng-show="ready">
     <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
         <md-icon md-menu-origin md-font-set="material-icons">more_vert</md-icon>
     </md-button>

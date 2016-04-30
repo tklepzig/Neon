@@ -60,7 +60,7 @@
         <md-button class="md-icon-button" ng-click="toggleView()" title="Switch to {{view === 'grid' ? 'lines' : 'grid'}} view">
             <md-icon md-font-set="material-icons">{{view === 'grid' ? 'view_stream' : 'view_module'}}</md-icon>
         </md-button>
-        <item-options delete-item="delete($event)" set-priority="setPriority(priority)" move-item="moveToGroup(groupId, metadata.parentId)" exclude-group-ids="[metadata.parentId]"></item-options>
+        <item-options ready="ready" item="group" parent-id="metadata.parentId" back="back()"></item-options>
     </div>
 </md-toolbar>
 

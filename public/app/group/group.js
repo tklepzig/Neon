@@ -26,7 +26,7 @@
         });
     }
 
-    function GroupController(isRoot, $scope, $routeParams, $location, $mdDialog, documentService, groupService, vibrationService) {
+    function GroupController(isRoot, $scope, $routeParams, $location, documentService, groupService, vibrationService) {
         $scope.ready = false;
         $scope.isRoot = isRoot;
 
@@ -147,54 +147,6 @@
             }
 
             groupService.updateGroup($scope.group);
-        };
-
-        $scope.delete = function(e) {
-            if (isRoot) {
-                return;
-            }
-
-            var groupName = '';
-            if ($scope.group.name.length > 0) {
-                groupName = ' "' + $scope.group.name + '" ';
-            }
-
-            var confirm = $mdDialog.confirm()
-                .title('Delete the group' + groupName + '?')
-                .content('This action can\'t be undone.')
-                .ok('Yes, delete')
-                .cancel('No');
-
-            if (typeof e !== 'undefined') {
-                confirm.targetEvent(e);
-            }
-            $mdDialog.show(confirm).then(function() {
-                groupService.removeGroup($scope.group.id);
-                $scope.back();
-            });
-        };
-
-        $scope.setPriority = function(priority) {
-            if (isRoot) {
-                return;
-            }
-
-            $scope.group.priority = priority;
-            groupService.updateGroup($scope.group);
-        };
-
-        $scope.moveToGroup = function(groupId) {
-            if (isRoot) {
-                return;
-            }
-
-            groupService.moveGroup($scope.group.id, $scope.metadata.parentId, groupId).then(function() {
-                if (typeof groupId === 'undefined') {
-                    $location.path('/').replace();
-                } else {
-                    $location.path('/group/' + groupId).replace();
-                }
-            });
         };
 
         $scope.toggleView = function() {
