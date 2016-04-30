@@ -1,4 +1,8 @@
-<md-menu class="itemOptionsButton">
+<md-button ng-if="item.type === 'group'" ng-show="ready" class="md-icon-button itemOptionsButton" ng-click="toggleView()" title="Switch to {{currentView === 'grid' ? 'lines' : 'grid'}} view [v]">
+    <md-icon md-font-set="material-icons">{{currentView === 'grid' ? 'view_stream' : 'view_module'}}</md-icon>
+</md-button>
+
+<md-menu ng-show="ready" class="itemOptionsButton">
     <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)" title="Priority">
         <md-icon md-menu-origin md-font-set="material-icons">swap_vert</md-icon>
     </md-button>
@@ -35,7 +39,7 @@
     <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)" title="Move">
         <md-icon md-menu-origin md-font-set="material-icons">forward</md-icon>
     </md-button>
-    <md-menu-content width="2">
+    <md-menu-content width="4">
         <md-menu-item ng-if="!group.deleted && group.id !== parentId" ng-repeat="group in moveToGroups | orderBy: getItemName">
             <md-button ng-click="moveItem(group.id)">
                 {{getItemName(group)}}
@@ -56,13 +60,16 @@
 
 <toggle-fullscreen class="itemOptionsButton"></toggle-fullscreen>
 
-
-
 <md-menu ng-show="ready" class="itemOptionsMenu">
     <md-button style="margin-right: -8px;" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
         <md-icon md-menu-origin md-font-set="material-icons">more_vert</md-icon>
     </md-button>
     <md-menu-content width="4">
+        <md-menu-item ng-if="item.type === 'group'">
+            <md-button ng-click="toggleView()">
+                Toggle View
+            </md-button>
+        </md-menu-item>
         <md-menu-item>
             <md-button>
                 Delete

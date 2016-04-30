@@ -10,8 +10,10 @@
             scope: {
                 item: '=',
                 parentId: '=',
+                currentView: '=',
                 ready: '=',
-                back: '&'
+                back: '&',
+                toggleView: '&'
             },
             templateUrl: 'app/components/itemOptions/itemOptions.html',
             controller: function($scope, $rootScope, $timeout, $location, $mdDialog, documentService, groupService, touchService, fullscreenService) {
