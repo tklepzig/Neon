@@ -78,10 +78,5 @@
                 $location.path('/document/' + $scope.document.id).replace();
             }
         };
-
-        $scope.setPriority = function(priority) {
-            $scope.document.priority = priority;
-            documentService.updateDocument($scope.document);
-        };
     }
 }());

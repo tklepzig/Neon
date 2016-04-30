@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('itemOptions', ['priorityMenu', 'moveItemMenu', 'documentService', 'groupService'])
+    angular.module('itemOptions', ['documentService', 'groupService', 'fullscreenService'])
         .directive('itemOptions', itemOptions);
 
     function itemOptions() {
@@ -14,9 +14,21 @@
                 back: '&'
             },
             templateUrl: 'app/components/itemOptions/itemOptions.html',
-            controller: function($scope, $timeout, $location, $mdDialog, documentService, groupService, touchService) {
-                $scope.open = function($mdOpenMenu, $event) {
-                    if (touchService.isSupported()) {
+            controller: function($scope, $rootScope, $timeout, $location, $mdDialog, documentService, groupService, touchService, fullscreenService) {
+                $scope.showMoveItemMenu = true;
+                $scope.getItemName = $rootScope.getItemName;
+                $scope.moveToGroups = [];
+                $scope.touchSupported = touchService.isSupported();
+
+                groupService.getAllGroups().then(function(groups) {
+                    $scope.moveToGroups = groups;
+                    if ($scope.moveToGroups.length === 0) {
+                        $scope.showMoveItemMenu = false;
+                    }
+                });
+
+                $scope.openMenu = function($mdOpenMenu, $event) {
+                    if ($scope.touchSupported) {
                         //give some time to close touch keyboard on mobile devices
                         //otherwise the menu would be super small due to the document size change
                         $timeout(function() {
@@ -27,7 +39,7 @@
                     }
                 };
 
-                $scope.delete = function(e) {
+                $scope.deleteItem = function(e) {
                     var itemName = '';
                     if ($scope.item.name.length > 0) {
                         itemName = ' "' + $scope.item.name + '" ';
@@ -52,7 +64,7 @@
                     });
                 };
 
-                $scope.setPriority = function(priority) {
+                $scope.setItemPriority = function(priority) {
                     $scope.item.priority = priority;
 
                     if ($scope.item.type === 'group') {
@@ -82,6 +94,10 @@
                             }
                         });
                     }
+                };
+
+                $scope.toggleFullscreen = function() {
+                    fullscreenService.toggle();
                 };
             }
         };
