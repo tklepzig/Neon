@@ -43,8 +43,7 @@
             xs: 50,
             sm: 33,
             md: 25,
-            lg: 20,
-            xl: 15
+            lg: 20
         };
 
         if (isRoot) {
@@ -204,8 +203,7 @@
                     xs: 100,
                     sm: 100,
                     md: 100,
-                    lg: 100,
-                    xl: 100
+                    lg: 100
                 };
             } else if ($scope.view === 'lines') {
                 $scope.view = 'grid';
@@ -213,8 +211,7 @@
                     xs: 50,
                     sm: 33,
                     md: 25,
-                    lg: 20,
-                    xl: 15
+                    lg: 20
                 };
             }
         };
