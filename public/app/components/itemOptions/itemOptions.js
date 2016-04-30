@@ -14,13 +14,17 @@
                 back: '&'
             },
             templateUrl: 'app/components/itemOptions/itemOptions.html',
-            controller: function($scope, $timeout, $location, $mdDialog, documentService, groupService) {
+            controller: function($scope, $timeout, $location, $mdDialog, documentService, groupService, touchService) {
                 $scope.open = function($mdOpenMenu, $event) {
-                    //give some time to close touch keyboard on mobile devices
-                    //otherwise the menu would be super small due to the document size change
-                    $timeout(function() {
+                    if (touchService.isSupported()) {
+                        //give some time to close touch keyboard on mobile devices
+                        //otherwise the menu would be super small due to the document size change
+                        $timeout(function() {
+                            $mdOpenMenu($event);
+                        }, 200);
+                    } else {
                         $mdOpenMenu($event);
-                    }, 200);
+                    }
                 };
 
                 $scope.delete = function(e) {
