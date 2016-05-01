@@ -32,6 +32,7 @@ var socketIo = require('socket.io')(http, {
 });
 var nconf = require('nconf');
 require('colors');
+var markdownpdf = require('markdown-pdf');
 
 var config = require('./config.json')[process.env.NODE_ENV || 'production'];
 nconf.file(path.resolve(__dirname + '/secrets.json')).env();
@@ -131,6 +132,17 @@ socketIo.on('connection', function(socket) {
     socket.on('getDocument', function(id, callback) {
         var document = dataService.getDocument(id);
         callback(document);
+    });
+
+    socket.on('exportDocument', function(document, callback) {
+        markdownpdf({
+            cssPath: path.join(__dirname, 'pdf.css')
+        })
+        .from.string(document.text)
+        .to(path.resolve(path.join(__dirname, 'exported.pdf')), function() {
+            //successful exported
+            callback(path.join(__dirname, 'exported.pdf'));
+        });
     });
 });
 

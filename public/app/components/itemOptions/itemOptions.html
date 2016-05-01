@@ -1,0 +1,135 @@
+<md-button ng-if="item.type === 'group'" ng-show="ready" class="md-icon-button itemOptionsButton" ng-click="toggleView()" title="Switch to {{currentView === 'grid' ? 'lines' : 'grid'}} view [v]">
+    <md-icon md-font-set="material-icons">{{currentView === 'grid' ? 'view_stream' : 'view_module'}}</md-icon>
+</md-button>
+
+<md-menu ng-show="ready" class="itemOptionsButton">
+    <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)" title="Priority">
+        <md-icon md-menu-origin md-font-set="material-icons">swap_vert</md-icon>
+    </md-button>
+    <md-menu-content width="2">
+        <md-menu-item>
+            <md-button ng-click="setItemPriority('high')">
+                <md-icon class="fgPrioHigh" md-menu-align-target md-font-set="material-icons">stop</md-icon>
+                High
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="setItemPriority('medium')">
+                <md-icon class="fgPrioMedium" md-font-set="material-icons">stop</md-icon>
+                Medium
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="setItemPriority('low')">
+                <md-icon class="fgPrioLow" md-font-set="material-icons">stop</md-icon>
+                Low
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="setItemPriority('none')">
+                <md-icon style="color: transparent;" md-font-set="material-icons">stop</md-icon>
+                None
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>
+
+<md-menu class="itemOptionsButton" ng-show="ready" ng-if="showMoveItemMenu">
+    <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)" title="Move">
+        <md-icon md-menu-origin md-font-set="material-icons">forward</md-icon>
+    </md-button>
+    <md-menu-content width="4">
+        <md-menu-item ng-if="!group.deleted && group.id !== parentId" ng-repeat="group in moveToGroups | orderBy: getItemName">
+            <md-button ng-click="moveItem(group.id)">
+                <md-icon md-font-set="material-icons">folder</md-icon>
+                {{getItemName(group)}}
+            </md-button>
+        </md-menu-item>
+        <md-menu-item ng-if="parentId !== undefined">
+            <md-button ng-click="moveItem()">
+                <md-icon style="color: transparent;" md-font-set="material-icons">folder</md-icon>
+                Root
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>
+
+<md-button ng-show="ready" class="md-icon-button itemOptionsButton" ng-click="deleteItem($event)">
+    <md-icon md-font-set="material-icons">delete</md-icon>
+</md-button>
+
+<toggle-fullscreen class="itemOptionsButton"></toggle-fullscreen>
+
+<md-menu ng-show="ready" class="itemOptionsMenu">
+    <md-button style="margin-right: -8px;" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+        <md-icon md-menu-origin md-font-set="material-icons">more_vert</md-icon>
+    </md-button>
+    <md-menu-content width="4">
+        <md-menu-item ng-if="item.type === 'group'">
+            <md-button ng-click="toggleView()">
+                <md-icon md-font-set="material-icons">{{currentView === 'grid' ? 'view_stream' : 'view_module'}}</md-icon>
+                Toggle View
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="deleteItem($event)">
+                <md-icon md-font-set="material-icons">delete</md-icon>
+                Delete
+            </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item class="header">
+            <md-button disabled>
+                Set Priority
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="setItemPriority('high')">
+                <md-icon class="fgPrioHigh" md-menu-align-target md-font-set="material-icons">stop</md-icon>
+                High
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="setItemPriority('medium')">
+                <md-icon class="fgPrioMedium" md-font-set="material-icons">stop</md-icon>
+                Medium
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="setItemPriority('low')">
+                <md-icon class="fgPrioLow" md-font-set="material-icons">stop</md-icon>
+                Low
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="setItemPriority('none')">
+                <md-icon style="color: transparent;" md-font-set="material-icons">stop</md-icon>
+                None
+            </md-button>
+        </md-menu-item>
+        <md-menu-divider ng-if="touchSupported"></md-menu-divider>
+        <md-menu-item ng-if="touchSupported">
+            <md-button ng-click="toggleFullscreen">
+                Toggle Fullscreen
+            </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item class="header">
+            <md-button disabled>
+                Move To Group
+            </md-button>
+        </md-menu-item>
+        <md-menu-item ng-if="!group.deleted && group.id !== parentId" ng-repeat="group in moveToGroups | orderBy: getItemName">
+            <md-button ng-click="moveItem(group.id)">
+                <md-icon md-font-set="material-icons">folder</md-icon>
+                {{getItemName(group)}}
+            </md-button>
+        </md-menu-item>
+        <md-menu-item ng-if="parentId !== undefined">
+            <md-button ng-click="moveItem()">
+                <md-icon style="color: transparent;" md-font-set="material-icons">folder</md-icon>
+                Root
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>

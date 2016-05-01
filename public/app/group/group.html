@@ -57,15 +57,7 @@
         <h2 class="md-headline" flex>
             <input ng-if="ready" type="text" set-focus="focusName" ng-keydown="nameKeyDown($event)" placeholder="{{'Group.Unnamed' | translate}}" ng-model="group.name" ng-change="update()">
         </h2>
-        <priority-menu set-priority="setPriority(priority)"></priority-menu>
-        <md-button class="md-icon-button" ng-click="toggleView()" title="Switch to {{view === 'grid' ? 'lines' : 'grid'}} view">
-            <md-icon md-font-set="material-icons">{{view === 'grid' ? 'view_stream' : 'view_module'}}</md-icon>
-        </md-button>
-        <move-item-menu move-item="moveToGroup(groupId)" exclude-group-ids="[group.id, metadata.parentId]"></move-item-menu>
-        <md-button class="md-icon-button" ng-click="delete($event)">
-            <md-icon md-font-set="material-icons">delete</md-icon>
-        </md-button>
-        <toggle-fullscreen></toggle-fullscreen>
+        <item-options current-view="view" toggle-view="toggleView()" ready="ready" item="group" parent-id="metadata.parentId" back="back()"></item-options>
     </div>
 </md-toolbar>
 
