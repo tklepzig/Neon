@@ -44,6 +44,7 @@
   "dependencies": {
     "colors": "^1.1.2",
     "express": "~4.13.3",
+    "markdown-pdf": "^6.0.0",
     "nconf": "^0.8.4",
     "node-uuid": "~1.4.7",
     "nodegit": "^0.11.9",
