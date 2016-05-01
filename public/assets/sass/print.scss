@@ -1,0 +1,24 @@
+@media print {
+    md-toolbar {
+        background: none !important;
+        box-shadow: none !important;
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+
+        h2 {
+            color: rgba(0,0,0,0.75);
+        }
+
+        button {
+            display: none !important;
+        }
+    }
+
+    button.md-fab {
+        display: none !important;
+    }
+
+    md-content {
+        background: none !important;
+        color: black !important;
+    }
+}
