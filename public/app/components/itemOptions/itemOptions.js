@@ -22,10 +22,18 @@
                 $scope.moveToGroups = [];
                 $scope.touchSupported = touchService.isSupported();
 
-                groupService.getAllGroups().then(function(groups) {
-                    $scope.moveToGroups = groups;
-                    if ($scope.moveToGroups.length === 0) {
-                        $scope.showMoveItemMenu = false;
+
+                $scope.$watchGroup(['item', 'parentId'], function(values) {
+                    var item = values[0];
+                    var parentId = values[1];
+
+                    if (typeof item !== 'undefined' && item !== null && !$.isEmptyObject(item)) {
+                        groupService.blubb(item, parentId).then(function(groups) {
+                            $scope.moveToGroups = groups;
+                            if ($scope.moveToGroups.length === 0) {
+                                $scope.showMoveItemMenu = false;
+                            }
+                        });
                     }
                 });
 

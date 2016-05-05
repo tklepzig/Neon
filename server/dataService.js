@@ -209,7 +209,20 @@ module.exports = function(config) {
         return getData();
     };
 
-    module.getAllGroups = function(parentGroup, groups) {
+    module.blubb = function(item, parentId) {
+        if (item.type === 'document') {
+            //get all groups excluding the document's parent
+            return module.getAllGroups([parentId]);
+        } else if (item.type === 'group') {
+            //get all groups excluding the group's parent
+            //exclude the item itself and all of its children
+            return module.getAllGroups([parentId, item.id]);
+        }
+    };
+
+    module.getAllGroups = function(excludeGroupIds, parentGroup, groups) {
+        console.log('getAllGroups');
+
         var parentChildren;
 
         if (typeof groups === 'undefined') {
@@ -224,9 +237,9 @@ module.exports = function(config) {
 
         for (var id in parentChildren) {
             if (parentChildren.hasOwnProperty(id)) {
-                if (parentChildren[id].type === 'group') {
+                if (parentChildren[id].type === 'group' && excludeGroupIds.indexOf(id) === -1) {
                     groups.push(parentChildren[id]);
-                    module.getAllGroups(parentChildren[id], groups);
+                    module.getAllGroups(excludeGroupIds, parentChildren[id], groups);
                 }
             }
         }
