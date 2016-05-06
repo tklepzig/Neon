@@ -77,6 +77,31 @@ module.exports = function(config) {
     }
 
 
+    function getAllGroups(excludeGroupIds, parentGroup, groups) {
+        var parentChildren;
+
+        if (typeof groups === 'undefined') {
+            groups = [];
+        }
+
+        if (typeof parentGroup === 'undefined') {
+            parentGroup = parentChildren = getData();
+        } else {
+            parentChildren = parentGroup.children;
+        }
+
+        for (var id in parentChildren) {
+            if (parentChildren.hasOwnProperty(id)) {
+                if (parentChildren[id].type === 'group' && excludeGroupIds.indexOf(id) === -1) {
+                    groups.push(parentChildren[id]);
+                    getAllGroups(excludeGroupIds, parentChildren[id], groups);
+                }
+            }
+        }
+
+        return groups;
+    }
+
 
     module.initialize = function() {
         if (!directory.exist(config.repoPath)) {
@@ -209,42 +234,15 @@ module.exports = function(config) {
         return getData();
     };
 
-    module.blubb = function(item, parentId) {
+    module.getMoveToGroups = function(item, parentId) {
         if (item.type === 'document') {
             //get all groups excluding the document's parent
-            return module.getAllGroups([parentId]);
+            return getAllGroups([parentId]);
         } else if (item.type === 'group') {
             //get all groups excluding the group's parent
             //exclude the item itself and all of its children
-            return module.getAllGroups([parentId, item.id]);
+            return getAllGroups([parentId, item.id]);
         }
-    };
-
-    module.getAllGroups = function(excludeGroupIds, parentGroup, groups) {
-        console.log('getAllGroups');
-
-        var parentChildren;
-
-        if (typeof groups === 'undefined') {
-            groups = [];
-        }
-
-        if (typeof parentGroup === 'undefined') {
-            parentGroup = parentChildren = getData();
-        } else {
-            parentChildren = parentGroup.children;
-        }
-
-        for (var id in parentChildren) {
-            if (parentChildren.hasOwnProperty(id)) {
-                if (parentChildren[id].type === 'group' && excludeGroupIds.indexOf(id) === -1) {
-                    groups.push(parentChildren[id]);
-                    module.getAllGroups(excludeGroupIds, parentChildren[id], groups);
-                }
-            }
-        }
-
-        return groups;
     };
 
     module.getGroup = function(groupId, parentGroup) {
