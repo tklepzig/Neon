@@ -126,7 +126,7 @@
         $localStorageProvider.setKeyPrefix('neon');
     }
 
-    function start($localStorage, $route, $document, $rootScope, $filter, $mdToast, socketService) {
+    function start($localStorage, $route, $document, $rootScope, $filter, $mdToast, $window, socketService) {
         // TODO: move this to service or similar for general usage and config (controller - key(s) - callback (with scope as parameter))
         $document.bind('keydown', function(e) {
 
@@ -214,6 +214,9 @@
                             preventDefault = true;
                             $route.current.scope.back();
                             $route.current.scope.$apply();
+                        } else if (e.keyCode === 'S'.charCodeAt(0) && e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            $window.location.href = '/md?id=' + $route.current.scope.document.id;
+                            preventDefault = true;
                         }
                         break;
                     }

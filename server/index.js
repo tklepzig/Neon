@@ -27,8 +27,8 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var socketIo = require('socket.io')(http, {
-  pingTimeout: 2000,
-  pingInterval: 2000
+    pingTimeout: 2000,
+    pingInterval: 2000
 });
 var nconf = require('nconf');
 require('colors');
@@ -59,6 +59,34 @@ if (process.env.NODE_ENV === 'development') {
 
 console.log('using ' + config.publicFilePath + ' to serve public files');
 console.log('Push is ' + (config.isPushAllowed ? 'enabled'.bold.red : 'disabled'.bold.green));
+
+app.get('/md', function(req, res) {
+    // console.log(req.query.id);
+    var documentId = req.query.id;
+    var data = dataService.getDocument(documentId);
+
+    if (!data || data.document.type !== 'document') {
+        return res.redirect('/');
+    }
+
+    var document = data.document;
+
+    var name = document.name;
+    if (name.length === 0) {
+        var indexOfFirstLineBreak = document.text.indexOf('\r\n');
+        if (indexOfFirstLineBreak === -1) {
+            name = document.text;
+        } else {
+            name = document.text.substring(0, indexOfFirstLineBreak);
+        }
+    }
+    name = name.replace(/ /gi, '-');
+
+    res.set({
+        'Content-Disposition': 'attachment; filename=\"' + name + '.md\"'
+    });
+    res.send(document.text);
+});
 
 app.use(express.static(path.resolve(__dirname + config.publicFilePath)));
 app.get('/*', function(req, res) {
@@ -136,13 +164,13 @@ socketIo.on('connection', function(socket) {
 
     socket.on('exportDocument', function(document, callback) {
         markdownpdf({
-            cssPath: path.join(__dirname, 'pdf.css')
-        })
-        .from.string(document.text)
-        .to(path.resolve(path.join(__dirname, 'exported.pdf')), function() {
-            //successful exported
-            callback(path.join(__dirname, 'exported.pdf'));
-        });
+                cssPath: path.join(__dirname, 'pdf.css')
+            })
+            .from.string(document.text)
+            .to(path.resolve(path.join(__dirname, 'exported.pdf')), function() {
+                //successful exported
+                callback(path.join(__dirname, 'exported.pdf'));
+            });
     });
 });
 
