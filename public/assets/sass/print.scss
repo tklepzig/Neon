@@ -5,7 +5,11 @@
         border-bottom: 1px solid rgba(0,0,0,0.2);
 
         h2 {
-            color: rgba(0,0,0,0.75);
+            color: rgba(0,0,0,0.75) !important;
+
+            input {
+                color: rgba(0,0,0,0.75) !important;
+            }
         }
 
         button {
@@ -19,8 +23,16 @@
 
     md-content {
         background: none !important;
-        color: black !important;
+        color: rgba(0,0,0,0.75) !important;
         overflow: visible !important;
         font-size: 10pt !important;
+
+        a {
+            color: black !important;
+
+            &[href]:after {
+                content: ' (' attr(href) ')';
+            }
+        }
     }
 }
