@@ -9,7 +9,7 @@
             restrict: 'E',
             scope: {
                 item: '=',
-                moveToGroups: '=',
+                moveToGroupList: '=',
                 currentView: '=',
                 move: '&',
                 setPriority: '&',

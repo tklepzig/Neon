@@ -20,7 +20,7 @@
         $scope.ready = false;
         $scope.document = {};
         $scope.metadata = {};
-        $scope.moveToGroups = [];
+        $scope.moveToGroupList = [];
 
         $('pagedown-viewer').on('click', 'a', function() {
             $(this).attr('target', '_blank');
@@ -30,8 +30,8 @@
             $scope.document = document.document;
             $scope.metadata = document.metadata;
 
-            groupService.getMoveToGroups($scope.document, $scope.metadata.parentId).then(function(groups) {
-                $scope.moveToGroups = groups;
+            groupService.getMoveToGroupList($scope.document, $scope.metadata.parentId).then(function(groups) {
+                $scope.moveToGroupList = groups;
                 $scope.ready = true;
             });
         });

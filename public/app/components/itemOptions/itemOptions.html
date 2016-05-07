@@ -34,21 +34,15 @@
     </md-menu-content>
 </md-menu>
 
-<md-menu class="itemOptionsButton" ng-if="moveToGroups.length > 0">
+<md-menu class="itemOptionsButton" ng-if="moveToGroupList.length > 0">
     <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)" title="Move">
         <md-icon md-menu-origin md-font-set="material-icons">forward</md-icon>
     </md-button>
     <md-menu-content width="4">
-        <md-menu-item ng-if="!group.deleted" ng-repeat="group in moveToGroups | orderBy: getItemName">
+        <md-menu-item ng-repeat="group in moveToGroupList | orderBy: ['isRoot', 'getItemName']">
             <md-button ng-click="move({groupId: group.id})">
-                <md-icon md-font-set="material-icons">folder</md-icon>
+                <md-icon ng-style="group.isRoot ? {color: 'transparent'} : {}" md-font-set="material-icons">folder</md-icon>
                 {{getItemName(group)}}
-            </md-button>
-        </md-menu-item>
-        <md-menu-item>
-            <md-button ng-click="move({})">
-                <md-icon style="color: transparent;" md-font-set="material-icons">folder</md-icon>
-                Root
             </md-button>
         </md-menu-item>
     </md-menu-content>
@@ -113,22 +107,16 @@
                 Toggle Fullscreen
             </md-button>
         </md-menu-item>
-        <md-menu-divider ng-if="moveToGroups.length > 0"></md-menu-divider>
-        <md-menu-item class="header" ng-if="moveToGroups.length > 0">
+        <md-menu-divider ng-if="moveToGroupList.length > 0"></md-menu-divider>
+        <md-menu-item class="header" ng-if="moveToGroupList.length > 0">
             <md-button disabled>
                 Move To Group
             </md-button>
         </md-menu-item>
-        <md-menu-item ng-if="!group.deleted" ng-repeat="group in moveToGroups | orderBy: getItemName">
+        <md-menu-item ng-repeat="group in moveToGroupList | orderBy: ['isRoot', 'getItemName']">
             <md-button ng-click="move({groupId: group.id})">
-                <md-icon md-font-set="material-icons">folder</md-icon>
+                <md-icon ng-style="group.isRoot ? {color: 'transparent'} : {}" md-font-set="material-icons">folder</md-icon>
                 {{getItemName(group)}}
-            </md-button>
-        </md-menu-item>
-        <md-menu-item>
-            <md-button ng-click="move({})">
-                <md-icon style="color: transparent;" md-font-set="material-icons">folder</md-icon>
-                Root
             </md-button>
         </md-menu-item>
     </md-menu-content>

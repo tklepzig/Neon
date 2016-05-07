@@ -37,7 +37,7 @@
         $scope.focusName = false;
         $scope.group = {};
         $scope.metadata = {};
-        $scope.moveToGroups = [];
+        $scope.moveToGroupList = [];
 
         $scope.view = 'grid';
         $scope.flexValues = {
@@ -64,8 +64,8 @@
                     $scope.focusName = true;
                 }
 
-                groupService.getMoveToGroups($scope.group, $scope.metadata.parentId).then(function(groups) {
-                    $scope.moveToGroups = groups;
+                groupService.getMoveToGroupList($scope.group, $scope.metadata.parentId).then(function(groups) {
+                    $scope.moveToGroupList = groups;
                     $scope.ready = true;
                 });
             });

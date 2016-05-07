@@ -76,25 +76,32 @@ module.exports = function(config) {
         return cache;
     }
 
-    function getAllGroups(excludeGroupIds) {
-        var groups = getAllGroupsRec(excludeGroupIds, getData(), []);
+    function getGroupList(excludeGroupIds) {
+        var groups = getGroupListRec(excludeGroupIds, getData(), []);
 
-        // if (excludeGroupIds.indexOf(null) === -1) {
-        //     console.log('add root');
-        //     groups.push({
-        //         name: 'Root'
-        //     });
-        // }
+        if (excludeGroupIds.indexOf(null) === -1) {
+            groups.push({
+                name: 'Root',
+                type: 'group',
+                isRoot: true
+            });
+        }
 
         return groups;
     }
 
-    function getAllGroupsRec(excludeGroupIds, parentChildren, groups) {
+    function getGroupListRec(excludeGroupIds, parentChildren, groups) {
         for (var id in parentChildren) {
             if (parentChildren.hasOwnProperty(id)) {
-                if (parentChildren[id].type === 'group' && excludeGroupIds.indexOf(id) === -1) {
-                    groups.push(parentChildren[id]);
-                    getAllGroupsRec(excludeGroupIds, parentChildren[id].children, groups);
+                if (!parentChildren[id].deleted && parentChildren[id].type === 'group' && excludeGroupIds.indexOf(id) === -1) {
+                    var group = parentChildren[id];
+                    groups.push({
+                        name: group.name,
+                        type: 'group',
+                        id: id,
+                        isRoot: false
+                    });
+                    getGroupListRec(excludeGroupIds, parentChildren[id].children, groups);
                 }
             }
         }
@@ -234,14 +241,14 @@ module.exports = function(config) {
         return getData();
     };
 
-    module.getMoveToGroups = function(item, parentId) {
+    module.getMoveToGroupList = function(item, parentId) {
         if (item.type === 'document') {
             //get all groups excluding the document's parent
-            return getAllGroups([parentId]);
+            return getGroupList([parentId]);
         } else if (item.type === 'group') {
             //get all groups excluding the group's parent
             //exclude the item itself and all of its children
-            return getAllGroups([parentId, item.id]);
+            return getGroupList([parentId, item.id]);
         }
     };
 

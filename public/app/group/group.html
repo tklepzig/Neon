@@ -57,7 +57,7 @@
         <h2 class="md-headline" flex>
             <input ng-if="ready" type="text" set-focus="focusName" ng-keydown="nameKeyDown($event)" placeholder="{{'Group.Unnamed' | translate}}" ng-model="group.name" ng-change="update()">
         </h2>
-        <item-options ng-show="ready" item="group" current-view="view" move-to-groups="moveToGroups" toggle-view="toggleView()" delete="delete($event)" set-priority="setPriority(priority)" move="moveToGroup(groupId)"></item-options>
+        <item-options ng-show="ready" item="group" current-view="view" move-to-group-list="moveToGroupList" toggle-view="toggleView()" delete="delete($event)" set-priority="setPriority(priority)" move="moveToGroup(groupId)"></item-options>
     </div>
 </md-toolbar>
 
