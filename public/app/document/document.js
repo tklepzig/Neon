@@ -22,7 +22,7 @@
         $scope.metadata = {};
         $scope.moveToGroupList = [];
 
-        $('pagedown-viewer').on('click', 'a', function() {
+        $(document).on('click', 'pagedown-viewer a', function() {
             $(this).attr('target', '_blank');
         });
 
