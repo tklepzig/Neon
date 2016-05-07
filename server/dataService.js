@@ -76,25 +76,25 @@ module.exports = function(config) {
         return cache;
     }
 
+    function getAllGroups(excludeGroupIds) {
+        var groups = getAllGroupsRec(excludeGroupIds, getData(), []);
 
-    function getAllGroups(excludeGroupIds, parentGroup, groups) {
-        var parentChildren;
+        // if (excludeGroupIds.indexOf(null) === -1) {
+        //     console.log('add root');
+        //     groups.push({
+        //         name: 'Root'
+        //     });
+        // }
 
-        if (typeof groups === 'undefined') {
-            groups = [];
-        }
+        return groups;
+    }
 
-        if (typeof parentGroup === 'undefined') {
-            parentGroup = parentChildren = getData();
-        } else {
-            parentChildren = parentGroup.children;
-        }
-
+    function getAllGroupsRec(excludeGroupIds, parentChildren, groups) {
         for (var id in parentChildren) {
             if (parentChildren.hasOwnProperty(id)) {
                 if (parentChildren[id].type === 'group' && excludeGroupIds.indexOf(id) === -1) {
                     groups.push(parentChildren[id]);
-                    getAllGroups(excludeGroupIds, parentChildren[id], groups);
+                    getAllGroupsRec(excludeGroupIds, parentChildren[id].children, groups);
                 }
             }
         }
