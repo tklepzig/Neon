@@ -1,3 +1,3 @@
-<md-button ng-show-touch class="md-icon-button" ng-click="toggleFullscreen()" title="{{label}}" aria-label="{{label}}">
-    <md-icon md-font-set="material-icons">{{iconName}}</md-icon>
+<md-button ng-show-touch class="md-icon-button" ng-click="toggleFullscreen()" title="{{isFullscreen ? 'Exit' : 'Enter'}} Fullscreen" aria-label="{{isFullscreen ? 'Exit' : 'Enter'}} Fullscreen">
+    <md-icon md-font-set="material-icons">{{isFullscreen ? 'fullscreen_exit' : 'fullscreen'}}</md-icon>
 </md-button>

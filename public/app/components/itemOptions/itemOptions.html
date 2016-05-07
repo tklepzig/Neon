@@ -48,7 +48,7 @@
     </md-menu-content>
 </md-menu>
 
-<md-button class="md-icon-button itemOptionsButton" ng-click="delete({$event: $event})">
+<md-button class="md-icon-button itemOptionsButton" ng-click="delete({$event: $event})" title="Delete [r]">
     <md-icon md-font-set="material-icons">delete</md-icon>
 </md-button>
 
@@ -62,13 +62,20 @@
         <md-menu-item ng-if="item.type === 'group'">
             <md-button ng-click="toggleView()">
                 <md-icon md-font-set="material-icons">{{currentView === 'grid' ? 'view_stream' : 'view_module'}}</md-icon>
-                Toggle View
+                Switch to {{currentView === 'grid' ? 'lines' : 'grid'}} view [v]
             </md-button>
         </md-menu-item>
         <md-menu-item>
             <md-button ng-click="delete({$event: $event})">
                 <md-icon md-font-set="material-icons">delete</md-icon>
-                Delete
+                Delete [r]
+            </md-button>
+        </md-menu-item>
+        <md-menu-divider ng-if="touchSupported"></md-menu-divider>
+        <md-menu-item ng-if="touchSupported">
+            <md-button ng-click="toggleFullscreen()">
+                <md-icon md-font-set="material-icons">{{isFullscreen ? 'fullscreen_exit' : 'fullscreen'}}</md-icon>
+                {{isFullscreen ? 'Exit' : 'Enter'}} Fullscreen
             </md-button>
         </md-menu-item>
         <md-menu-divider></md-menu-divider>
@@ -99,12 +106,6 @@
             <md-button ng-click="setPriority({priority: 'none'})">
                 <md-icon style="color: transparent;" md-font-set="material-icons">stop</md-icon>
                 None
-            </md-button>
-        </md-menu-item>
-        <md-menu-divider ng-if="touchSupported"></md-menu-divider>
-        <md-menu-item ng-if="touchSupported">
-            <md-button ng-click="toggleFullscreen()">
-                Toggle Fullscreen
             </md-button>
         </md-menu-item>
         <md-menu-divider ng-if="moveToGroupList.length > 0"></md-menu-divider>

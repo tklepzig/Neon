@@ -17,9 +17,10 @@
                 toggleView: '&'
             },
             templateUrl: 'app/components/itemOptions/itemOptions.html',
-            controller: function($scope, $rootScope, $timeout, $location, $mdDialog, documentService, groupService, touchService, fullscreenService) {
+            controller: function($scope, $rootScope, $timeout, $location, $mdDialog, $document, documentService, groupService, touchService, fullscreenService) {
                 $scope.getItemName = $rootScope.getItemName;
                 $scope.touchSupported = touchService.isSupported();
+                $scope.isFullscreen = fullscreenService.isFullscreen();
 
                 $scope.openMenu = function($mdOpenMenu, $event) {
                     if ($scope.touchSupported) {
@@ -32,6 +33,10 @@
                         $mdOpenMenu($event);
                     }
                 };
+
+                $document.on('fullscreenchange webkitfullscreenchange mozfullscreenchange MSFullscreenChange', function() {
+                    $scope.isFullscreen = fullscreenService.isFullscreen();
+                });
 
                 $scope.toggleFullscreen = function() {
                     fullscreenService.toggle();
