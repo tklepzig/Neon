@@ -9,16 +9,28 @@
         <md-button disabled class="md-icon-button" title="Search" ng-click="startSearch()">
             <md-icon md-font-set="material-icons">search</md-icon>
         </md-button>
-        <md-button class="md-icon-button" title="Trash">
-            <md-icon md-font-set="material-icons">delete</md-icon>
-        </md-button>
         <md-button class="md-icon-button" ng-click="toggleView()" title="Switch to {{view === 'grid' ? 'lines' : 'grid'}} view">
             <md-icon md-font-set="material-icons">{{view === 'grid' ? 'view_stream' : 'view_module'}}</md-icon>
         </md-button>
-        <md-button class="md-icon-button" title="Logout" href="/.auth/logout" target="_self">
-            <md-icon md-font-set="material-icons">exit_to_app</md-icon>
-        </md-button>
         <toggle-fullscreen></toggle-fullscreen>
+        <md-menu>
+            <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                <md-icon md-menu-origin md-font-set="material-icons">more_vert</md-icon>
+            </md-button>
+            <md-menu-content width="2">
+                <md-menu-item>
+                    <md-button>
+                        Open Trash
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item>
+                    <md-button style="color: rgba(255,255,255,1.0);" title="Logout" href="/.auth/logout" target="_self">
+                        Logout
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
     </div>
 </md-toolbar>
 
@@ -45,15 +57,7 @@
         <h2 class="md-headline" flex>
             <input ng-if="ready" type="text" set-focus="focusName" ng-keydown="nameKeyDown($event)" placeholder="{{'Group.Unnamed' | translate}}" ng-model="group.name" ng-change="update()">
         </h2>
-        <priority-menu set-priority="setPriority(priority)"></priority-menu>
-        <md-button class="md-icon-button" ng-click="toggleView()" title="Switch to {{view === 'grid' ? 'lines' : 'grid'}} view">
-            <md-icon md-font-set="material-icons">{{view === 'grid' ? 'view_stream' : 'view_module'}}</md-icon>
-        </md-button>
-        <move-item-menu move-item="moveToGroup(groupId)" exclude-group-ids="[group.id, metadata.parentId]"></move-item-menu>
-        <md-button class="md-icon-button" ng-click="delete($event)">
-            <md-icon md-font-set="material-icons">delete</md-icon>
-        </md-button>
-        <toggle-fullscreen></toggle-fullscreen>
+        <item-options ng-show="ready" item="group" current-view="view" move-to-group-list="moveToGroupList" toggle-view="toggleView()" delete="delete($event)" set-priority="setPriority(priority)" move="moveToGroup(groupId)"></item-options>
     </div>
 </md-toolbar>
 
@@ -70,7 +74,7 @@
             flex-sm="{{flexValues.sm}}"
             flex-md="{{flexValues.md}}"
             flex-lg="{{flexValues.lg}}"
-            flex-xl="{{flexValues.xl}}"
+            flex-xl="{{flexValues.lg}}"
             ng-click="openItem(item)"
             ng-mouseenter="mouseEnter(item)"
             ng-mouseleave="mouseLeave()"

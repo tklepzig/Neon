@@ -204,3 +204,13 @@ md-toast.md-error-toast-theme {
         border: 1px solid rgba(255, 255, 255, 0.4);
     }
 }
+@media (min-width: 960px) {
+    .itemOptionsMenu {
+        display: none !important;
+    }
+}
+@media (max-width: 959px) {
+    .itemOptionsButton {
+        display: none !important;
+    }
+}

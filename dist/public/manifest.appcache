@@ -1,0 +1,19 @@
+CACHE MANIFEST
+# Time: Mon May 09 2016 15:25:15 GMT+0200 (Mitteleuropäische Sommerzeit)
+
+CACHE:
+index.html
+css/main.min.css
+js/neon.min.js
+locales/de-DE.json
+locales/en-GB.json
+fonts/material-design-icons-iconfont/dist/fonts/iconjar-map.js
+fonts/material-design-icons-iconfont/dist/fonts/MaterialIcons-Regular.eot
+fonts/material-design-icons-iconfont/dist/fonts/MaterialIcons-Regular.ijmap
+fonts/material-design-icons-iconfont/dist/fonts/MaterialIcons-Regular.ttf
+fonts/material-design-icons-iconfont/dist/fonts/MaterialIcons-Regular.woff
+fonts/material-design-icons-iconfont/dist/fonts/MaterialIcons-Regular.woff2
+fonts/material-design-icons-iconfont/dist/fonts/README.md
+
+NETWORK:
+*

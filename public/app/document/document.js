@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'vibrationService', 'priorityMenu', 'moveItemMenu'])
+    angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'groupService', 'vibrationService', 'itemOptions'])
         .config(defineRoutes)
         .controller('DocumentController', DocumentController);
 
@@ -16,19 +16,24 @@
         });
     }
 
-    function DocumentController($scope, $location, $routeParams, $mdDialog, documentService, vibrationService) {
+    function DocumentController($scope, $location, $routeParams, $mdDialog, documentService, groupService, vibrationService) {
         $scope.ready = false;
         $scope.document = {};
         $scope.metadata = {};
+        $scope.moveToGroupList = [];
 
-        $('pagedown-viewer').on('click', 'a', function() {
+        $(document).on('click', 'pagedown-viewer a', function() {
             $(this).attr('target', '_blank');
         });
 
         documentService.getDocument($routeParams.id).then(function(document) {
             $scope.document = document.document;
             $scope.metadata = document.metadata;
-            $scope.ready = true;
+
+            groupService.getMoveToGroupList($scope.document, $scope.metadata.parentId).then(function(groups) {
+                $scope.moveToGroupList = groups;
+                $scope.ready = true;
+            });
         });
 
         $scope.back = function() {

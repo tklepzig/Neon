@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('group', ['document', 'fabAdd', 'documentService', 'groupService', 'vibrationService', 'setFocus', 'priorityMenu', 'moveItemMenu'])
+    angular.module('group', ['document', 'fabAdd', 'documentService', 'groupService', 'vibrationService', 'setFocus', 'itemOptions'])
         .config(defineRoutes)
         .controller('GroupController', GroupController);
 
@@ -37,14 +37,14 @@
         $scope.focusName = false;
         $scope.group = {};
         $scope.metadata = {};
+        $scope.moveToGroupList = [];
 
         $scope.view = 'grid';
         $scope.flexValues = {
             xs: 50,
             sm: 33,
             md: 25,
-            lg: 20,
-            xl: 15
+            lg: 20
         };
 
         if (isRoot) {
@@ -63,7 +63,11 @@
                 if ($scope.group.name.length === 0) {
                     $scope.focusName = true;
                 }
-                $scope.ready = true;
+
+                groupService.getMoveToGroupList($scope.group, $scope.metadata.parentId).then(function(groups) {
+                    $scope.moveToGroupList = groups;
+                    $scope.ready = true;
+                });
             });
         }
 
@@ -204,8 +208,7 @@
                     xs: 100,
                     sm: 100,
                     md: 100,
-                    lg: 100,
-                    xl: 100
+                    lg: 100
                 };
             } else if ($scope.view === 'lines') {
                 $scope.view = 'grid';
@@ -213,8 +216,7 @@
                     xs: 50,
                     sm: 33,
                     md: 25,
-                    lg: 20,
-                    xl: 15
+                    lg: 20
                 };
             }
         };

@@ -28,3 +28,4 @@ require('./gulp/tests.js')(gulp, plugins, config);
 //import custom tasks
 require('./gulp/custom/build-run.js')(gulp, plugins, config);
 require('./gulp/custom/watch-all.js')(gulp, plugins, config);
+require('./gulp/custom/manifest.js')(gulp, plugins, config);

@@ -12,7 +12,8 @@ module.exports = function(gulp, plugins, config) {
             script: config.destServerPath + 'index.js',
             env: {
                 'NODE_ENV': 'development'
-            }
+            },
+            ignore: ['neon-data/']
         });
     });
 

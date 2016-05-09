@@ -20,6 +20,8 @@
         $scope.ready = false;
         $scope.focusName = false;
         $scope.focusText = false;
+        $scope.document = {};
+        $scope.metadata = {};
 
         documentService.getDocument($routeParams.id).then(function(document) {
             $scope.document = document.document;
@@ -75,11 +77,6 @@
             } else {
                 $location.path('/document/' + $scope.document.id).replace();
             }
-        };
-
-        $scope.setPriority = function(priority) {
-            $scope.document.priority = priority;
-            documentService.updateDocument($scope.document);
         };
     }
 }());
