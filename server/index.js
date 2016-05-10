@@ -147,8 +147,8 @@ socketIo.on('connection', function(socket) {
         socket.broadcast.emit('documentRemoved', id);
     });
 
-    socket.on('getMoveToGroupList', function(item, parentId, callback) {
-        var groups = dataService.getMoveToGroupList(item, parentId);
+    socket.on('getMoveToGroupList', function(item, callback) {
+        var groups = dataService.getMoveToGroupList(item);
         callback(groups);
     });
 

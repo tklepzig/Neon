@@ -6,7 +6,7 @@
         <h2 class="md-headline" flex>
             <input ng-if="ready" tabindex="2" ng-keydown="nameKeyDown($event)" set-focus="focusName" type="text" placeholder="{{'Document.Unnamed' | translate}}" ng-model="document.name" ng-change="update()">
         </h2>
-        <toggle-fullscreen></toggle-fullscreen>
+        <item-options is-edit-mode="true" ng-show="ready" item="document" set-priority="setPriority(priority)"></item-options>
     </div>
 </md-toolbar>
 
