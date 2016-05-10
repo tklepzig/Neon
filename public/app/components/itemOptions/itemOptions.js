@@ -11,6 +11,7 @@
                 item: '=',
                 moveToGroupList: '=',
                 currentView: '=',
+                isEditMode: '=?',
                 move: '&',
                 setPriority: '&',
                 delete: '&',
@@ -21,6 +22,7 @@
                 $scope.getItemName = $rootScope.getItemName;
                 $scope.touchSupported = touchService.isSupported();
                 $scope.isFullscreen = fullscreenService.isFullscreen();
+                $scope.isEditMode = angular.isDefined($scope.isEditMode) ? $scope.isEditMode : false;
 
                 $scope.openMenu = function($mdOpenMenu, $event) {
                     if ($scope.touchSupported) {
