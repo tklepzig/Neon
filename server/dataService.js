@@ -241,14 +241,14 @@ module.exports = function(config) {
         return getData();
     };
 
-    module.getMoveToGroupList = function(item, parentId) {
+    module.getMoveToGroupList = function(item) {
         if (item.type === 'document') {
             //get all groups excluding the document's parent
-            return getGroupList([parentId]);
+            return getGroupList([]);
         } else if (item.type === 'group') {
             //get all groups excluding the group's parent
             //exclude the item itself and all of its children
-            return getGroupList([parentId, item.id]);
+            return getGroupList([item.id]);
         }
     };
 

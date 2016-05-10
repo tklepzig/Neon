@@ -64,7 +64,7 @@
                     $scope.focusName = true;
                 }
 
-                groupService.getMoveToGroupList($scope.group, $scope.metadata.parentId).then(function(groups) {
+                groupService.getMoveToGroupList($scope.group).then(function(groups) {
                     $scope.moveToGroupList = groups;
                     $scope.ready = true;
                 });

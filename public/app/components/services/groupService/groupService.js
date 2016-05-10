@@ -7,9 +7,9 @@
     function groupService($q, socketService) {
         var module = {};
 
-        module.getMoveToGroupList = function(item, parentId) {
+        module.getMoveToGroupList = function(item) {
             var deferred = $q.defer();
-            socketService.emit('getMoveToGroupList', item, parentId, function(groups) {
+            socketService.emit('getMoveToGroupList', item, function(groups) {
                 deferred.resolve(groups);
             });
             return deferred.promise;

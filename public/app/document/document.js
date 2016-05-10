@@ -30,7 +30,7 @@
             $scope.document = document.document;
             $scope.metadata = document.metadata;
 
-            groupService.getMoveToGroupList($scope.document, $scope.metadata.parentId).then(function(groups) {
+            groupService.getMoveToGroupList($scope.document).then(function(groups) {
                 $scope.moveToGroupList = groups;
                 $scope.ready = true;
             });
