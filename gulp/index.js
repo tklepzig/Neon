@@ -26,6 +26,11 @@ module.exports = function(gulp, plugins, config) {
             .pipe(gulp.dest(config.destPublicPath));
     });
 
+    gulp.task('app.html', function() {
+        return gulp.src(config.srcPublicPath + 'app.html')
+            .pipe(gulp.dest(config.destPublicPath));
+    });
+
 
     /*----------watchers----------*/
 

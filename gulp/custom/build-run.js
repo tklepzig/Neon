@@ -11,12 +11,12 @@ module.exports = function(gulp, plugins, config) {
 
     // build
     gulp.task('build', function(done) {
-        plugins.runSequence('clean', ['copyStatic', 'scripts', 'styles'], 'index', 'manifest', done);
+        plugins.runSequence('clean', ['copyStatic', 'scripts', 'styles'], 'index', 'app.html', 'manifest', done);
     });
 
     // build (for dev)
     gulp.task('build:dev', function(done) {
-        plugins.runSequence( /*'karma',*/ 'clean', ['copyStatic', 'scripts:dev', 'styles:dev'], 'index:dev', 'manifest', done);
+        plugins.runSequence( /*'karma',*/ 'clean', ['copyStatic', 'scripts:dev', 'styles:dev'], 'index:dev', 'app.html', 'manifest', done);
     });
 
 
