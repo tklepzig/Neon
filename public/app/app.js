@@ -16,7 +16,7 @@
             'editInPlace',
             'zoomable',
             'orderByPriority',
-            'group',
+            'start',
             'socketService'
         ])
         .config(init)
@@ -156,7 +156,7 @@
 
             //controller-specific hotkeys
             switch ($route.current.$$route.controller) {
-                case 'GroupController':
+                case 'StartController':
                     {
                         if ((e.keyCode === 'N'.charCodeAt(0) || e.keyCode === 'D'.charCodeAt(0)) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
@@ -165,11 +165,6 @@
                         } else if (e.keyCode === 'G'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.addGroup();
-                            $route.current.scope.$apply();
-                        } else if ((e.keyCode === 'R'.charCodeAt(0) || e.keyCode === 46) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
-                            //r or delete for removing group
-                            preventDefault = true;
-                            $route.current.scope.delete();
                             $route.current.scope.$apply();
                         } else if (e.keyCode === 'V'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             //r or delete for removing group
@@ -192,6 +187,29 @@
                         //     $route.current.scope.endSearch();
                         //     $route.current.scope.$apply();
                         // }
+                        break;
+                    }
+                case 'GroupController':
+                    {
+                        if ((e.keyCode === 'N'.charCodeAt(0) || e.keyCode === 'D'.charCodeAt(0)) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.addDocument();
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === 'G'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.addGroup();
+                            $route.current.scope.$apply();
+                        } else if ((e.keyCode === 'R'.charCodeAt(0) || e.keyCode === 46) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            //r or delete for removing group
+                            preventDefault = true;
+                            $route.current.scope.delete();
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === 'V'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            //r or delete for removing group
+                            preventDefault = true;
+                            $route.current.scope.toggleView();
+                            $route.current.scope.$apply();
+                        }
                         else if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.back();
