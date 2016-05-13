@@ -162,6 +162,13 @@ socketIo.on('connection', function(socket) {
         callback(document);
     });
 
+    socket.on('getDeletedItems', function(parentGroup, callback) {
+        var items = dataService.getDeletedItems(parentGroup);
+        callback(items);
+    });
+
+
+
     socket.on('exportDocument', function(document, callback) {
         markdownpdf({
                 cssPath: path.join(__dirname, 'pdf.css')

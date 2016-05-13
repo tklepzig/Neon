@@ -49,6 +49,14 @@
             return deferred.promise;
         };
 
+        module.getDeletedItems = function(parentGroup) {
+            var deferred = $q.defer();
+            socketService.emit('getDeletedItems', parentGroup, function(items) {
+                deferred.resolve(items);
+            });
+            return deferred.promise;
+        };
+
         return module;
     }
 }());

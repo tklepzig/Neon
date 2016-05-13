@@ -312,6 +312,24 @@ module.exports = function(config) {
         }
     };
 
+    module.getDeletedItems = function(parentGroup) {
+        var children;
+        var deletedItems = [];
+
+        if (parentGroup === null) {
+            children = getData();
+        } else {
+            children = parentGroup.children;
+        }
+
+        for (var id in children) {
+            if (children.hasOwnProperty(id) && children[id].deleted) {
+                deletedItems.push(children[id]);
+            }
+        }
+
+        return deletedItems;
+    };
 
     module.migrate = function(parentGroup) {
         if (typeof parentGroup === 'undefined') {
