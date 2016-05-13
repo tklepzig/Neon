@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('group', ['document', 'fabAdd', 'documentService', 'groupService', 'vibrationService', 'setFocus', 'itemOptions'])
+    angular.module('group', ['document', 'fabAdd', 'documentService', 'groupService', 'vibrationService', 'setFocus', 'itemOptions', 'itemsView'])
         .config(defineRoutes)
         .controller('GroupController', GroupController);
 
@@ -18,14 +18,7 @@
         $scope.group = {};
         $scope.metadata = {};
         $scope.moveToGroupList = [];
-
         $scope.view = 'grid';
-        $scope.flexValues = {
-            xs: 50,
-            sm: 33,
-            md: 25,
-            lg: 20
-        };
 
         groupService.getGroup($routeParams.id).then(function(group) {
             $scope.group = group.group;
@@ -125,20 +118,8 @@
         $scope.toggleView = function() {
             if ($scope.view === 'grid') {
                 $scope.view = 'lines';
-                $scope.flexValues = {
-                    xs: 100,
-                    sm: 100,
-                    md: 100,
-                    lg: 100
-                };
             } else if ($scope.view === 'lines') {
                 $scope.view = 'grid';
-                $scope.flexValues = {
-                    xs: 50,
-                    sm: 33,
-                    md: 25,
-                    lg: 20
-                };
             }
         };
     }

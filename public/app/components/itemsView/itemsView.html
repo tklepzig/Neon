@@ -1,0 +1,28 @@
+<md-content flex layout md-scroll-y>
+    <div flex ng-if="!ready" layout="row" layout-align="center center">
+        <md-progress-circular md-diameter="80" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-list ng-if="ready" flex id="items" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap layout="row">
+        <md-list-item
+            ng-if="!item.deleted"
+            ng-class="getItemTileCssClass(item)"
+            flex-xs="{{flexValues.xs}}"
+            flex-sm="{{flexValues.sm}}"
+            flex-md="{{flexValues.md}}"
+            flex-lg="{{flexValues.lg}}"
+            flex-xl="{{flexValues.lg}}"
+            ng-click="openItem({item: item})"
+            ng-mouseenter="mouseEnter({item: item})"
+            ng-mouseleave="mouseLeave()"
+            ng-repeat="item in items | orderByPriority"
+            title="{{getItemName(item)}}">
+            <md-icon ng-class="{'document': item.type === 'document', 'group': item.type === 'group'}" md-font-set="material-icons">{{(item.type === 'group') ? 'folder' : 'subject'}}</md-icon>
+            <div class="md-list-item-text" layout="column">
+                <span class="title">
+                    {{getItemName(item)}}
+                </span>
+                <h4 ng-repeat="previewItem in getPreviewItems(item)">{{getItemName(previewItem)}}</h4>
+            </div>
+        </md-list-item>
+    </md-list>
+</md-content>
