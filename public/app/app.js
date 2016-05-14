@@ -282,7 +282,7 @@
             }
         };
 
-        $rootScope.getPreviewItems = function(item) {
+        $rootScope.getPreviewItems = function(item, showDeleted) {
             if (item.type !== 'group') {
                 return [];
             }
@@ -292,7 +292,7 @@
             for (var i = 0; i < childrenOrderedByPriority.length; i++) {
                 var previewItem = childrenOrderedByPriority[i];
                 if (previewItems.length < 2) {
-                    if (!previewItem.deleted) {
+                    if ((!item.deleted && !showDeleted) || (item.deleted && showDeleted)) {
                         previewItems.push(previewItem);
                     }
                 } else {

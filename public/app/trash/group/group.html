@@ -1,1 +1,12 @@
-<items-view flex layout items="deletedItems" show-deleted="true" ready="ready" view="view" open-item="openItem(item)"></items-view>
+<md-toolbar class="trash" ng-class="getItemToolbarCssClass(group)">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="back()">
+            <md-icon md-font-set="material-icons">arrow_back</md-icon>
+        </md-button>
+        <h2 ng-if="ready" class="md-headline" flex>
+            {{getItemName(group)}}
+        </h2>
+    </div>
+</md-toolbar>
+
+<items-view flex layout items="group.children" show-deleted="true" ready="ready" view="view" open-item="openItem(item)"></items-view>

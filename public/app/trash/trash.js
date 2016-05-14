@@ -17,7 +17,7 @@
         $scope.deletedItems = {};
         $scope.view = 'grid';
 
-        documentService.getDeletedItems().then(function(items) {
+        documentService.getAllDocuments().then(function(items) {
             $scope.deletedItems = items;
             $scope.ready = true;
         });
@@ -28,7 +28,6 @@
         };
 
         $scope.openItem = function(item) {
-            console.log(item.id);
             if (item.type === 'document') {
                 $location.path('/trash/document/' + item.id).replace();
             } else if (item.type === 'group') {

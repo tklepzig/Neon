@@ -4,7 +4,7 @@
     </div>
     <md-list ng-if="ready" flex id="items" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap layout="row">
         <md-list-item
-            ng-if="!item.deleted || showDeleted"
+            ng-if="(!item.deleted && !showDeleted) || (item.deleted && showDeleted)"
             ng-class="getItemTileCssClass(item)"
             flex-xs="{{flexValues.xs}}"
             flex-sm="{{flexValues.sm}}"
@@ -21,7 +21,7 @@
                 <span class="title">
                     {{getItemName(item)}}
                 </span>
-                <h4 ng-repeat="previewItem in getPreviewItems(item)">{{getItemName(previewItem)}}</h4>
+                <h4 ng-repeat="previewItem in getPreviewItems(item, showDeleted)">{{getItemName(previewItem)}}</h4>
             </div>
         </md-list-item>
     </md-list>

@@ -312,24 +312,24 @@ module.exports = function(config) {
         }
     };
 
-    module.getDeletedItems = function(parentGroupId) {
-        var children;
-        var deletedItems = [];
-
-        if (parentGroupId === null) {
-            children = getData();
-        } else {
-            children = module.getGroup(parentGroupId).group.children;
-        }
-
-        for (var id in children) {
-            if (children.hasOwnProperty(id) && children[id].deleted) {
-                deletedItems.push(children[id]);
-            }
-        }
-
-        return deletedItems;
-    };
+    // module.getDeletedItems = function(parentGroupId) {
+    //     var children;
+    //     var deletedItems = [];
+    //
+    //     if (parentGroupId === null) {
+    //         children = getData();
+    //     } else {
+    //         children = module.getGroup(parentGroupId).group.children;
+    //     }
+    //
+    //     for (var id in children) {
+    //         if (children.hasOwnProperty(id) && children[id].deleted) {
+    //             deletedItems.push(children[id]);
+    //         }
+    //     }
+    //
+    //     return deletedItems;
+    // };
 
     module.migrate = function(parentGroup) {
         if (typeof parentGroup === 'undefined') {
@@ -339,6 +339,14 @@ module.exports = function(config) {
         for (var id in parentGroup) {
             if (parentGroup.hasOwnProperty(id)) {
                 if (parentGroup[id].type === 'group') {
+
+                    if (parentGroup[id].deleted) {
+                        for (var tmp in parentGroup[id].children) {
+                            if (parentGroup[id].children.hasOwnProperty(tmp)) {
+                                parentGroup[id].children[tmp].deleted = true;
+                            }
+                        }
+                    }
                     //add new properties to group
                     // parentGroup[id].lastModified = new Date();
 

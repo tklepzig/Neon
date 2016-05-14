@@ -12,14 +12,29 @@
         });
     }
 
-    function Group($scope, $routeParams, documentService) {
+    function Group($scope, $routeParams, $location, groupService, vibrationService) {
         $scope.ready = false;
-        $scope.deletedItems = {};
+        $scope.group = {};
+        $scope.metadata = {};
         $scope.view = 'grid';
 
-        documentService.getDeletedItems($routeParams.id).then(function(items) {
-            $scope.deletedItems = items;
+        groupService.getGroup($routeParams.id).then(function(group) {
+            console.log(group);
+            $scope.group = group.group;
+            $scope.metadata = group.metadata;
             $scope.ready = true;
         });
+
+        $scope.back = function() {
+            vibrationService.vibrate(20);
+
+            if (typeof $scope.metadata.parentId === 'undefined') {
+                //parent is root
+                $location.path('/trash').replace();
+            } else {
+                //parent is group
+                $location.path('/trash/group/' + $scope.metadata.parentId).replace();
+            }
+        };
     }
 }());
