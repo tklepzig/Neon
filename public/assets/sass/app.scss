@@ -41,12 +41,15 @@ md-toolbar {
     &:not(.start) {
         background: $brownAccent;
         color: rgba(255,255,255,1.0);
-        box-shadow: #000 0 0 20px 4px;
         transition: background-color 0.3s ease-out;
 
         md-icon {
             color: rgba(255,255,255,1.0);
         }
+    }
+
+    &.trash {
+        background: #7C8961;
     }
 
     &.prio-high {

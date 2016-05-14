@@ -312,14 +312,14 @@ module.exports = function(config) {
         }
     };
 
-    module.getDeletedItems = function(parentGroup) {
+    module.getDeletedItems = function(parentGroupId) {
         var children;
         var deletedItems = [];
 
-        if (parentGroup === null) {
+        if (parentGroupId === null) {
             children = getData();
         } else {
-            children = parentGroup.children;
+            children = module.getGroup(parentGroupId).group.children;
         }
 
         for (var id in children) {

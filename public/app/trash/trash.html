@@ -1,1 +1,12 @@
+<md-toolbar class="trash">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="back()">
+            <md-icon md-font-set="material-icons">arrow_back</md-icon>
+        </md-button>
+        <h2 class="md-headline" flex>
+            Trash
+        </h2>
+    </div>
+</md-toolbar>
+
 <items-view flex layout items="deletedItems" show-deleted="true" ready="ready" view="view" open-item="openItem(item)"></items-view>
