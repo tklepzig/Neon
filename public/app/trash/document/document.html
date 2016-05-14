@@ -1,0 +1,17 @@
+<md-toolbar class="trash" ng-class="getItemToolbarCssClass(document)">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="back()">
+            <md-icon md-font-set="material-icons">arrow_back</md-icon>
+        </md-button>
+        <h2 class="md-headline" flex>
+            {{document.name}}
+        </h2>
+    </div>
+</md-toolbar>
+
+<md-content flex layout="column" md-scroll-y>
+    <div flex ng-if="!ready" layout="row" layout-align="center center">
+        <md-progress-circular md-diameter="80" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <pagedown-viewer ng-if="ready" zoomable content="document.text" flex style="margin: 8px 16px;"></pagedown-viewer>
+</md-content>

@@ -292,7 +292,7 @@
             for (var i = 0; i < childrenOrderedByPriority.length; i++) {
                 var previewItem = childrenOrderedByPriority[i];
                 if (previewItems.length < 2) {
-                    if ((!item.deleted && !showDeleted) || (item.deleted && showDeleted)) {
+                    if ((!previewItem.deleted && !showDeleted) || (previewItem.deleted && showDeleted)) {
                         previewItems.push(previewItem);
                     }
                 } else {

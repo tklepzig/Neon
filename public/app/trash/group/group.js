@@ -19,7 +19,6 @@
         $scope.view = 'grid';
 
         groupService.getGroup($routeParams.id).then(function(group) {
-            console.log(group);
             $scope.group = group.group;
             $scope.metadata = group.metadata;
             $scope.ready = true;
@@ -34,6 +33,14 @@
             } else {
                 //parent is group
                 $location.path('/trash/group/' + $scope.metadata.parentId).replace();
+            }
+        };
+
+        $scope.openItem = function(item) {
+            if (item.type === 'document') {
+                $location.path('/trash/document/' + item.id).replace();
+            } else if (item.type === 'group') {
+                $location.path('/trash/group/' + item.id).replace();
             }
         };
     }
