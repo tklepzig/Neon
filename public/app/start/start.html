@@ -12,8 +12,15 @@
         <md-button class="md-icon-button" ng-click="toggleView()" title="Switch to {{view === 'grid' ? 'lines' : 'grid'}} view">
             <md-icon md-font-set="material-icons">{{view === 'grid' ? 'view_stream' : 'view_module'}}</md-icon>
         </md-button>
+        <md-button class="md-icon-button" title="Open Trash" ng-click="openTrash()">
+            <md-icon md-font-set="material-icons">delete</md-icon>
+        </md-button>
         <toggle-fullscreen></toggle-fullscreen>
-        <md-menu>
+        <md-button class="md-icon-button" title="Logout" href="/.auth/logout" target="_self">
+            <md-icon md-font-set="material-icons">exit_to_app</md-icon>
+        </md-button>
+
+        <!-- <md-menu>
             <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
                 <md-icon md-menu-origin md-font-set="material-icons">more_vert</md-icon>
             </md-button>
@@ -30,7 +37,7 @@
                     </md-button>
                 </md-menu-item>
             </md-menu-content>
-        </md-menu>
+        </md-menu> -->
     </div>
 </md-toolbar>
 
