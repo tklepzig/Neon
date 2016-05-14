@@ -198,6 +198,7 @@ module.exports = function(config) {
     module.removeGroup = function(id) {
         var group = module.getGroup(id).group;
         group.deleted = true;
+        deleteGroupRec(group);
         // if (typeof group.metadata.parentId === 'undefined') {
         //     delete getData()[id];
         // } else {
@@ -205,6 +206,20 @@ module.exports = function(config) {
         //     delete parentGroup.group.children[id];
         // }
     };
+
+    function deleteGroupRec(parentGroup) {
+        for (var id in parentGroup.children) {
+            if (parentGroup.children.hasOwnProperty(id)) {
+                var item = parentGroup.children[id];
+                if (item.type === 'group') {
+                    item.deleted = true;
+                    deleteGroupRec(item);
+                } else if (item.type === 'document') {
+                    item.deleted = true;
+                }
+            }
+        }
+    }
 
     module.removeDocument = function(id) {
         var document = module.getDocument(id).document;
