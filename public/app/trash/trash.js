@@ -3,16 +3,16 @@
 
     angular.module('trash', ['documentService', 'itemsView'])
         .config(defineRoutes)
-        .controller('TrashController', TrashController);
+        .controller('Trash', Trash);
 
     function defineRoutes($routeProvider) {
         $routeProvider.when('/trash', {
             templateUrl: 'app/trash/trash.html',
-            controller: 'TrashController'
+            controller: 'Trash'
         });
     }
 
-    function TrashController($scope, documentService) {
+    function Trash($scope, documentService) {
         $scope.ready = false;
         $scope.deletedItems = {};
         $scope.view = 'grid';

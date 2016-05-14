@@ -4,7 +4,7 @@
     </div>
     <md-list ng-if="ready" flex id="items" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap layout="row">
         <md-list-item
-            ng-if="!item.deleted"
+            ng-if="!item.deleted || showDeleted"
             ng-class="getItemTileCssClass(item)"
             flex-xs="{{flexValues.xs}}"
             flex-sm="{{flexValues.sm}}"

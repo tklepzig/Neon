@@ -11,6 +11,7 @@
                 items: '=',
                 ready: '=',
                 view: '=',
+                showDeleted: '=?',
                 openItem: '&'
             },
             templateUrl: 'app/components/itemsView/itemsView.html',
@@ -25,6 +26,7 @@
                     md: 25,
                     lg: 20
                 };
+                $scope.showDeleted = angular.isDefined($scope.showDeleted) ? $scope.showDeleted : false;
 
                 $scope.$watch('view', function(value) {
                     if (value === 'lines') {
