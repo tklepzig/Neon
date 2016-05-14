@@ -49,7 +49,12 @@ md-toolbar {
     }
 
     &.trash {
-        background: #7C8961;
+        background: #b5b5b5;
+        color: black;
+
+        md-icon {
+            color: black;
+        }
     }
 
     &.prio-high {
