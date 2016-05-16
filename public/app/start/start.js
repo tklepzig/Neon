@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('start', ['group', 'document', 'fabAdd', 'documentService', 'groupService', 'itemsView'])
+    angular.module('start', ['group', 'document', 'trash', 'fabAdd', 'documentService', 'groupService', 'itemsView'])
         .config(defineRoutes)
         .controller('StartController', StartController);
 
@@ -79,6 +79,10 @@
             } else if ($scope.view === 'lines') {
                 $scope.view = 'grid';
             }
+        };
+
+        $scope.openTrash = function() {
+            $location.path('/trash').replace();
         };
     }
 }());

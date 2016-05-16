@@ -94,7 +94,7 @@ app.get('/*', function(req, res) {
 });
 
 dataService.initialize();
-// dataService.migrate();
+dataService.migrate();
 
 socketIo.on('connection', function(socket) {
     var clientIp = socket.request.connection.remoteAddress;
@@ -161,6 +161,13 @@ socketIo.on('connection', function(socket) {
         var document = dataService.getDocument(id);
         callback(document);
     });
+
+    socket.on('getDeletedItems', function(parentGroup, callback) {
+        var items = dataService.getDeletedItems(parentGroup);
+        callback(items);
+    });
+
+
 
     socket.on('exportDocument', function(document, callback) {
         markdownpdf({

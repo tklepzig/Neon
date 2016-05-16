@@ -171,6 +171,10 @@
                             preventDefault = true;
                             $route.current.scope.toggleView();
                             $route.current.scope.$apply();
+                        } else if (e.keyCode === 'T'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.openTrash();
+                            $route.current.scope.$apply();
                         }
                         // else if (e.keyCode === 'E'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                         //     preventDefault = true;
@@ -187,6 +191,17 @@
                         //     $route.current.scope.endSearch();
                         //     $route.current.scope.$apply();
                         // }
+                        break;
+                    }
+                case 'Trash':
+                case 'Group':
+                case 'Document':
+                    {
+                        if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.back();
+                            $route.current.scope.$apply();
+                        }
                         break;
                     }
                 case 'GroupController':
@@ -209,8 +224,7 @@
                             preventDefault = true;
                             $route.current.scope.toggleView();
                             $route.current.scope.$apply();
-                        }
-                        else if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                        } else if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.back();
                             $route.current.scope.$apply();
@@ -282,7 +296,7 @@
             }
         };
 
-        $rootScope.getPreviewItems = function(item) {
+        $rootScope.getPreviewItems = function(item, showDeleted) {
             if (item.type !== 'group') {
                 return [];
             }
@@ -292,7 +306,7 @@
             for (var i = 0; i < childrenOrderedByPriority.length; i++) {
                 var previewItem = childrenOrderedByPriority[i];
                 if (previewItems.length < 2) {
-                    if (!previewItem.deleted) {
+                    if ((!previewItem.deleted && !showDeleted) || (previewItem.deleted && showDeleted)) {
                         previewItems.push(previewItem);
                     }
                 } else {
