@@ -37,5 +37,8 @@
                 $location.path('/trash/group/' + $scope.metadata.parentId).replace();
             }
         };
+
+        $scope.restore = function() {};
+        $scope.deletePermanently = function() {};
     }
 }());

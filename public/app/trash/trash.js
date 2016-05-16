@@ -34,5 +34,7 @@
                 $location.path('/trash/group/' + item.id).replace();
             }
         };
+
+        $scope.emptyTrash = function() {};
     }
 }());
