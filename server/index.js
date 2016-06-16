@@ -93,7 +93,6 @@ app.get('/*', function(req, res) {
     res.sendFile(path.resolve(__dirname + config.publicFilePath + '/index.html'));
 });
 
-dataService.initialize();
 dataService.migrate();
 
 socketIo.on('connection', function(socket) {
@@ -181,8 +180,10 @@ socketIo.on('connection', function(socket) {
     });
 });
 
-http.listen(port, function() {
-    console.log('listening on *:' + port);
+dataService.initialize().then(function() {
+    http.listen(port, function() {
+        console.log('listening on *:' + port);
+    });
 });
 
 module.exports = app;

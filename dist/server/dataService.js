@@ -12,6 +12,7 @@ module.exports = function(config) {
 
     var path = require('path');
     var uuid = require('node-uuid');
+    var Promise = require('promise');
 
     var cache = null;
     var dataPath = path.join(config.repoPath, config.dataFilename);
@@ -111,15 +112,19 @@ module.exports = function(config) {
 
 
     module.initialize = function() {
-        if (!directory.exist(config.repoPath)) {
-            repo.clone().then(function() {
+        return new Promise(function(resolve) {
+            if (!directory.exist(config.repoPath)) {
+                repo.clone().then(function() {
+                    setInterval(persistenceJob, 10000);
+                    resolve();
+                });
+            } else {
+                //write every 10 seconds to file
+                //commit and push every 5 minutes
                 setInterval(persistenceJob, 10000);
-            });
-        } else {
-            //write every 10 seconds to file
-            //commit and push every 5 minutes
-            setInterval(persistenceJob, 10000);
-        }
+                resolve();
+            }
+        });
     };
 
     module.addGroup = function(parentGroupId) {
