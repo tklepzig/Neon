@@ -1,0 +1,59 @@
+<fab-add ng-click-document="addDocument()" ng-click-group="addGroup()"></fab-add>
+
+<md-toolbar class="start" ng-hide="showSearch">
+    <div class="md-toolbar-tools">
+        <h2 class="md-headline">
+            {{'General.AppName' | translate}}
+        </h2>
+        <span flex></span>
+        <md-button disabled class="md-icon-button" title="Search" ng-click="startSearch()">
+            <md-icon md-font-set="material-icons">search</md-icon>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="toggleView()" title="Switch to {{view === 'grid' ? 'lines' : 'grid'}} view">
+            <md-icon md-font-set="material-icons">{{view === 'grid' ? 'view_stream' : 'view_module'}}</md-icon>
+        </md-button>
+        <md-button class="md-icon-button" title="Open Trash" ng-click="openTrash()">
+            <md-icon md-font-set="material-icons">delete</md-icon>
+        </md-button>
+        <toggle-fullscreen></toggle-fullscreen>
+        <md-button class="md-icon-button" title="Logout" href="/.auth/logout" target="_self">
+            <md-icon md-font-set="material-icons">exit_to_app</md-icon>
+        </md-button>
+
+        <!-- <md-menu>
+            <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                <md-icon md-menu-origin md-font-set="material-icons">more_vert</md-icon>
+            </md-button>
+            <md-menu-content width="2">
+                <md-menu-item>
+                    <md-button ng-click="openTrash()">
+                        Open Trash
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item>
+                    <md-button style="color: rgba(255,255,255,1.0);" title="Logout" href="/.auth/logout" target="_self">
+                        Logout
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu> -->
+    </div>
+</md-toolbar>
+
+<md-toolbar class="start md-hue-1" ng-show="showSearch">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="endSearch()">
+            <md-icon md-font-set="material-icons">arrow_back</md-icon>
+        </md-button>
+        <md-input-container flex md-theme>
+            <label>&nbsp;</label>
+            <input id="search" ng-model="searchQuery" placeholder="Search">
+            <md-button class="md-icon-button" ng-click="searchQuery = ''" ng-show="searchQuery !== ''" style="position: absolute; right: -16px; top: 16px;">
+                <md-icon md-font-set="material-icons" style="color: rgb(180, 193, 50);">close</md-icon>
+            </md-button>
+        </md-input-container>
+    </div>
+</md-toolbar>
+
+<items-view flex layout items="items" ready="ready" view="view" open-item="openItem(item)"></items-view>

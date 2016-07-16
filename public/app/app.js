@@ -16,7 +16,7 @@
             'editInPlace',
             'zoomable',
             'orderByPriority',
-            'group',
+            'start',
             'socketService'
         ])
         .config(init)
@@ -156,6 +156,54 @@
 
             //controller-specific hotkeys
             switch ($route.current.$$route.controller) {
+                case 'StartController':
+                    {
+                        if ((e.keyCode === 'N'.charCodeAt(0) || e.keyCode === 'D'.charCodeAt(0)) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.addDocument();
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === 'G'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.addGroup();
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === 'V'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            //r or delete for removing group
+                            preventDefault = true;
+                            $route.current.scope.toggleView();
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === 'T'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.openTrash();
+                            $route.current.scope.$apply();
+                        }
+                        // else if (e.keyCode === 'E'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                        //     preventDefault = true;
+                        //     if ($route.current.scope.hoveredDocument !== null) {
+                        //         $route.current.scope.editDocument($route.current.scope.hoveredDocument);
+                        //         $route.current.scope.$apply();
+                        //     }
+                        // } else if (e.keyCode === 'S'.charCodeAt(0) && !inputElementHasFocus && !$route.current.scope.showSearch && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                        //     preventDefault = true;
+                        //     $route.current.scope.startSearch();
+                        //     $route.current.scope.$apply();
+                        // } else if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey && $route.current.scope.showSearch) {
+                        //     preventDefault = true;
+                        //     $route.current.scope.endSearch();
+                        //     $route.current.scope.$apply();
+                        // }
+                        break;
+                    }
+                case 'Trash':
+                case 'Group':
+                case 'Document':
+                    {
+                        if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.back();
+                            $route.current.scope.$apply();
+                        }
+                        break;
+                    }
                 case 'GroupController':
                     {
                         if ((e.keyCode === 'N'.charCodeAt(0) || e.keyCode === 'D'.charCodeAt(0)) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
@@ -176,23 +224,7 @@
                             preventDefault = true;
                             $route.current.scope.toggleView();
                             $route.current.scope.$apply();
-                        }
-                        // else if (e.keyCode === 'E'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
-                        //     preventDefault = true;
-                        //     if ($route.current.scope.hoveredDocument !== null) {
-                        //         $route.current.scope.editDocument($route.current.scope.hoveredDocument);
-                        //         $route.current.scope.$apply();
-                        //     }
-                        // } else if (e.keyCode === 'S'.charCodeAt(0) && !inputElementHasFocus && !$route.current.scope.showSearch && !e.ctrlKey && !e.shiftKey && !e.altKey) {
-                        //     preventDefault = true;
-                        //     $route.current.scope.startSearch();
-                        //     $route.current.scope.$apply();
-                        // } else if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey && $route.current.scope.showSearch) {
-                        //     preventDefault = true;
-                        //     $route.current.scope.endSearch();
-                        //     $route.current.scope.$apply();
-                        // }
-                        else if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                        } else if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.back();
                             $route.current.scope.$apply();
@@ -244,10 +276,17 @@
         });
         socketService.on('disconnect', function() {
             connectionErrorToast = $mdToast.show($mdToast
-                .simple()
-                .hideDelay(0)
-                .textContent('Connection to server lost.')
-                .theme('error-toast'));
+                    .simple()
+                    .hideDelay(0)
+                    .textContent('Connection to server lost.')
+                    .action('Reconnect')
+                    .theme('error-toast'))
+                .then(function(response) {
+                    if (response === 'ok') {
+                        $window.location.reload();
+                    }
+
+                });
         });
 
         $rootScope.getItemName = function(item) {
@@ -264,7 +303,7 @@
             }
         };
 
-        $rootScope.getPreviewItems = function(item) {
+        $rootScope.getPreviewItems = function(item, showDeleted) {
             if (item.type !== 'group') {
                 return [];
             }
@@ -274,7 +313,7 @@
             for (var i = 0; i < childrenOrderedByPriority.length; i++) {
                 var previewItem = childrenOrderedByPriority[i];
                 if (previewItems.length < 2) {
-                    if (!previewItem.deleted) {
+                    if ((!previewItem.deleted && !showDeleted) || (previewItem.deleted && showDeleted)) {
                         previewItems.push(previewItem);
                     }
                 } else {
