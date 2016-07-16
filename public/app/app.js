@@ -276,10 +276,17 @@
         });
         socketService.on('disconnect', function() {
             connectionErrorToast = $mdToast.show($mdToast
-                .simple()
-                .hideDelay(0)
-                .textContent('Connection to server lost.')
-                .theme('error-toast'));
+                    .simple()
+                    .hideDelay(0)
+                    .textContent('Connection to server lost.')
+                    .action('Reconnect')
+                    .theme('error-toast'))
+                .then(function(response) {
+                    if (response === 'ok') {
+                        $window.location.reload();
+                    }
+
+                });
         });
 
         $rootScope.getItemName = function(item) {

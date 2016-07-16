@@ -93,7 +93,7 @@ app.get('/*', function(req, res) {
     res.sendFile(path.resolve(__dirname + config.publicFilePath + '/index.html'));
 });
 
-dataService.migrate();
+// dataService.migrate();
 
 socketIo.on('connection', function(socket) {
     var clientIp = socket.request.connection.remoteAddress;
