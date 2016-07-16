@@ -15,11 +15,11 @@
                 openItem: '&'
             },
             templateUrl: 'app/components/itemsView/itemsView.html',
-            controller: function($scope, $rootScope) {
+            controller: function($scope, $rootScope, $localStorage) {
                 $scope.getItemName = $rootScope.getItemName;
                 $scope.getItemTileCssClass = $rootScope.getItemTileCssClass;
                 $scope.getPreviewItems = $rootScope.getPreviewItems;
-                $scope.view = 'grid';
+                $scope.view = $localStorage.view || 'grid';
                 $scope.flexValues = {
                     xs: 50,
                     sm: 33,
@@ -29,6 +29,8 @@
                 $scope.showDeleted = angular.isDefined($scope.showDeleted) ? $scope.showDeleted : false;
 
                 $scope.$watch('view', function(value) {
+                    $localStorage.view = value;
+                    
                     if (value === 'lines') {
                         $scope.flexValues = {
                             xs: 100,
