@@ -359,32 +359,7 @@ module.exports = function(config) {
         return deletedItems;
     };
 
-    module.migrate = function(parentGroup) {
-        if (typeof parentGroup === 'undefined') {
-            parentGroup = getData();
-        }
-
-        for (var id in parentGroup) {
-            if (parentGroup.hasOwnProperty(id)) {
-                if (parentGroup[id].type === 'group') {
-
-                    if (parentGroup[id].deleted) {
-                        for (var tmp in parentGroup[id].children) {
-                            if (parentGroup[id].children.hasOwnProperty(tmp)) {
-                                parentGroup[id].children[tmp].deleted = true;
-                            }
-                        }
-                    }
-                    //add new properties to group
-                    // parentGroup[id].lastModified = new Date();
-
-                    module.migrate(parentGroup[id].children);
-                } else if (parentGroup[id].type === 'document') {
-                    //add new properties to document
-                    // parentGroup[id].lastModified = new Date();
-                }
-            }
-        }
+    module.migrate = function() {
     };
 
     return module;
