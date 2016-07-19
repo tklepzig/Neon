@@ -203,7 +203,8 @@ module.exports = function(config) {
     module.removeGroup = function(id) {
         var group = module.getGroup(id).group;
         group.deleted = true;
-        deleteGroupRec(group);
+        // deleteGroupRec(group);
+
         // if (typeof group.metadata.parentId === 'undefined') {
         //     delete getData()[id];
         // } else {
@@ -212,19 +213,19 @@ module.exports = function(config) {
         // }
     };
 
-    function deleteGroupRec(parentGroup) {
-        for (var id in parentGroup.children) {
-            if (parentGroup.children.hasOwnProperty(id)) {
-                var item = parentGroup.children[id];
-                if (item.type === 'group') {
-                    item.deleted = true;
-                    deleteGroupRec(item);
-                } else if (item.type === 'document') {
-                    item.deleted = true;
-                }
-            }
-        }
-    }
+    // function deleteGroupRec(parentGroup) {
+    //     for (var id in parentGroup.children) {
+    //         if (parentGroup.children.hasOwnProperty(id)) {
+    //             var item = parentGroup.children[id];
+    //             if (item.type === 'group') {
+    //                 item.deleted = true;
+    //                 deleteGroupRec(item);
+    //             } else if (item.type === 'document') {
+    //                 item.deleted = true;
+    //             }
+    //         }
+    //     }
+    // }
 
     module.removeDocument = function(id) {
         var document = module.getDocument(id).document;
@@ -332,24 +333,31 @@ module.exports = function(config) {
         }
     };
 
-    // module.getDeletedItems = function(parentGroupId) {
-    //     var children;
-    //     var deletedItems = [];
-    //
-    //     if (parentGroupId === null) {
-    //         children = getData();
-    //     } else {
-    //         children = module.getGroup(parentGroupId).group.children;
-    //     }
-    //
-    //     for (var id in children) {
-    //         if (children.hasOwnProperty(id) && children[id].deleted) {
-    //             deletedItems.push(children[id]);
-    //         }
-    //     }
-    //
-    //     return deletedItems;
-    // };
+    module.getDeletedItems = function(parentGroupId) {
+        var children;
+        var deletedItems = [];
+
+        if (parentGroupId === null) {
+            children = getData();
+        } else {
+            children = module.getGroup(parentGroupId).group.children;
+        }
+
+        for (var id in children) {
+            if (children.hasOwnProperty(id)) {
+                if (children[id].type === 'document' && children[id].deleted) {
+                    deletedItems.push(children[id]);
+                } else if (children[id].type === 'group') {
+                    if (children[id].deleted) {
+                        deletedItems.push(children[id]);
+                    }
+                    deletedItems.push(...module.getDeletedItems(id));
+                }
+            }
+        }
+
+        return deletedItems;
+    };
 
     module.migrate = function(parentGroup) {
         if (typeof parentGroup === 'undefined') {

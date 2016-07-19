@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('trash', ['documentService', 'itemsView', 'trash.group', 'trash.document'])
+    angular.module('trash', ['documentService', 'itemsView'])
         .config(defineRoutes)
         .controller('Trash', Trash);
 
@@ -17,7 +17,7 @@
         $scope.deletedItems = {};
         $scope.view = 'grid';
 
-        documentService.getAllDocuments().then(function(items) {
+        documentService.getDeletedItems().then(function(items) {
             $scope.deletedItems = items;
             $scope.ready = true;
         });
@@ -25,14 +25,6 @@
         $scope.back = function() {
             vibrationService.vibrate(20);
             $location.path('/').replace();
-        };
-
-        $scope.openItem = function(item) {
-            if (item.type === 'document') {
-                $location.path('/trash/document/' + item.id).replace();
-            } else if (item.type === 'group') {
-                $location.path('/trash/group/' + item.id).replace();
-            }
         };
 
         $scope.emptyTrash = function() {};
