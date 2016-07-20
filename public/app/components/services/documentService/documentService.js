@@ -41,6 +41,14 @@
             socketService.emit('removeDocument', id);
         };
 
+        module.restoreDocument = function(id) {
+            socketService.emit('restoreDocument', id);
+        };
+
+        module.deleteDocumentPermanently = function(id) {
+            socketService.emit('deleteDocumentPermanently', id);
+        };
+
         module.moveDocument = function(id, oldParentId, newParentId) {
             var deferred = $q.defer();
             socketService.emit('moveItem', id, oldParentId, newParentId, function() {

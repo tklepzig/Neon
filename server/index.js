@@ -146,6 +146,27 @@ socketIo.on('connection', function(socket) {
         socket.broadcast.emit('documentRemoved', id);
     });
 
+    socket.on('restoreGroup', function(id) {
+        dataService.restoreGroup(id);
+        socket.broadcast.emit('groupRestored', id);
+    });
+
+    socket.on('restoreDocument', function(id) {
+        dataService.restoreDocument(id);
+        socket.broadcast.emit('documentRestored', id);
+    });
+
+    socket.on('deleteGroupPermanently', function(id) {
+        dataService.deleteGroupPermanently(id);
+        socket.broadcast.emit('groupDeletedPermanently', id);
+    });
+
+    socket.on('deleteDocumentPermanently', function(id) {
+        dataService.deleteDocumentPermanently(id);
+        socket.broadcast.emit('documentDeletedPermanently', id);
+    });
+
+
     socket.on('getMoveToGroupList', function(item, callback) {
         var groups = dataService.getMoveToGroupList(item);
         callback(groups);

@@ -200,44 +200,6 @@ module.exports = function(config) {
         delete oldParent[id];
     };
 
-    module.removeGroup = function(id) {
-        var group = module.getGroup(id).group;
-        group.deleted = true;
-        // deleteGroupRec(group);
-
-        // if (typeof group.metadata.parentId === 'undefined') {
-        //     delete getData()[id];
-        // } else {
-        //     var parentGroup = module.getGroup(group.metadata.parentId);
-        //     delete parentGroup.group.children[id];
-        // }
-    };
-
-    // function deleteGroupRec(parentGroup) {
-    //     for (var id in parentGroup.children) {
-    //         if (parentGroup.children.hasOwnProperty(id)) {
-    //             var item = parentGroup.children[id];
-    //             if (item.type === 'group') {
-    //                 item.deleted = true;
-    //                 deleteGroupRec(item);
-    //             } else if (item.type === 'document') {
-    //                 item.deleted = true;
-    //             }
-    //         }
-    //     }
-    // }
-
-    module.removeDocument = function(id) {
-        var document = module.getDocument(id).document;
-        document.deleted = true;
-        // if (typeof document.metadata.parentId === 'undefined') {
-        //     delete getData()[id];
-        // } else {
-        //     var parentGroup = module.getGroup(document.metadata.parentId);
-        //     delete parentGroup.group.children[id];
-        // }
-    };
-
     module.updateGroup = function(group) {
         var grp = module.getGroup(group.id).group;
         grp.name = group.name;
@@ -359,8 +321,49 @@ module.exports = function(config) {
         return deletedItems;
     };
 
-    module.migrate = function() {
+    module.removeGroup = function(id) {
+        var group = module.getGroup(id).group;
+        group.deleted = true;
+
     };
+
+    module.removeDocument = function(id) {
+        var document = module.getDocument(id).document;
+        document.deleted = true;
+    };
+
+    module.restoreGroup = function(id) {
+        var group = module.getGroup(id).group;
+        group.deleted = false;
+
+    };
+
+    module.restoreDocument = function(id) {
+        var document = module.getDocument(id).document;
+        document.deleted = false;
+    };
+
+    module.deleteDocumentPermanently = function(id) {
+        var document = module.getDocument(id).document;
+        if (typeof document.metadata.parentId === 'undefined') {
+            delete getData()[id];
+        } else {
+            var parentGroup = module.getGroup(document.metadata.parentId);
+            delete parentGroup.group.children[id];
+        }
+    };
+
+    module.deleteGroupPermanently = function(id) {
+        var group = module.getGroup(id).group;
+        if (typeof group.metadata.parentId === 'undefined') {
+            delete getData()[id];
+        } else {
+            var parentGroup = module.getGroup(group.metadata.parentId);
+            delete parentGroup.group.children[id];
+        }
+    };
+
+    // module.migrate = function() {};
 
     return module;
 };
