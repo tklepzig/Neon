@@ -12,7 +12,7 @@
         });
     }
 
-    function Trash($scope, $location, $mdDialog, documentService, groupService, vibrationService) {
+    function Trash($scope, $location, $window, $mdDialog, documentService, groupService, vibrationService) {
         $scope.ready = false;
         $scope.deletedItems = {};
         $scope.view = 'grid';
@@ -48,6 +48,8 @@
                         groupService.deleteGroupPermanently(item.id);
                     }
                 }
+
+                $window.location.reload();
             });
         };
 
