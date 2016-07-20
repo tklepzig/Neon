@@ -344,7 +344,7 @@ module.exports = function(config) {
     };
 
     module.deleteDocumentPermanently = function(id) {
-        var document = module.getDocument(id).document;
+        var document = module.getDocument(id);
         if (typeof document.metadata.parentId === 'undefined') {
             delete getData()[id];
         } else {
@@ -354,7 +354,7 @@ module.exports = function(config) {
     };
 
     module.deleteGroupPermanently = function(id) {
-        var group = module.getGroup(id).group;
+        var group = module.getGroup(id);
         if (typeof group.metadata.parentId === 'undefined') {
             delete getData()[id];
         } else {
