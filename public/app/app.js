@@ -194,8 +194,6 @@
                         break;
                     }
                 case 'Trash':
-                case 'Group':
-                case 'Document':
                     {
                         if (e.keyCode === 27 && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
@@ -214,8 +212,8 @@
                             preventDefault = true;
                             $route.current.scope.addGroup();
                             $route.current.scope.$apply();
-                        } else if ((e.keyCode === 'R'.charCodeAt(0) || e.keyCode === 46) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
-                            //r or delete for removing group
+                        } else if (e.keyCode === 46 && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            //delete for removing group
                             preventDefault = true;
                             $route.current.scope.delete();
                             $route.current.scope.$apply();
@@ -237,8 +235,8 @@
                             preventDefault = true;
                             $route.current.scope.edit();
                             $route.current.scope.$apply();
-                        } else if ((e.keyCode === 'R'.charCodeAt(0) || e.keyCode === 46) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
-                            //r or delete for removing group
+                        } else if (e.keyCode === 46 && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                            //delete for removing group
                             preventDefault = true;
                             $route.current.scope.delete();
                             $route.current.scope.$apply();
