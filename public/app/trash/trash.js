@@ -41,15 +41,34 @@
                     } else if (item.type === 'group') {
                         groupService.restoreGroup(item.id);
                     }
+
+                    $window.location.reload();
+
                 } else if (action === 'deletePermanently') {
-                    if (item.type === 'document') {
-                        documentService.deleteDocumentPermanently(item.id);
-                    } else if (item.type === 'group') {
-                        groupService.deleteGroupPermanently(item.id);
+                    var itemName = '';
+                    if (item.name.length > 0) {
+                        itemName = ' "' + item.name + '"';
                     }
+                    var confirm = $mdDialog.confirm()
+                        .title('Delete the ' + item.type + itemName + ' permanently?')
+                        .content('This action can\'t be undone.')
+                        .ok('Yes, delete')
+                        .cancel('No');
+
+                    if (typeof e !== 'undefined') {
+                        confirm.targetEvent(e);
+                    }
+                    $mdDialog.show(confirm).then(function() {
+                        if (item.type === 'document') {
+                            documentService.deleteDocumentPermanently(item.id);
+                        } else if (item.type === 'group') {
+                            groupService.deleteGroupPermanently(item.id);
+                        }
+
+                        $window.location.reload();
+                    });
                 }
 
-                $window.location.reload();
             });
         };
 
