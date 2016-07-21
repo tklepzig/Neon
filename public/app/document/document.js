@@ -60,6 +60,7 @@
                 .simple()
                 .hideDelay(10000)
                 .textContent('Document' + documentName + ' deleted')
+                .theme('info-toast')
             );
         };
 

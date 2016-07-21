@@ -92,6 +92,7 @@
                 .simple()
                 .hideDelay(10000)
                 .textContent('Group' + groupName + ' deleted')
+                .theme('info-toast')
             );
         };
 
