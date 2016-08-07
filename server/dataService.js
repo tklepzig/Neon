@@ -118,6 +118,9 @@ module.exports = function(config) {
                 repo.clone().then(function() {
                     setInterval(persistenceJob, 10000);
                     resolve();
+                })
+                .catch(function (error) {
+                    console.log('Error: ' + error);
                 });
             } else {
                 //write every 10 seconds to file
