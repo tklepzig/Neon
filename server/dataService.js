@@ -45,6 +45,7 @@ module.exports = function(config) {
                             return repo.push();
                         }
                     }).catch(function(error) {
+                        console.log('Error: ' + error);
                         config.errorOccurred(error);
                     });
                 }
