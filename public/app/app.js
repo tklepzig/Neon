@@ -289,6 +289,14 @@
                 });
         });
 
+        socketService.on('errorOccurred', function(errorMessage) {
+            $mdToast.show($mdToast
+                .simple()
+                .hideDelay(30000)
+                .textContent('An error occured: ' + errorMessage)
+                .theme('error-toast'));
+        });
+
         $rootScope.getItemName = function(item) {
             if (item.name.length > 0) {
                 return item.name;

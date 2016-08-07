@@ -7,6 +7,7 @@
 // repoPath
 // dataFilename
 // isPushAllowed
+// errorOccurred
 module.exports = function(config) {
     var module = {};
 
@@ -44,8 +45,7 @@ module.exports = function(config) {
                             return repo.push();
                         }
                     }).catch(function(error) {
-                        //something went wrong
-                        console.log('Error: ' + error);
+                        config.errorOccurred(error);
                     });
                 }
             });
