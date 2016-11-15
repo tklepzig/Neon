@@ -1,0 +1,14 @@
+{
+    "name": "Neon",
+    "display": "standalone",
+    "theme_color": "black",
+    "background_color": "black",
+    "icons": [
+        {
+            "src": "favicon.png",
+            "sizes": "32x32",
+            "type": "image/png",
+            "density": 1.0
+        }
+    ]
+}
