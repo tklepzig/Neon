@@ -30,8 +30,18 @@ module.exports = function(gulp, plugins, config) {
             .pipe(gulp.dest(config.destPath));
     });
 
+    gulp.task('copyStatic:favicon', function() {
+        return gulp.src(config.srcPublicPath + 'favicon.ico', config.srcPublicPath + 'favicon.png')
+            .pipe(gulp.dest(config.destPublicPath));
+    });
+
+    gulp.task('copyStatic:manifest', function() {
+        return gulp.src(config.srcPublicPath + 'manifest.json')
+            .pipe(gulp.dest(config.destPublicPath));
+    });
+
     // copy static files to dist
-    gulp.task('copyStatic', ['copyStatic:content', 'copyStatic:locales', 'copyStatic:fonts', 'copyStatic:web.config', 'copyStatic:package.json']);
+    gulp.task('copyStatic', ['copyStatic:content', 'copyStatic:locales', 'copyStatic:fonts', 'copyStatic:web.config', 'copyStatic:package.json', 'copyStatic:favicon']);
 
     /*----------watchers----------*/
 
