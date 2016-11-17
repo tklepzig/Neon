@@ -12,7 +12,7 @@
         });
     }
 
-    function GroupController($scope, $routeParams, $location, $mdDialog, documentService, groupService, vibrationService) {
+    function GroupController($scope, $rootScope, $routeParams, $location, $mdToast, documentService, groupService, vibrationService) {
         $scope.ready = false;
         $scope.focusName = false;
         $scope.group = {};
@@ -79,25 +79,21 @@
             groupService.updateGroup($scope.group);
         };
 
-        $scope.delete = function(e) {
-            var groupName = '';
-            if ($scope.group.name.length > 0) {
-                groupName = ' "' + $scope.group.name + '" ';
+        $scope.delete = function() {
+            var groupName = $rootScope.getItemName($scope.group);
+            if (groupName.length > 0) {
+                groupName = ' "' + groupName + '"';
             }
 
-            var confirm = $mdDialog.confirm()
-                .title('Delete the group' + groupName + '?')
-                .content('This action can\'t be undone.')
-                .ok('Yes, delete')
-                .cancel('No');
+            groupService.removeGroup($scope.group.id);
+            $scope.back();
 
-            if (typeof e !== 'undefined') {
-                confirm.targetEvent(e);
-            }
-            $mdDialog.show(confirm).then(function() {
-                groupService.removeGroup($scope.group.id);
-                $scope.back();
-            });
+            $mdToast.show($mdToast
+                .simple()
+                .hideDelay(10000)
+                .textContent('Group' + groupName + ' deleted')
+                .theme('info-toast')
+            );
         };
 
         $scope.setPriority = function(priority) {

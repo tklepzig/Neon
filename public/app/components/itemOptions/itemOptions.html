@@ -48,7 +48,7 @@
     </md-menu-content>
 </md-menu>
 
-<md-button class="md-icon-button itemOptionsButton" ng-if="!isEditMode" ng-click="delete({$event: $event})" title="Delete [r]">
+<md-button class="md-icon-button itemOptionsButton" ng-if="!isEditMode" ng-click="delete({$event: $event})" title="Move to Trash [Del]">
     <md-icon md-font-set="material-icons">delete</md-icon>
 </md-button>
 
@@ -68,7 +68,7 @@
         <md-menu-item ng-if="!isEditMode">
             <md-button ng-click="delete({$event: $event})">
                 <md-icon md-font-set="material-icons">delete</md-icon>
-                Delete [r]
+                Move to Trash [Del]
             </md-button>
         </md-menu-item>
         <md-menu-divider ng-if="!isEditMode"></md-menu-divider>

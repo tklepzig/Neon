@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('trash', ['documentService', 'itemsView', 'trash.group', 'trash.document'])
+    angular.module('trash', ['documentService', 'itemsView'])
         .config(defineRoutes)
         .controller('Trash', Trash);
 
@@ -12,12 +12,12 @@
         });
     }
 
-    function Trash($scope, $location, documentService, vibrationService) {
+    function Trash($scope, $location, $window, $mdDialog, documentService, groupService, vibrationService) {
         $scope.ready = false;
         $scope.deletedItems = {};
         $scope.view = 'grid';
 
-        documentService.getAllDocuments().then(function(items) {
+        documentService.getDeletedItems().then(function(items) {
             $scope.deletedItems = items;
             $scope.ready = true;
         });
@@ -27,14 +27,61 @@
             $location.path('/').replace();
         };
 
-        $scope.openItem = function(item) {
-            if (item.type === 'document') {
-                $location.path('/trash/document/' + item.id).replace();
-            } else if (item.type === 'group') {
-                $location.path('/trash/group/' + item.id).replace();
-            }
+        $scope.showPopup = function(item, e) {
+            $mdDialog.show({
+                controller: Dialog,
+                templateUrl: 'app/trash/dialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: e,
+                clickOutsideToClose: true
+            }).then(function(action) {
+                if (action === 'restore') {
+                    if (item.type === 'document') {
+                        documentService.restoreDocument(item.id);
+                    } else if (item.type === 'group') {
+                        groupService.restoreGroup(item.id);
+                    }
+
+                    $window.location.reload();
+
+                } else if (action === 'deletePermanently') {
+                    var itemName = '';
+                    if (item.name.length > 0) {
+                        itemName = ' "' + item.name + '"';
+                    }
+                    var confirm = $mdDialog.confirm()
+                        .title('Delete the ' + item.type + itemName + ' permanently?')
+                        .content('This action can\'t be undone.')
+                        .ok('Yes, delete')
+                        .cancel('No');
+
+                    if (typeof e !== 'undefined') {
+                        confirm.targetEvent(e);
+                    }
+                    $mdDialog.show(confirm).then(function() {
+                        if (item.type === 'document') {
+                            documentService.deleteDocumentPermanently(item.id);
+                        } else if (item.type === 'group') {
+                            groupService.deleteGroupPermanently(item.id);
+                        }
+
+                        $window.location.reload();
+                    });
+                }
+
+            });
         };
 
         $scope.emptyTrash = function() {};
+    }
+
+    function Dialog($scope, $mdDialog) {
+        $scope.restore = function() {
+            $mdDialog.hide('restore');
+        };
+
+        $scope.deletePermanently = function() {
+            $mdDialog.hide('deletePermanently');
+        };
     }
 }());

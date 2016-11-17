@@ -39,6 +39,14 @@
             socketService.emit('removeGroup', id);
         };
 
+        module.restoreGroup = function(id) {
+            socketService.emit('restoreGroup', id);
+        };
+
+        module.deleteGroupPermanently = function(id) {
+            socketService.emit('deleteGroupPermanently', id);
+        };
+
         module.moveGroup = function(id, oldParentId, newParentId) {
             var deferred = $q.defer();
             socketService.emit('moveItem', id, oldParentId, newParentId, function() {

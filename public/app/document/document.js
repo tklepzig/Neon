@@ -16,7 +16,7 @@
         });
     }
 
-    function DocumentController($scope, $location, $routeParams, $mdDialog, documentService, groupService, vibrationService) {
+    function DocumentController($scope, $rootScope, $location, $routeParams, $mdToast, documentService, groupService, vibrationService) {
         $scope.ready = false;
         $scope.document = {};
         $scope.metadata = {};
@@ -47,26 +47,21 @@
             }
         };
 
-        $scope.delete = function(e) {
-            var documentName = '';
-            if ($scope.document.name.length > 0) {
-                documentName = ' "' + $scope.document.name + '" ';
+        $scope.delete = function() {
+            var documentName = $rootScope.getItemName($scope.document);
+            if (documentName.length > 0) {
+                documentName = ' "' + documentName + '"';
             }
 
-            var confirm = $mdDialog.confirm()
-                .title('Delete the document' + documentName + '?')
-                .content('This action can\'t be undone.')
-                .ok('Yes, delete')
-                .cancel('No');
+            documentService.removeDocument($scope.document.id);
+            $scope.back();
 
-            if (typeof e !== 'undefined') {
-                confirm.targetEvent(e);
-            }
-
-            $mdDialog.show(confirm).then(function() {
-                documentService.removeDocument($scope.document.id);
-                $scope.back();
-            });
+            $mdToast.show($mdToast
+                .simple()
+                .hideDelay(10000)
+                .textContent('Document' + documentName + ' deleted')
+                .theme('info-toast')
+            );
         };
 
         $scope.edit = function() {

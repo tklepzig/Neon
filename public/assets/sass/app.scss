@@ -49,11 +49,11 @@ md-toolbar {
     }
 
     &.trash {
-        background: #b5b5b5;
-        color: black;
+        background: #4e4d4d;
+        color: rgba(255,255,255,1.0);
 
         md-icon {
-            color: black;
+            color: rgba(255,255,255,1.0);
         }
     }
 
@@ -212,6 +212,13 @@ md-toast.md-error-toast-theme {
         border: 1px solid rgba(255, 255, 255, 0.4);
     }
 }
+
+md-toast.md-info-toast-theme {
+    .md-toast-content {
+        font-size: 1.1em;
+    }
+}
+
 @media (min-width: 960px) {
     .itemOptionsMenu {
         display: none !important;

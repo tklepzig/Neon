@@ -7,9 +7,25 @@
             Trash
         </h2>
         <md-button class="md-icon-button" ng-click="emptyTrash()" title="Empty Trash">
-            <md-icon style="color: #940000" md-font-set="material-icons">delete</md-icon>
+            <md-icon style="color: #d03f3f" md-font-set="material-icons">delete</md-icon>
         </md-button>
     </div>
 </md-toolbar>
 
-<items-view flex layout items="deletedItems" show-deleted="true" ready="ready" view="view" open-item="openItem(item)"></items-view>
+<!-- TODO: encapsulate this into itemsView or into another component?? -->
+<md-content flex layout md-scroll-y>
+    <div flex ng-if="!ready" layout="row" layout-align="center center">
+        <md-progress-circular md-diameter="80" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-list ng-if="ready" flex id="items" layout-align="start start" style="align-content: flex-start;" layout-padding layout-wrap layout="row">
+        <md-list-item flex="20" ng-click="showPopup(item, $event)" ng-class="{'md-3-line': item.type === 'group'}" ng-repeat="item in deletedItems | orderBy: getItemName" title="{{getItemName(item)}}">
+            <md-icon ng-class="{'document': item.type === 'document', 'group': item.type === 'group'}" md-font-set="material-icons">{{(item.type === 'group') ? 'folder' : 'subject'}}</md-icon>
+            <div class="md-list-item-text" layout="column">
+                <span class="title">
+                    {{getItemName(item)}}
+                </span>
+                <!-- <h4 ng-repeat="previewItem in getPreviewItems(item, showDeleted)">{{getItemName(previewItem)}}</h4> -->
+            </div>
+        </md-list-item>
+    </md-list>
+</md-content>
