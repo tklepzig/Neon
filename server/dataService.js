@@ -7,6 +7,7 @@
 // repoPath
 // dataFilename
 // isPushAllowed
+// errorOccurred
 module.exports = function(config) {
     var module = {};
 
@@ -44,8 +45,8 @@ module.exports = function(config) {
                             return repo.push();
                         }
                     }).catch(function(error) {
-                        //something went wrong
                         console.log('Error: ' + error);
+                        config.errorOccurred(error);
                     });
                 }
             });
@@ -117,6 +118,9 @@ module.exports = function(config) {
                 repo.clone().then(function() {
                     setInterval(persistenceJob, 10000);
                     resolve();
+                })
+                .catch(function (error) {
+                    console.log('Error: ' + error);
                 });
             } else {
                 //write every 10 seconds to file

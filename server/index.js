@@ -47,7 +47,8 @@ var dataService = require('./dataService.js')({
     isPushAllowed: config.isPushAllowed,
     remoteUrl: secrets.repoUrl,
     username: secrets.repoUser,
-    password: secrets.repoPassword
+    password: secrets.repoPassword,
+    errorOccurred: dataServiceError
 });
 var port = process.env.PORT || config.port;
 
@@ -185,5 +186,9 @@ dataService.initialize().then(function() {
         console.log('listening on *:' + port);
     });
 });
+
+function dataServiceError(errorMessage) {
+    socketIo.emit('errorOccurred', errorMessage);
+}
 
 module.exports = app;
