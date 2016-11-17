@@ -31,7 +31,12 @@ module.exports = function(gulp, plugins, config) {
     });
 
     gulp.task('copyStatic:favicon', function() {
-        return gulp.src(config.srcPublicPath + 'favicon.ico', config.srcPublicPath + 'favicon.png')
+        return gulp.src(config.srcPublicPath + 'favicon.ico')
+            .pipe(gulp.dest(config.destPublicPath));
+    });
+
+    gulp.task('copyStatic:images', function() {
+        return gulp.src(config.srcPublicPath + '*.png')
             .pipe(gulp.dest(config.destPublicPath));
     });
 
@@ -41,7 +46,7 @@ module.exports = function(gulp, plugins, config) {
     });
 
     // copy static files to dist
-    gulp.task('copyStatic', ['copyStatic:content', 'copyStatic:locales', 'copyStatic:fonts', 'copyStatic:web.config', 'copyStatic:package.json', 'copyStatic:favicon']);
+    gulp.task('copyStatic', ['copyStatic:content', 'copyStatic:locales', 'copyStatic:fonts', 'copyStatic:web.config', 'copyStatic:package.json', 'copyStatic:favicon', 'copyStatic:images', 'copyStatic:manifest']);
 
     /*----------watchers----------*/
 
