@@ -2,10 +2,10 @@
 @import 'print';
 
 //import external stuff
-@import '../../bower_components/angular-material/angular-material';
+@import '../../bower_components/angular-material/angular-material.scss';
 
 $material-design-icons-font-path: '../fonts/material-design-icons-iconfont/dist/fonts/' !default;
-@import '../../bower_components/material-design-icons-iconfont/dist/material-design-icons';
+@import '../../bower_components/material-design-icons-iconfont/dist/material-design-icons.scss';
 // @import '../../bower_components/angular-hotkeys/build/hotkeys';
 
 //import overrides of external stuff
