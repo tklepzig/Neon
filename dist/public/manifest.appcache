@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# Time: Thu Nov 17 2016 14:39:52 GMT+0100 (Mitteleuropäische Zeit)
+# Time: Thu Nov 17 2016 19:38:31 GMT+0100 (CET)
 
 CACHE:
 favicon.ico
@@ -14,9 +14,7 @@ css/main.min.css
 js/neon.min.js
 locales/de-DE.json
 locales/en-GB.json
-fonts/material-design-icons-iconfont/dist/fonts/material-icons.css
 fonts/material-design-icons-iconfont/dist/fonts/MaterialIcons-Regular.eot
-fonts/material-design-icons-iconfont/dist/fonts/MaterialIcons-Regular.svg
 fonts/material-design-icons-iconfont/dist/fonts/MaterialIcons-Regular.ttf
 fonts/material-design-icons-iconfont/dist/fonts/MaterialIcons-Regular.woff
 fonts/material-design-icons-iconfont/dist/fonts/MaterialIcons-Regular.woff2

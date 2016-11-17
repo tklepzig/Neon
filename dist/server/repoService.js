@@ -43,10 +43,7 @@ module.exports = function(config) {
                 });
             }).then(function() {
                 // console.log('remote Pushed!');
-            })
-            .catch(function(reason) {
-                console.log(reason);
-            });
+            });            
     };
 
     module.commitFile = function(filePath, commitMsg) {
