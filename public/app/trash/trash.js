@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular.module('trash', ['documentService', 'itemsView'])
@@ -17,24 +17,24 @@
         $scope.deletedItems = {};
         $scope.view = 'grid';
 
-        documentService.getDeletedItems().then(function(items) {
+        documentService.getDeletedItems().then(function (items) {
             $scope.deletedItems = items;
             $scope.ready = true;
         });
 
-        $scope.back = function() {
+        $scope.back = function () {
             vibrationService.vibrate(20);
             $location.path('/').replace();
         };
 
-        $scope.showPopup = function(item, e) {
+        $scope.showPopup = function (item, e) {
             $mdDialog.show({
                 controller: Dialog,
                 templateUrl: 'app/trash/dialog.tmpl.html',
                 parent: angular.element(document.body),
                 targetEvent: e,
                 clickOutsideToClose: true
-            }).then(function(action) {
+            }).then(function (action) {
                 if (action === 'restore') {
                     if (item.type === 'document') {
                         documentService.restoreDocument(item.id);
@@ -58,7 +58,7 @@
                     if (typeof e !== 'undefined') {
                         confirm.targetEvent(e);
                     }
-                    $mdDialog.show(confirm).then(function() {
+                    $mdDialog.show(confirm).then(function () {
                         if (item.type === 'document') {
                             documentService.deleteDocumentPermanently(item.id);
                         } else if (item.type === 'group') {
@@ -72,16 +72,32 @@
             });
         };
 
-        $scope.emptyTrash = function() {};
+        $scope.emptyTrash = function (e) {
+
+            var confirm = $mdDialog.confirm()
+                .title('Delete all items permanently?')
+                .content('This action can\'t be undone.')
+                .ok('Yes, delete')
+                .cancel('No');
+
+            if (typeof e !== 'undefined') {
+                confirm.targetEvent(e);
+            }
+            $mdDialog.show(confirm).then(function () {
+                documentService.emptyTrash();
+                $location.path('/').replace();
+            });
+
+        };
     }
 
     function Dialog($scope, $mdDialog) {
-        $scope.restore = function() {
+        $scope.restore = function () {
             $mdDialog.hide('restore');
         };
 
-        $scope.deletePermanently = function() {
+        $scope.deletePermanently = function () {
             $mdDialog.hide('deletePermanently');
         };
     }
-}());
+} ());

@@ -8,7 +8,7 @@
 // dataFilename
 // isPushAllowed
 // errorOccurred
-module.exports = function(config) {
+module.exports = function (config) {
     var module = {};
 
     var path = require('path');
@@ -29,7 +29,7 @@ module.exports = function(config) {
     });
 
     var persistenceJobCounter = 0;
-    var persistenceJob = function() {
+    var persistenceJob = function () {
         //every 10 seconds
         if (existChanges()) {
             file.write(dataPath, JSON.stringify(cache));
@@ -37,14 +37,14 @@ module.exports = function(config) {
         if (++persistenceJobCounter === 30) {
             persistenceJobCounter = 0;
             //every 5 miutes (30*10 seconds)
-            repo.status().then(function(status) {
+            repo.status().then(function (status) {
                 if (status.length > 0) {
-                    repo.commitFile(dataPath, 'data changed').then(function() {
+                    repo.commitFile(dataPath, 'data changed').then(function () {
                         //commit done
                         if (config.isPushAllowed) {
                             return repo.push();
                         }
-                    }).catch(function(error) {
+                    }).catch(function (error) {
                         console.log('Error: ' + error);
                         config.errorOccurred(error);
                     });
@@ -112,16 +112,16 @@ module.exports = function(config) {
     }
 
 
-    module.initialize = function() {
-        return new Promise(function(resolve) {
+    module.initialize = function () {
+        return new Promise(function (resolve) {
             if (!directory.exist(config.repoPath)) {
-                repo.clone().then(function() {
+                repo.clone().then(function () {
                     setInterval(persistenceJob, 10000);
                     resolve();
                 })
-                .catch(function (error) {
-                    console.log('Error: ' + error);
-                });
+                    .catch(function (error) {
+                        console.log('Error: ' + error);
+                    });
             } else {
                 //write every 10 seconds to file
                 //commit and push every 5 minutes
@@ -131,7 +131,7 @@ module.exports = function(config) {
         });
     };
 
-    module.addGroup = function(parentGroupId) {
+    module.addGroup = function (parentGroupId) {
         var id = uuid.v4();
         var group = {
             name: '',
@@ -151,7 +151,7 @@ module.exports = function(config) {
         return group;
     };
 
-    module.addDocument = function(parentGroupId) {
+    module.addDocument = function (parentGroupId) {
         var id = uuid.v4();
         var document = {
             name: '',
@@ -171,7 +171,7 @@ module.exports = function(config) {
         return document;
     };
 
-    module.moveItem = function(id, oldParentId, newParentId) {
+    module.moveItem = function (id, oldParentId, newParentId) {
 
         if (typeof oldParentId === 'undefined' || oldParentId === null) {
             oldParentId = null;
@@ -204,20 +204,20 @@ module.exports = function(config) {
         delete oldParent[id];
     };
 
-    module.updateGroup = function(group) {
+    module.updateGroup = function (group) {
         var grp = module.getGroup(group.id).group;
         grp.name = group.name;
         grp.priority = group.priority;
     };
 
-    module.updateDocument = function(document) {
+    module.updateDocument = function (document) {
         var doc = module.getDocument(document.id).document;
         doc.text = document.text.replace(/\r?\n/g, '\r\n');
         doc.name = document.name;
         doc.priority = document.priority;
     };
 
-    module.getRoot = function() {
+    module.getRoot = function () {
         // var data = getData();
         // var items = [];
         //
@@ -228,7 +228,7 @@ module.exports = function(config) {
         return getData();
     };
 
-    module.getMoveToGroupList = function(item) {
+    module.getMoveToGroupList = function (item) {
         if (item.type === 'document') {
             //get all groups excluding the document's parent
             return getGroupList([]);
@@ -239,7 +239,7 @@ module.exports = function(config) {
         }
     };
 
-    module.getGroup = function(groupId, parentGroup) {
+    module.getGroup = function (groupId, parentGroup) {
         var parentChildren;
 
         if (typeof parentGroup === 'undefined') {
@@ -270,7 +270,7 @@ module.exports = function(config) {
         }
     };
 
-    module.getDocument = function(documentId, parentGroup) {
+    module.getDocument = function (documentId, parentGroup) {
         var parentChildren;
 
         if (typeof parentGroup === 'undefined') {
@@ -299,7 +299,7 @@ module.exports = function(config) {
         }
     };
 
-    module.getDeletedItems = function(parentGroupId) {
+    module.getDeletedItems = function (parentGroupId) {
         var children;
         var deletedItems = [];
 
@@ -317,7 +317,7 @@ module.exports = function(config) {
                     if (children[id].deleted) {
                         deletedItems.push(children[id]);
                     }
-                        
+
                     Array.prototype.push.apply(deletedItems, module.getDeletedItems(id));
                 }
             }
@@ -326,33 +326,38 @@ module.exports = function(config) {
         return deletedItems;
     };
 
-    module.removeGroup = function(id) {
+    module.removeGroup = function (id) {
         var group = module.getGroup(id).group;
         group.deleted = true;
 
     };
 
-    module.removeDocument = function(id) {
+    module.removeDocument = function (id) {
         var document = module.getDocument(id).document;
         document.deleted = true;
     };
 
-    module.restoreGroup = function(id) {
+    module.restoreGroup = function (id) {
         var group = module.getGroup(id).group;
         group.deleted = false;
 
         //TODO: evtl. gelöschte parents mit wdhst.
     };
 
-    module.restoreDocument = function(id) {
+    module.restoreDocument = function (id) {
         var document = module.getDocument(id).document;
         document.deleted = false;
 
         //TODO: evtl. gelöschte parents mit wdhst.
     };
 
-    module.deleteDocumentPermanently = function(id) {
+    module.deleteDocumentPermanently = function (id) {
+
         var document = module.getDocument(id);
+        if (typeof document === 'undefined') {
+            return;
+        }
+
         if (typeof document.metadata.parentId === 'undefined') {
             delete getData()[id];
         } else {
@@ -361,13 +366,33 @@ module.exports = function(config) {
         }
     };
 
-    module.deleteGroupPermanently = function(id) {
+    module.deleteGroupPermanently = function (id) {
+
         var group = module.getGroup(id);
+        if (typeof group === 'undefined') {
+            return;
+        }
+
         if (typeof group.metadata.parentId === 'undefined') {
             delete getData()[id];
         } else {
             var parentGroup = module.getGroup(group.metadata.parentId);
             delete parentGroup.group.children[id];
+        }
+    };
+
+    module.emptyTrash = function () {
+        var deletedItems = module.getDeletedItems(null);
+
+        for (var i = 0; i < deletedItems.length; i++) {
+            var deletedItem = deletedItems[i];
+
+            if (deletedItem.type === 'document') {
+                module.deleteDocumentPermanently(deletedItem.id);
+            }
+            else if (deletedItem.type === 'group') {
+                module.deleteGroupPermanently(deletedItem.id);
+            }
         }
     };
 

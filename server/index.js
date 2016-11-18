@@ -167,6 +167,11 @@ socketIo.on('connection', function(socket) {
         socket.broadcast.emit('documentDeletedPermanently', id);
     });
 
+    socket.on('emptyTrash', function() {
+        dataService.emptyTrash();
+        socket.broadcast.emit('trashEmptied');
+    });
+
 
     socket.on('getMoveToGroupList', function(item, callback) {
         var groups = dataService.getMoveToGroupList(item);

@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular.module('documentService', [])
@@ -7,64 +7,70 @@
     function documentService($q, socketService) {
         var module = {};
 
-        module.getAllDocuments = function() {
+        module.getAllDocuments = function () {
 
             var deferred = $q.defer();
-            socketService.emit('getAllDocuments', function(documents) {
+            socketService.emit('getAllDocuments', function (documents) {
                 deferred.resolve(documents);
             });
 
             return deferred.promise;
         };
 
-        module.getDocument = function(id) {
+        module.getDocument = function (id) {
             var deferred = $q.defer();
-            socketService.emit('getDocument', id, function(document) {
+            socketService.emit('getDocument', id, function (document) {
                 deferred.resolve(document);
             });
             return deferred.promise;
         };
 
-        module.updateDocument = function(document) {
+        module.updateDocument = function (document) {
             socketService.emit('updateDocument', document);
         };
 
-        module.addDocument = function(parentGroupId) {
+        module.addDocument = function (parentGroupId) {
             var deferred = $q.defer();
-            socketService.emit('addDocument', parentGroupId, function(document) {
+            socketService.emit('addDocument', parentGroupId, function (document) {
                 deferred.resolve(document);
             });
             return deferred.promise;
         };
 
-        module.removeDocument = function(id) {
+        module.removeDocument = function (id) {
             socketService.emit('removeDocument', id);
         };
 
-        module.restoreDocument = function(id) {
+        module.restoreDocument = function (id) {
             socketService.emit('restoreDocument', id);
         };
 
-        module.deleteDocumentPermanently = function(id) {
+        module.deleteDocumentPermanently = function (id) {
             socketService.emit('deleteDocumentPermanently', id);
         };
 
-        module.moveDocument = function(id, oldParentId, newParentId) {
+        module.moveDocument = function (id, oldParentId, newParentId) {
             var deferred = $q.defer();
-            socketService.emit('moveItem', id, oldParentId, newParentId, function() {
+            socketService.emit('moveItem', id, oldParentId, newParentId, function () {
                 deferred.resolve();
             });
             return deferred.promise;
         };
 
-        module.getDeletedItems = function(parentGroup) {
+        module.getDeletedItems = function (parentGroup) {
             var deferred = $q.defer();
-            socketService.emit('getDeletedItems', parentGroup, function(items) {
+            socketService.emit('getDeletedItems', parentGroup, function (items) {
                 deferred.resolve(items);
             });
+            return deferred.promise;
+        };
+        module.emptyTrash = function () {
+            var deferred = $q.defer();
+            socketService.emit('emptyTrash');
+            deferred.resolve();
             return deferred.promise;
         };
 
         return module;
     }
-}());
+} ());
