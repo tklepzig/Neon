@@ -57,7 +57,7 @@
 
             // TODO: DRY
             if ($scope.document.name.length === 0 && $scope.document.text.length === 0) {
-                documentService.removeDocument($scope.document.id);
+                documentService.deleteDocumentPermanently($scope.document.id);
                 if (typeof $scope.metadata.parentId === 'undefined') {
                     //parent is root
                     $location.path('/').replace();
