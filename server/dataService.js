@@ -317,7 +317,8 @@ module.exports = function(config) {
                     if (children[id].deleted) {
                         deletedItems.push(children[id]);
                     }
-                    deletedItems.push(...module.getDeletedItems(id));
+                        
+                    Array.prototype.push.apply(deletedItems, module.getDeletedItems(id));
                 }
             }
         }
@@ -340,11 +341,14 @@ module.exports = function(config) {
         var group = module.getGroup(id).group;
         group.deleted = false;
 
+        //TODO: evtl. gelöschte parents mit wdhst.
     };
 
     module.restoreDocument = function(id) {
         var document = module.getDocument(id).document;
         document.deleted = false;
+
+        //TODO: evtl. gelöschte parents mit wdhst.
     };
 
     module.deleteDocumentPermanently = function(id) {
