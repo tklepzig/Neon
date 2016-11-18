@@ -269,7 +269,7 @@
         });
 
         var connectionErrorToast;
-        socketService.on('connect', function() {
+        socketService.on('reconnect', function() {
             $mdToast.hide(connectionErrorToast);
         });
         socketService.on('disconnect', function() {
