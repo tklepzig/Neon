@@ -1,24 +1,24 @@
-(function() {
+(function () {
     'use strict';
 
     angular.module('neon', [
-            'ngMaterial',
-            'ngRoute',
-            'ngStorage',
-            'pascalprecht.translate',
-            'ngSanitize',
-            'ui.pagedown',
-            'btford.socket-io',
-            // 'cfp.hotkeys',
-            'neon.touch',
-            'socketService',
-            'toggleFullscreen',
-            'editInPlace',
-            'zoomable',
-            'orderByPriority',
-            'start',
-            'socketService'
-        ])
+        'ngMaterial',
+        'ngRoute',
+        'ngStorage',
+        'pascalprecht.translate',
+        'ngSanitize',
+        'ui.pagedown',
+        'btford.socket-io',
+        // 'cfp.hotkeys',
+        'neon.touch',
+        'socketService',
+        'toggleFullscreen',
+        'editInPlace',
+        'zoomable',
+        'orderByPriority',
+        'start',
+        'socketService'
+    ])
         .config(init)
         .run(start);
 
@@ -128,7 +128,7 @@
 
     function start($localStorage, $route, $document, $rootScope, $filter, $mdToast, $window, socketService) {
         // TODO: move this to service or similar for general usage and config (controller - key(s) - callback (with scope as parameter))
-        $document.bind('keydown', function(e) {
+        $document.bind('keydown', function (e) {
 
             var inputElementHasFocus = false;
             var preventDefault = false;
@@ -213,12 +213,10 @@
                             $route.current.scope.addGroup();
                             $route.current.scope.$apply();
                         } else if (e.keyCode === 46 && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
-                            //delete for removing group
                             preventDefault = true;
                             $route.current.scope.delete();
                             $route.current.scope.$apply();
                         } else if (e.keyCode === 'V'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
-                            //r or delete for removing group
                             preventDefault = true;
                             $route.current.scope.toggleView();
                             $route.current.scope.$apply();
@@ -227,6 +225,26 @@
                             $route.current.scope.back();
                             $route.current.scope.$apply();
                         }
+
+
+                        else if (e.keyCode === '1'.charCodeAt(0) && e.ctrlKey && e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.setPriority('high');
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === '2'.charCodeAt(0) && e.ctrlKey && e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.setPriority('medium');
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === '3'.charCodeAt(0) && e.ctrlKey && e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.setPriority('low');
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === '4'.charCodeAt(0) && e.ctrlKey && e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.setPriority('none');
+                            $route.current.scope.$apply();
+                        }
+
                         break;
                     }
                 case 'DocumentController':
@@ -236,7 +254,6 @@
                             $route.current.scope.edit();
                             $route.current.scope.$apply();
                         } else if (e.keyCode === 46 && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
-                            //delete for removing group
                             preventDefault = true;
                             $route.current.scope.delete();
                             $route.current.scope.$apply();
@@ -248,6 +265,25 @@
                             $window.location.href = '/md?id=' + $route.current.scope.document.id;
                             preventDefault = true;
                         }
+
+
+                        else if (e.keyCode === '1'.charCodeAt(0) && e.ctrlKey && e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.setPriority('high');
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === '2'.charCodeAt(0) && e.ctrlKey && e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.setPriority('medium');
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === '3'.charCodeAt(0) && e.ctrlKey && e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.setPriority('low');
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === '4'.charCodeAt(0) && e.ctrlKey && e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.setPriority('none');
+                            $route.current.scope.$apply();
+                        }
                         break;
                     }
                 case 'EditController':
@@ -255,6 +291,24 @@
                         if (((e.keyCode === 13 && e.ctrlKey) || (e.keyCode === 27 && !e.ctrlKey)) && !e.shiftKey && !e.altKey) {
                             preventDefault = true;
                             $route.current.scope.done();
+                            $route.current.scope.$apply();
+                        }
+
+                        else if (e.keyCode === '1'.charCodeAt(0) && e.ctrlKey && e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.setPriority('high');
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === '2'.charCodeAt(0) && e.ctrlKey && e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.setPriority('medium');
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === '3'.charCodeAt(0) && e.ctrlKey && e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.setPriority('low');
+                            $route.current.scope.$apply();
+                        } else if (e.keyCode === '4'.charCodeAt(0) && e.ctrlKey && e.shiftKey && !e.altKey) {
+                            preventDefault = true;
+                            $route.current.scope.setPriority('none');
                             $route.current.scope.$apply();
                         }
                         break;
@@ -269,17 +323,17 @@
         });
 
         var connectionErrorToast;
-        socketService.on('reconnect', function() {
+        socketService.on('reconnect', function () {
             $mdToast.hide(connectionErrorToast);
         });
-        socketService.on('disconnect', function() {
+        socketService.on('disconnect', function () {
             connectionErrorToast = $mdToast.show($mdToast
-                    .simple()
-                    .hideDelay(0)
-                    .textContent('Connection to server lost.')
-                    .action('Reconnect')
-                    .theme('error-toast'))
-                .then(function(response) {
+                .simple()
+                .hideDelay(0)
+                .textContent('Connection to server lost.')
+                .action('Reconnect')
+                .theme('error-toast'))
+                .then(function (response) {
                     if (response === 'ok') {
                         $window.location.reload();
                     }
@@ -287,7 +341,7 @@
                 });
         });
 
-        socketService.on('errorOccurred', function(errorMessage) {
+        socketService.on('errorOccurred', function (errorMessage) {
             $mdToast.show($mdToast
                 .simple()
                 .hideDelay(30000)
@@ -295,7 +349,7 @@
                 .theme('error-toast'));
         });
 
-        $rootScope.getItemName = function(item) {
+        $rootScope.getItemName = function (item) {
             if (item.name.length > 0) {
                 return item.name;
             } else if (item.type === 'document') {
@@ -309,7 +363,7 @@
             }
         };
 
-        $rootScope.getPreviewItems = function(item, showDeleted) {
+        $rootScope.getPreviewItems = function (item, showDeleted) {
             if (item.type !== 'group') {
                 return [];
             }
@@ -329,7 +383,7 @@
             return previewItems;
         };
 
-        $rootScope.getItemTileCssClass = function(item) {
+        $rootScope.getItemTileCssClass = function (item) {
             var cssClass;
 
             if (item.type === 'group') {
@@ -349,7 +403,7 @@
             return cssClass;
         };
 
-        $rootScope.getItemToolbarCssClass = function(item) {
+        $rootScope.getItemToolbarCssClass = function (item) {
             if (item.priority === 'high') {
                 return 'prio-high';
             }
