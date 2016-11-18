@@ -85,7 +85,6 @@
             }
             $mdDialog.show(confirm).then(function () {
                 documentService.emptyTrash();
-                $location.path('/').replace();
             });
 
         };
