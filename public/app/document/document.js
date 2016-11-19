@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular.module('document', ['ngRoute', 'document.edit', 'documentService', 'groupService', 'vibrationService', 'itemOptions'])
@@ -9,10 +9,10 @@
         $routeProvider.when('/document/:id', {
             templateUrl: 'app/document/document.html',
             controller: 'DocumentController' //,
-                // hotkeys: [
-                //     ['e', 'Edit', 'edit()'],
-                //     ['esc', 'Back', 'back()']
-                // ]
+            // hotkeys: [
+            //     ['e', 'Edit', 'edit()'],
+            //     ['esc', 'Back', 'back()']
+            // ]
         });
     }
 
@@ -22,21 +22,21 @@
         $scope.metadata = {};
         $scope.moveToGroupList = [];
 
-        $(document).on('click', 'pagedown-viewer a', function() {
+        $(document).on('click', 'pagedown-viewer a', function () {
             $(this).attr('target', '_blank');
         });
 
-        documentService.getDocument($routeParams.id).then(function(document) {
+        documentService.getDocument($routeParams.id).then(function (document) {
             $scope.document = document.document;
             $scope.metadata = document.metadata;
 
-            groupService.getMoveToGroupList($scope.document).then(function(groups) {
+            groupService.getMoveToGroupList($scope.document).then(function (groups) {
                 $scope.moveToGroupList = groups;
                 $scope.ready = true;
             });
         });
 
-        $scope.back = function() {
+        $scope.back = function () {
             vibrationService.vibrate(20);
             if (typeof $scope.metadata.parentId === 'undefined') {
                 //parent is root
@@ -47,34 +47,42 @@
             }
         };
 
-        $scope.delete = function() {
+        $scope.delete = function () {
             var documentName = $rootScope.getItemName($scope.document);
             if (documentName.length > 0) {
                 documentName = ' "' + documentName + '"';
             }
 
-            documentService.removeDocument($scope.document.id);
+            var documentIdToDelete = $scope.document.id;
+            documentService.removeDocument(documentIdToDelete);
+
             $scope.back();
 
             $mdToast.show($mdToast
                 .simple()
                 .hideDelay(10000)
                 .textContent('Document' + documentName + ' deleted')
-                .theme('info-toast')
-            );
+                .action('Undo')
+                .theme('info-toast'))
+                .then(function (response) {
+                    if (response === 'ok') {
+                        documentService.restoreDocument(documentIdToDelete);
+                        $location.path('/document/' + documentIdToDelete).replace();
+                    }
+                });
         };
 
-        $scope.edit = function() {
+        $scope.edit = function () {
             $location.path('/document/' + $scope.document.id + '/edit').replace();
         };
 
-        $scope.setPriority = function(priority) {
+        $scope.setPriority = function (priority) {
             $scope.document.priority = priority;
             documentService.updateDocument($scope.document);
         };
 
-        $scope.moveToGroup = function(groupId) {
-            documentService.moveDocument($scope.document.id, $scope.metadata.parentId, groupId).then(function() {
+        $scope.moveToGroup = function (groupId) {
+            documentService.moveDocument($scope.document.id, $scope.metadata.parentId, groupId).then(function () {
                 if (typeof groupId === 'undefined') {
                     $location.path('/').replace();
                 } else {
@@ -83,4 +91,4 @@
             });
         };
     }
-}());
+} ());

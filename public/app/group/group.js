@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular.module('group', ['document', 'fabAdd', 'documentService', 'groupService', 'vibrationService', 'setFocus', 'itemOptions', 'itemsView'])
@@ -20,7 +20,7 @@
         $scope.moveToGroupList = [];
         $scope.view = 'grid';
 
-        groupService.getGroup($routeParams.id).then(function(group) {
+        groupService.getGroup($routeParams.id).then(function (group) {
             $scope.group = group.group;
             $scope.metadata = group.metadata;
 
@@ -28,13 +28,13 @@
                 $scope.focusName = true;
             }
 
-            groupService.getMoveToGroupList($scope.group).then(function(groups) {
+            groupService.getMoveToGroupList($scope.group).then(function (groups) {
                 $scope.moveToGroupList = groups;
                 $scope.ready = true;
             });
         });
 
-        $scope.back = function() {
+        $scope.back = function () {
             vibrationService.vibrate(20);
 
             if (typeof $scope.metadata.parentId === 'undefined') {
@@ -46,7 +46,7 @@
             }
         };
 
-        $scope.openItem = function(item) {
+        $scope.openItem = function (item) {
             if (item.type === 'document') {
                 $location.path('/document/' + item.id).replace();
             } else if (item.type === 'group') {
@@ -54,7 +54,7 @@
             }
         };
 
-        $scope.nameKeyDown = function(e) {
+        $scope.nameKeyDown = function (e) {
             //escape or enter
             if (e.keyCode === 27 || e.keyCode === 13) {
                 $scope.focusName = false;
@@ -63,46 +63,54 @@
             }
         };
 
-        $scope.addGroup = function() {
-            groupService.addGroup($scope.group.id).then(function(group) {
+        $scope.addGroup = function () {
+            groupService.addGroup($scope.group.id).then(function (group) {
                 $location.path('/group/' + group.id).replace();
             });
         };
 
-        $scope.addDocument = function() {
-            documentService.addDocument($scope.group.id).then(function(document) {
+        $scope.addDocument = function () {
+            documentService.addDocument($scope.group.id).then(function (document) {
                 $location.path('/document/' + document.id + '/edit/0').replace();
             });
         };
 
-        $scope.update = function() {
+        $scope.update = function () {
             groupService.updateGroup($scope.group);
         };
 
-        $scope.delete = function() {
+        $scope.delete = function () {
             var groupName = $rootScope.getItemName($scope.group);
             if (groupName.length > 0) {
                 groupName = ' "' + groupName + '"';
             }
 
-            groupService.removeGroup($scope.group.id);
+            var groupIdToDelete = $scope.group.id;
+            groupService.removeGroup(groupIdToDelete);
+
             $scope.back();
 
             $mdToast.show($mdToast
                 .simple()
                 .hideDelay(10000)
                 .textContent('Group' + groupName + ' deleted')
-                .theme('info-toast')
-            );
+                .action('Undo')
+                .theme('info-toast'))
+                .then(function (response) {
+                    if (response === 'ok') {
+                        groupService.restoreGroup(groupIdToDelete);
+                        $location.path('/group/' + groupIdToDelete).replace();
+                    }
+                });
         };
 
-        $scope.setPriority = function(priority) {
+        $scope.setPriority = function (priority) {
             $scope.group.priority = priority;
             groupService.updateGroup($scope.group);
         };
 
-        $scope.moveToGroup = function(groupId) {
-            groupService.moveGroup($scope.group.id, $scope.metadata.parentId, groupId).then(function() {
+        $scope.moveToGroup = function (groupId) {
+            groupService.moveGroup($scope.group.id, $scope.metadata.parentId, groupId).then(function () {
                 if (typeof groupId === 'undefined') {
                     $location.path('/').replace();
                 } else {
@@ -111,7 +119,7 @@
             });
         };
 
-        $scope.toggleView = function() {
+        $scope.toggleView = function () {
             if ($scope.view === 'grid') {
                 $scope.view = 'lines';
             } else if ($scope.view === 'lines') {
@@ -119,4 +127,4 @@
             }
         };
     }
-}());
+} ());
