@@ -54,6 +54,8 @@
         // };
 
         $scope.openItem = function(item) {
+            vibrationService.vibrate(20);
+
             if (item.type === 'document') {
                 $location.path('/document/' + item.id).replace();
             } else if (item.type === 'group') {
