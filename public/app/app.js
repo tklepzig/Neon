@@ -176,13 +176,7 @@
                             $route.current.scope.openTrash();
                             $route.current.scope.$apply();
                         }
-                        // else if (e.keyCode === 'E'.charCodeAt(0) && !inputElementHasFocus && !e.ctrlKey && !e.shiftKey && !e.altKey) {
-                        //     preventDefault = true;
-                        //     if ($route.current.scope.hoveredDocument !== null) {
-                        //         $route.current.scope.editDocument($route.current.scope.hoveredDocument);
-                        //         $route.current.scope.$apply();
-                        //     }
-                        // } else if (e.keyCode === 'S'.charCodeAt(0) && !inputElementHasFocus && !$route.current.scope.showSearch && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+                        // else if (e.keyCode === 'S'.charCodeAt(0) && !inputElementHasFocus && !$route.current.scope.showSearch && !e.ctrlKey && !e.shiftKey && !e.altKey) {
                         //     preventDefault = true;
                         //     $route.current.scope.startSearch();
                         //     $route.current.scope.$apply();

@@ -15,7 +15,6 @@
     function StartController($scope, $location, groupService, documentService, vibrationService) {
         $scope.ready = false;
 
-        // $scope.hoveredDocument = null;
         // $scope.searchQuery = '';
         // $scope.showSearch = false;
 
@@ -45,13 +44,6 @@
         //     $scope.showSearch = false;
         // };
         //
-        // $scope.mouseEnter = function(document) {
-        //     $scope.hoveredDocument = document;
-        // };
-        //
-        // $scope.mouseLeave = function() {
-        //     $scope.hoveredDocument = null;
-        // };
 
         $scope.openItem = function(item) {
             vibrationService.vibrate(5);
