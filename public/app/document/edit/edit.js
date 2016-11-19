@@ -53,7 +53,7 @@
         };
 
         $scope.done = function() {
-            vibrationService.vibrate(20);
+            vibrationService.vibrate(5);
 
             // TODO: DRY
             if ($scope.document.name.length === 0 && $scope.document.text.length === 0) {
