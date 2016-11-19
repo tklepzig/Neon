@@ -85,6 +85,7 @@
             }
             $mdDialog.show(confirm).then(function () {
                 documentService.emptyTrash();
+                $window.location.reload();
             });
 
         };
