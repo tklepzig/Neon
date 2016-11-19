@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('start', ['group', 'document', 'trash', 'fabAdd', 'documentService', 'groupService', 'itemsView'])
+    angular.module('start', ['group', 'document', 'trash', 'fabAdd', 'documentService', 'groupService', 'itemsView', 'vibrationService'])
         .config(defineRoutes)
         .controller('StartController', StartController);
 
@@ -12,7 +12,7 @@
         });
     }
 
-    function StartController($scope, $location, groupService, documentService) {
+    function StartController($scope, $location, groupService, documentService, vibrationService) {
         $scope.ready = false;
 
         // $scope.hoveredDocument = null;
