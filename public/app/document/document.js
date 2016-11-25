@@ -37,7 +37,7 @@
         });
 
         $scope.back = function () {
-            vibrationService.vibrate(5);
+            vibrationService.vibrate(10);
             if (typeof $scope.metadata.parentId === 'undefined') {
                 //parent is root
                 $location.path('/').replace();

@@ -46,7 +46,7 @@
         //
 
         $scope.openItem = function(item) {
-            vibrationService.vibrate(5);
+            vibrationService.vibrate(10);
 
             if (item.type === 'document') {
                 $location.path('/document/' + item.id).replace();

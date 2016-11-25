@@ -23,7 +23,7 @@
         });
 
         $scope.back = function () {
-            vibrationService.vibrate(5);
+            vibrationService.vibrate(10);
             $location.path('/').replace();
         };
 

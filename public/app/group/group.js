@@ -35,7 +35,7 @@
         });
 
         $scope.back = function () {
-            vibrationService.vibrate(5);
+            vibrationService.vibrate(10);
 
             if (typeof $scope.metadata.parentId === 'undefined') {
                 //parent is root
@@ -47,7 +47,7 @@
         };
 
         $scope.openItem = function (item) {
-            vibrationService.vibrate(5);
+            vibrationService.vibrate(10);
 
             if (item.type === 'document') {
                 $location.path('/document/' + item.id).replace();
